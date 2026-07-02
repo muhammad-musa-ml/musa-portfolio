@@ -1,0 +1,374 @@
+{
+  "name": "Muhammad Musa",
+  "tagline": "Ph.D. Computer Sciences researcher at UW-Madison applying AI/ML to security, low-resource language access, and healthcare for underserved communities.",
+  "location": "Madison, WI",
+  "email": "mmusa2@wisc.edu",
+  "linkedin": "https://www.linkedin.com/in/mmusa2",
+  "github": null,
+  "website": null,
+  "orcid": "https://orcid.org/0009-0009-5542-8040",
+  "education": [
+    {
+      "institution": "Lahore University of Management Sciences (LUMS)",
+      "degree": "B.Sc.",
+      "field": "Computer Science",
+      "start": "2019-09",
+      "end": "2023-05",
+      "gpa": "3.9/4.0",
+      "highlights": [
+        "Dean's Honor List (DHL) in all academic semesters",
+        "Top 15 Merit Scholarship Award, Sophomore and Junior year",
+        "Senior thesis: ransomware provenance analysis, published at ACM CSET '23",
+        "Key coursework: Algorithms, Databases, Data Science, Linear Algebra, Statistics, AI, ML, Deep Learning, Computer Vision, Data Mining, NLP, Network Security, Signal Processing"
+      ]
+    },
+    {
+      "institution": "University of Wisconsin-Madison",
+      "degree": "Ph.D. (M.S. milestone en route)",
+      "field": "Computer Sciences",
+      "start": "2023-09",
+      "end": "2028-05",
+      "gpa": "4.0/4.0 (coursework, per official transcript)",
+      "highlights": [
+        "Coursework includes Machine Learning, Language-Based Security, Computer Vision, Privacy and Security in Data Science, Big Data Systems, Data Management, Foundation Models, AI Safety & Differential Privacy",
+        "Fall 2023 term: straight-A record in Machine Learning (COMP SCI 760), Language-Based Security (COMP SCI 839), Advanced Seminar (COMP SCI 900)",
+        "Head Graduate Teaching Assistant for CS 320 and Graduate Teaching Assistant for CS 220"
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "org": "WUMI Health",
+      "role": "CEO & Founder",
+      "start": "2025-05",
+      "end": "2025-09",
+      "location": "Lahore, Pakistan",
+      "bullets": [
+        "Founded Pakistan's first integrated hospital & diagnostic ecosystem app, consolidating 1,200+ hospitals, 5,000+ clinics, and 2,000+ labs into a unified, FHIR/HL7-compliant digital platform",
+        "Led end-to-end product development in Flutter/Dart, PostgreSQL, and Supabase, enabling cross-platform (iOS/Android/Web) access with secure role-based authentication, ACID-compliant storage, and real-time sync",
+        "Built Electronic Health Record (EHR) modules: patient onboarding, appointment booking, lab integrations, e-prescriptions, QR-based health IDs, and secure report uploads with encryption & audit trails",
+        "Implemented AI/ML pipelines using Python, TensorFlow Lite, and generative AI models (Claude, Gemini, GPT) for doctor-patient conversation summarization, anomaly detection in labs, and proactive diagnostic recommendations",
+        "Developed backend APIs & microservices (REST + gRPC) with PostgreSQL, Supabase Realtime, and AWS S3 storage; optimized queries using GIN indices for scalability across millions of records",
+        "Integrated FHIR/HL7/DICOM standards for interoperability with hospitals, labs, and insurance systems, enabling national-scale health record exchange",
+        "Directed MVP rollout across 10 clinics and 5 labs within 4 months; achieved 70% gross margin targets with scalable SaaS monetization",
+        "Oversaw a cross-functional team of engineers, clinicians, and business partners, while personally contributing >70% of the initial codebase"
+      ],
+      "tags": ["ML", "Healthcare", "Founder", "SWE", "Full-Stack"]
+    },
+    {
+      "org": "University of Wisconsin-Madison",
+      "role": "Head Graduate Teaching Assistant, CS 320: Data Science Programming II",
+      "start": "2024-07",
+      "end": "Present",
+      "location": "Madison, WI",
+      "bullets": [
+        "Automated end-to-end grading pipeline for 500+ students using Python, GitLab API, and Canvas API, eliminating manual work and reducing grading turnaround time by 90%",
+        "Developed a plagiarism detection workflow leveraging MOSS, increasing academic integrity enforcement across 1000+ submissions",
+        "Leading a team of 20 TAs, coordinating assignment logistics, grading consistency, and student support for a class of 500-600 students",
+        "Designing and integrating AI-powered real-time assistance into student projects using Ollama and LLM frameworks",
+        "Improved course operations efficiency by implementing automation scripts (Python, Bash) and version-control workflows (Git/GitLab CI/CD)"
+      ],
+      "tags": ["Teaching", "SWE", "Automation"]
+    },
+    {
+      "org": "University of Wisconsin-Madison",
+      "role": "Graduate Teaching Assistant, CS 220: Data Science Programming I",
+      "start": "2023-08",
+      "end": "2024-05",
+      "location": "Madison, WI",
+      "bullets": [
+        "Lead lab sessions and provide individual guidance to 1,100 students in Python and data manipulation, analysis, and visualization",
+        "Fostered an inclusive learning environment, supported grading, and facilitated project and quiz development"
+      ],
+      "tags": ["Teaching", "Data"]
+    },
+    {
+      "org": "SAUDCONSULT Saudi Consulting Services",
+      "role": "Software Engineering Intern",
+      "start": "2024-06",
+      "end": "2024-09",
+      "location": "Riyadh, Saudi Arabia",
+      "bullets": [
+        "Built AI-powered architectural design tools using Python, TensorFlow, and AutoCAD API, enabling automated 3D modeling and design optimization",
+        "Developed a predictive maintenance model leveraging machine learning to anticipate structural issues, improving safety by 15% in simulated stress tests",
+        "Integrated LLMs and computer vision into BIM workflows, allowing natural language project queries and real-time anomaly detection",
+        "Engineered automated drafting and modeling pipelines using Python, AutoCAD API, and CI/CD workflows, reducing manual design effort by 40%",
+        "Developed scalable backend services in Python (Flask, FastAPI) to support design data management and API integrations",
+        "Prototyped a predictive analytics system for load calculations, improving estimation accuracy by 20% compared to traditional methods"
+      ],
+      "tags": ["ML", "SWE", "Data"]
+    },
+    {
+      "org": "Lahore University of Management Sciences",
+      "role": "Head Teaching Assistant, CS 331: Introduction to Artificial Intelligence",
+      "start": "2022-01",
+      "end": "2023-05",
+      "location": "Lahore, Pakistan",
+      "bullets": [
+        "Curated comprehensive programming assignments for 200 students spanning neural networks, Bayesian networks, reinforcement learning, and CSP solvers",
+        "Provided guidance and support to students, growing their expertise in complex AI concepts and coding proficiency"
+      ],
+      "tags": ["Teaching", "ML"]
+    },
+    {
+      "org": "Lahore University of Management Sciences",
+      "role": "Research Intern and Teaching Assistant, CS 3812: Introduction to Blockchain",
+      "start": "2021-06",
+      "end": "2021-12",
+      "location": "Lahore, Pakistan",
+      "bullets": [
+        "Collaborated with LUMS faculty to architect course content for the inaugural offering of the course",
+        "Managed a diverse cohort of approximately 120 undergraduate and graduate students",
+        "Spearheaded development of curriculum materials on smart contracts, Solidity, and NFTs"
+      ],
+      "tags": ["Teaching", "Blockchain"]
+    },
+    {
+      "org": "KASB Securities & TransformX",
+      "role": "Blockchain & Web Developer Intern",
+      "start": "2021-07",
+      "end": "2021-10",
+      "location": "Remote, Pakistan",
+      "bullets": [
+        "Led/built an NFT-based certification system on the STACKS blockchain using Clarity smart contracts, improving data integrity and verification",
+        "Deployed the project using ReactJS and Next.js to mint educational certificates as NFTs",
+        "Developed responsive, performance-optimized web applications for a CPaaS platform, ensuring seamless integration with enterprise services",
+        "Integrated Stripe for seamless payments on the CPaaS platform"
+      ],
+      "tags": ["SWE", "Blockchain", "Web"]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Active Learning for Low-Resource Shahmukhi Punjabi NLP",
+      "description": "Curated the first large-scale Shahmukhi Punjabi corpus and fine-tuned a transformer model for topic classification, establishing a new NLP benchmark for an underserved language.",
+      "tech": ["Python", "XLM-RoBERTa", "Active Learning", "Hugging Face"],
+      "highlights": [
+        "44,000-point dataset curated (2,500 labelled) via translation, transliteration, and augmentation",
+        "92.9% topic-classification accuracy, a new benchmark for Shahmukhi NLP",
+        "5x reduction in labeled-data requirements via active learning"
+      ],
+      "category": "AI/ML",
+      "link": null
+    },
+    {
+      "name": "LLM Jailbreaking & Security (TAP extension)",
+      "description": "Extended the Tree of Attacks with Pruning (TAP) jailbreaking framework with Dr. Somesh Jha, studying how fine-tuning degrades LLM safety alignment.",
+      "tech": ["GPT-3.5 Turbo", "GPT-4", "Python", "Multi-evaluator frameworks"],
+      "highlights": [
+        "Boosted jailbreak success rate from 4% to 68% with fewer queries than GPT-4",
+        "Analyzed safety-alignment degradation from fine-tuning on open-source LLMs"
+      ],
+      "category": "AI/ML",
+      "link": null
+    },
+    {
+      "name": "Ransomware Provenance Analysis",
+      "description": "Senior thesis project with Dr. Ashish Gehani and Dr. Maneesh (SRI International) and Dr. Fareed Zaffar (LUMS), building an automated pipeline for large-scale ransomware behavioral analysis. Published at ACM CSET '23.",
+      "tech": ["Python", "SPADE", "Process Monitor", "Virtual Machines"],
+      "highlights": [
+        "Published in ACM CSET '23",
+        "Engineered a large-scale ransomware provenance dataset from thousands of MalwareBazaar samples",
+        "Automated end-to-end pipeline: detonation, real-time monitoring, XML generation for provenance graph analysis"
+      ],
+      "category": "Systems",
+      "link": null
+    },
+    {
+      "name": "WUMI Health",
+      "description": "Founded and led product/engineering for Pakistan's first integrated hospital and diagnostic ecosystem app, unifying hospitals, clinics, and labs onto one FHIR/HL7-compliant platform.",
+      "tech": ["Flutter/Dart", "PostgreSQL", "Supabase", "TensorFlow Lite", "Claude", "GPT", "Gemini", "AWS S3", "FHIR/HL7/DICOM"],
+      "highlights": [
+        "Consolidated 1,200+ hospitals, 5,000+ clinics, 2,000+ labs into one platform",
+        "MVP live across 10 clinics and 5 labs within 4 months",
+        "Targeted 70% gross margin with a scalable SaaS model",
+        "Personally contributed over 70% of the initial codebase"
+      ],
+      "category": "AI/ML",
+      "link": null
+    },
+    {
+      "name": "House Boundary Detection",
+      "description": "Applied semantic segmentation to detect house boundaries in low-resolution satellite imagery of Pakistani urban areas, under Dr. Murtaza Taj (LUMS).",
+      "tech": ["VGG16 U-Net", "SpaceNet dataset", "QGIS", "Python"],
+      "highlights": [
+        "High-precision boundary detection on Multi-temporal Urban Development SpaceNet dataset",
+        "Secured funding for follow-on research based on high-impact results"
+      ],
+      "category": "AI/ML",
+      "link": null
+    },
+    {
+      "name": "Urban Sentiment & Online Extremism Detection",
+      "description": "Built a context-aware framework for extremist content detection via urban sentiment analysis on Twitter, under Dr. Momin Ayub and Dr. Usama. Poster at ASONAM '22.",
+      "tech": ["Python", "Twitter/Tweepy scraping", "Topic modelling"],
+      "highlights": [
+        "Poster published at IEEE/ACM ASONAM '22",
+        "Combined data scraping, topic modelling, and geospatial visualization for policy-relevant insight"
+      ],
+      "category": "AI/ML",
+      "link": null
+    },
+    {
+      "name": "Adversarial Attack on Sentiment Classifier",
+      "description": "Built a baseline CNN/LSTM sentiment classifier and demonstrated its fragility to minimal adversarial token substitution.",
+      "tech": ["CNN", "LSTM", "GloVe embeddings", "Python"],
+      "highlights": [
+        "90% baseline test accuracy on 50,000 processed reviews",
+        "Reduced model accuracy by 50% by replacing just 3 tokens per input"
+      ],
+      "category": "AI/ML",
+      "link": null
+    },
+    {
+      "name": "Real-Time Mask Detector",
+      "description": "Multi-camera real-time face mask compliance detection system using YOLOv5 and homographic view fusion.",
+      "tech": ["YOLOv5", "OpenCV", "Homography"],
+      "highlights": [
+        "Real-time detection of mask SOP violations",
+        "Fused 3 camera angles into a single top-view projection for robust coverage"
+      ],
+      "category": "AI/ML",
+      "link": null
+    },
+    {
+      "name": "TUBITAK TEKNOFEST UAV",
+      "description": "Led the electronics and systems sub-team designing a fixed-wing UAV for an international robotics competition.",
+      "tech": ["Autopilot software", "Circuit design", "Systems engineering"],
+      "highlights": [
+        "Led a team of 7",
+        "Selected among the top 20 teams globally"
+      ],
+      "category": "Systems",
+      "link": null
+    },
+    {
+      "name": "NFT Certification System (STACKS Blockchain)",
+      "description": "Built a decentralized system to mint verifiable educational certificates as NFTs on the STACKS blockchain.",
+      "tech": ["Clarity", "STACKS blockchain", "React", "Next.js"],
+      "highlights": [
+        "Deployed smart contracts written in Clarity",
+        "Improved data integrity and verifiability of educational credentials"
+      ],
+      "category": "Web",
+      "link": null
+    }
+  ],
+  "skills": {
+    "languages": ["Python", "C++", "C", "R", "JavaScript", "SQL", "Scala", "MATLAB", "Octave", "Clarity", "Solidity"],
+    "ml_ai": ["PyTorch", "TensorFlow", "TensorFlow Lite", "scikit-learn", "Keras", "Hugging Face", "NumPy", "Pandas", "StatsModels", "Matplotlib", "Detectron2", "YOLOv5", "SAM (Segment Anything)", "LLMs / GPT API", "Ollama", "Generative AI (Claude, Gemini, GPT)"],
+    "data": ["Spark", "gRPC", "QGIS", "Power BI", "PostgreSQL", "Postman", "SQL"],
+    "systems_cloud": ["Docker", "Kubernetes", "Git/GitHub", "GitLab CI/CD", "AWS", "AWS S3", "Google Cloud Platform", "Supabase", "CUDA", "Agile/Scrum"],
+    "web": ["ReactJS", "Next.js", "Flutter/Dart", "Flask", "FastAPI", "WordPress", "Elementor", "Bubble", "Android Studio"]
+  },
+  "research": [
+    {
+      "title": "Ransomware Provenance Analysis (undergraduate senior thesis)",
+      "venue": "ACM CSET '23 (ACM Workshop on Cyber Security Experimentation and Test)",
+      "year": "2023",
+      "description": "Automated end-to-end pipeline for ransomware behavioral detection using provenance graphs (SPADE framework), built with Dr. Ashish Gehani and Dr. Maneesh of SRI International and Dr. Fareed Zaffar of LUMS."
+    },
+    {
+      "title": "Urban Sentiment Analysis for Extremism Detection",
+      "venue": "ASONAM '22 (IEEE/ACM International Conference on Advances in Social Networks Analysis and Mining) — poster",
+      "year": "2022",
+      "description": "Context-aware framework for extremist content detection via urban sentiment analysis on Twitter, advised by Dr. Momin Ayub and Dr. Usama."
+    },
+    {
+      "title": "Data Creation and Fine-Tuning using Active Learning for Low-Resource Languages",
+      "venue": "Paper in works (unpublished as of source material)",
+      "year": "2024",
+      "description": "First large-scale Shahmukhi Punjabi NLP corpus with active-learning-driven fine-tuning of XLM-RoBERTa, achieving 92.9% topic-classification accuracy."
+    }
+  ],
+  "awards": [
+    "Dean's Honor List (DHL), LUMS — all academic semesters",
+    "Top 15 Merit Scholarship Award, LUMS — Sophomore and Junior year",
+    "TUBITAK TEKNOFEST UAV Competition — top 20 teams globally",
+    "STACKS Hackathon — 3rd place"
+  ],
+  "ai_for_humanity": {
+    "themes": [
+      "Healthcare access and EHR interoperability for underserved regions",
+      "AI safety and jailbreak/robustness research",
+      "Low-resource language technology equity",
+      "Public safety via extremism and ransomware detection",
+      "Structural/physical safety via predictive maintenance ML"
+    ],
+    "evidence": [
+      "Founded WUMI Health to bring unified, FHIR/HL7-compliant electronic health records to 1,200+ hospitals, 5,000+ clinics, and 2,000+ labs in Pakistan, using AI for diagnostic support and clinical summarization",
+      "Wrote in a cover letter to Osmo (health/olfaction AI company) that his own passion is 'applying advanced AI and ML to uncharted domains' in service of human health and wellbeing",
+      "Researched LLM jailbreaking and safety-alignment degradation under Dr. Somesh Jha, directly studying how to keep increasingly capable AI systems safe",
+      "Built the first large-scale NLP corpus and benchmark for Shahmukhi Punjabi, a widely-spoken but NLP-underserved language, explicitly to close an equity gap in language technology",
+      "Published ransomware detection research (ACM CSET '23) aimed at protecting organizations from cyberattacks",
+      "Built an extremist-content detection framework (ASONAM '22) for public-safety-relevant sentiment analysis",
+      "Developed a predictive-maintenance ML model at SAUDCONSULT explicitly to improve structural safety, not just efficiency",
+      "Coursework deliberately includes 'AI Safety & Differential Privacy' alongside core ML courses, showing sustained academic commitment to responsible AI"
+    ]
+  },
+  "journey_milestones": [
+    {
+      "year": "2001",
+      "title": "Born in Pakistan",
+      "subtitle": "The starting point",
+      "description": "Muhammad Musa was born September 9, 2001. His early education and family roots in Pakistan would shape a career defined by bringing technology to underserved communities back home.",
+      "icon_hint": "home"
+    },
+    {
+      "year": "2019-2023",
+      "title": "B.Sc. Computer Science at LUMS",
+      "subtitle": "Dean's Honor List, every semester",
+      "description": "Studied Computer Science at Lahore University of Management Sciences, graduating with a 3.9/4.0 GPA and a spot on the Dean's Honor List every single semester. Led student organizations, taught AI and blockchain courses as a TA, and built his first research relationships with LUMS faculty.",
+      "icon_hint": "graduation-cap"
+    },
+    {
+      "year": "2021",
+      "title": "First ventures: UAVs, blockchain, and hackathons",
+      "subtitle": "Leading before graduating",
+      "description": "As an undergraduate, led a 7-person team to build a fixed-wing UAV that placed in the top 20 teams globally at TUBITAK TEKNOFEST, took 3rd place in a STACKS blockchain hackathon, and shipped an NFT-based educational certification system for KASB Securities using Clarity smart contracts.",
+      "icon_hint": "rocket"
+    },
+    {
+      "year": "2022-2023",
+      "title": "Research takes root",
+      "subtitle": "Satellite imagery, social media, and ransomware",
+      "description": "Built a house-boundary detection model on satellite imagery of Pakistani cities, published a sentiment-analysis poster at ASONAM '22 on urban extremism detection, and completed a senior thesis on ransomware provenance analysis with SRI International — published at ACM CSET '23.",
+      "icon_hint": "microscope"
+    },
+    {
+      "year": "2023",
+      "title": "Moves to Madison for a Ph.D.",
+      "subtitle": "University of Wisconsin-Madison, Computer Sciences",
+      "description": "Began a Ph.D. in Computer Sciences at UW-Madison, posting a 4.0 GPA in his first semester across Machine Learning, Language-Based Security, and an advanced seminar. Immediately started teaching, guiding 1,100 students through CS 220: Data Science Programming.",
+      "icon_hint": "university"
+    },
+    {
+      "year": "2024",
+      "title": "AI safety research and scaled teaching",
+      "subtitle": "Jailbreaking LLMs, defending against ransomware, teaching hundreds",
+      "description": "Extended Tree-of-Attacks-with-Pruning jailbreak research with Dr. Somesh Jha, boosting jailbreak success from 4% to 68% to study LLM safety degradation. Took an internship in Riyadh building AI-powered architectural tools at SAUDCONSULT, and became Head TA for CS 320, automating grading for 500+ students and cutting turnaround by 90%.",
+      "icon_hint": "shield"
+    },
+    {
+      "year": "2024-2025",
+      "title": "Closing the language gap",
+      "subtitle": "First large-scale Shahmukhi Punjabi NLP benchmark",
+      "description": "Curated the first large-scale Shahmukhi Punjabi corpus and fine-tuned XLM-RoBERTa to 92.9% accuracy, using active learning to cut labeling costs 5x — establishing a new benchmark for a language NLP had largely ignored.",
+      "icon_hint": "globe"
+    },
+    {
+      "year": "2025",
+      "title": "Founds WUMI Health",
+      "subtitle": "Pakistan's first integrated hospital & diagnostic platform",
+      "description": "Stepped away from the pure research track to found and personally build WUMI Health, an AI-powered EHR platform unifying 1,200+ hospitals, 5,000+ clinics, and 2,000+ labs across Pakistan. Wrote over 70% of the codebase himself, shipped an MVP live in 10 clinics and 5 labs within 4 months, and used generative AI for clinical summarization and diagnostic support — turning years of AI-for-good research interest into a real product for underserved patients.",
+      "icon_hint": "heart-pulse"
+    },
+    {
+      "year": "2026",
+      "title": "Building toward what's next",
+      "subtitle": "Research, engineering, and impact converge",
+      "description": "Continuing the Ph.D. at UW-Madison while carrying forward a consistent thread across research, teaching, and entrepreneurship: using AI to serve real people — safer language models, safer buildings, safer digital records, and more equitable access to health and language technology.",
+      "icon_hint": "compass"
+    }
+  ]
+}

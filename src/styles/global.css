@@ -1,0 +1,203 @@
+/* ————————————————————————————————————————————————
+   MUSA — design system
+   concept: human warmth × machine precision
+   ink canvas · lantern amber · signal teal · paper cream
+———————————————————————————————————————————————— */
+
+:root {
+  --ink: #0b0c10;
+  --ink-2: #12131a;
+  --ink-3: #1a1c26;
+  --cream: #f2ebdd;
+  --cream-dim: rgba(242, 235, 221, 0.6);
+  --cream-faint: rgba(242, 235, 221, 0.35);
+  --amber: #ffb454;
+  --amber-deep: #e08b2d;
+  --signal: #63e2c6;
+  --rose: #ff7a6b;
+  --line: rgba(242, 235, 221, 0.12);
+  --line-strong: rgba(242, 235, 221, 0.25);
+
+  --font-display: 'Fraunces', 'Georgia', serif;
+  --font-body: 'Instrument Sans', 'Helvetica Neue', sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Consolas', monospace;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto; /* lenis handles smoothing */
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+body {
+  position: relative; /* motion useScroll needs a positioned scroll container */
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  cursor: none; /* custom cursor takes over */
+}
+
+@media (hover: none), (pointer: coarse) {
+  body {
+    cursor: auto;
+  }
+}
+
+::selection {
+  background: var(--amber);
+  color: var(--ink);
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: none;
+}
+@media (hover: none), (pointer: coarse) {
+  button {
+    cursor: pointer;
+  }
+}
+
+/* film grain over everything, under UI pointer events */
+.grain {
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  z-index: 90;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain-shift 0.9s steps(4) infinite;
+}
+@keyframes grain-shift {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-2%, 1%); }
+  50% { transform: translate(1%, -2%); }
+  75% { transform: translate(-1%, 2%); }
+  100% { transform: translate(2%, -1%); }
+}
+
+/* ——— typography helpers ——— */
+.display {
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 144;
+  font-weight: 560;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+}
+
+.mono-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+
+.section-kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.section-kicker::before {
+  content: '';
+  width: 2.5rem;
+  height: 1px;
+  background: var(--amber);
+  opacity: 0.7;
+}
+
+/* ——— layout ——— */
+.section {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(6rem, 14vh, 10rem) clamp(1.25rem, 5vw, 4rem);
+  z-index: 2;
+}
+
+/* ——— custom cursor ——— */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 200;
+  border-radius: 50%;
+  will-change: transform;
+}
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--amber);
+}
+.cursor-ring {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--cream-faint);
+  transition: width 0.25s var(--ease-out), height 0.25s var(--ease-out),
+    border-color 0.25s var(--ease-out), background 0.25s var(--ease-out);
+}
+.cursor-ring.is-hover {
+  width: 52px;
+  height: 52px;
+  border-color: var(--amber);
+  background: rgba(255, 180, 84, 0.08);
+}
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+}
+
+/* ——— scrollbar ——— */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ink-3);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--amber-deep);
+}
+
+/* ——— reduced motion ——— */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

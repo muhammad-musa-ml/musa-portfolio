@@ -1,0 +1,56 @@
+import raw from '../../content/profile.json'
+
+export interface Education {
+  institution: string
+  degree: string
+  field: string
+  start: string
+  end: string
+  gpa?: string | null
+  highlights?: string[]
+}
+export interface Experience {
+  org: string
+  role: string
+  start: string
+  end: string
+  location?: string
+  bullets: string[]
+  tags?: string[]
+}
+export interface Project {
+  name: string
+  description: string
+  tech: string[]
+  highlights?: string[]
+  category?: string
+  link?: string | null
+}
+export interface Milestone {
+  year: string | number
+  title: string
+  subtitle?: string
+  description: string
+  icon_hint?: string
+}
+export interface Profile {
+  name: string
+  tagline: string
+  location?: string
+  email?: string
+  linkedin?: string | null
+  github?: string | null
+  website?: string | null
+  education: Education[]
+  experience: Experience[]
+  projects: Project[]
+  skills: Record<string, string[]>
+  research: { title: string; venue?: string; year?: string | number; description?: string }[]
+  awards: string[]
+  ai_for_humanity: { themes: string[]; evidence: string[] }
+  journey_milestones: Milestone[]
+}
+
+export const profile = raw as unknown as Profile
+
+export const firstName = profile.name?.split(' ')[0] || 'Me'
