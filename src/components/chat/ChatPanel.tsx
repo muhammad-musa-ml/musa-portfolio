@@ -9,7 +9,8 @@ type Msg = { role: 'user' | 'assistant'; content: string; error?: boolean }
 
 const SUGGESTIONS = [
   'What is WUMI Health?',
-  'Tell me about your LLM safety research',
+  'Walk me through your LLM safety research',
+  'What’s resume-gauntlet?',
   'Why does “AI for humanity” matter to you?',
   'Can you work on quantum physics?',
   'What are you looking for in your next role?',
@@ -17,12 +18,19 @@ const SUGGESTIONS = [
 
 const GREETING = `**Salaam — I'm ${firstName}'s AI twin.** I'm trained on his real resume and research record, and I run on an honesty-first policy: I'll tell you what he's done, and I'll tell you plainly what he hasn't. Ask me anything — his work, his skills, whether he's a fit for your team.`
 
-export default function ChatPanel({ onClose }: { onClose: () => void }) {
+export default function ChatPanel({
+  onClose,
+  initialQuestion,
+}: {
+  onClose: () => void
+  initialQuestion?: string
+}) {
   const [msgs, setMsgs] = useState<Msg[]>([{ role: 'assistant', content: GREETING }])
   const [input, setInput] = useState('')
   const [busy, setBusy] = useState(false)
   const scrollRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const autoSent = useRef(false)
 
   useEffect(() => {
     inputRef.current?.focus()
@@ -71,6 +79,15 @@ export default function ChatPanel({ onClose }: { onClose: () => void }) {
     }
   }
 
+  // auto-ask a question handed in from the ⌘K palette
+  useEffect(() => {
+    if (initialQuestion && initialQuestion.trim() && !autoSent.current) {
+      autoSent.current = true
+      send(initialQuestion)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialQuestion])
+
   return (
     <AnimatePresence>
       <motion.div
@@ -80,13 +97,14 @@ export default function ChatPanel({ onClose }: { onClose: () => void }) {
         exit={{ opacity: 0 }}
         onClick={onClose}
       >
-        <motion.div
+        <motion.aside
           className="chat__window"
           role="dialog"
+          aria-modal="true"
           aria-label="AI twin chat"
-          initial={{ opacity: 0, y: 40, scale: 0.97 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 40, scale: 0.97 }}
+          initial={{ opacity: 0.4, x: 64 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 64 }}
           transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
           onClick={(e) => e.stopPropagation()}
         >
@@ -160,7 +178,7 @@ export default function ChatPanel({ onClose }: { onClose: () => void }) {
             AI stand-in grounded in my real résumé — it admits what I haven’t done.
             For anything serious, email the human: <a href="mailto:mmusa2@wisc.edu">mmusa2@wisc.edu</a>
           </p>
-        </motion.div>
+        </motion.aside>
       </motion.div>
     </AnimatePresence>
   )

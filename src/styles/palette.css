@@ -1,0 +1,135 @@
+/* ——— ⌘K command palette ——— */
+.pal__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: clamp(4rem, 14vh, 10rem) 1.25rem 2rem;
+  background: rgba(5, 6, 9, 0.62);
+  backdrop-filter: blur(6px) saturate(120%);
+  -webkit-backdrop-filter: blur(6px) saturate(120%);
+}
+
+.pal__window {
+  width: min(620px, 100%);
+  background: linear-gradient(180deg, rgba(26, 28, 38, 0.92), rgba(14, 15, 21, 0.94));
+  border: 1px solid var(--line-strong);
+  border-radius: 16px;
+  box-shadow: 0 30px 90px -20px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 180, 84, 0.06);
+  overflow: hidden;
+}
+
+.pal__inputrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.15rem;
+  border-bottom: 1px solid var(--line);
+}
+.pal__prompt {
+  font-family: var(--font-mono);
+  color: var(--amber);
+  font-size: 1rem;
+  opacity: 0.9;
+}
+.pal__input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+}
+.pal__input::placeholder {
+  color: var(--cream-faint);
+}
+.pal__esc {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--cream-faint);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.15rem 0.4rem;
+}
+
+.pal__list {
+  max-height: min(50vh, 380px);
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+.pal__empty {
+  padding: 1.5rem 1rem;
+  color: var(--cream-faint);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.pal__row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.7rem 0.85rem;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.95rem;
+  transition: background 0.12s ease;
+}
+.pal__row.is-active {
+  background: rgba(255, 180, 84, 0.1);
+}
+.pal__row.is-active .pal__rowicon {
+  color: var(--amber);
+  transform: translateX(2px);
+}
+.pal__rowicon {
+  width: 1.3rem;
+  color: var(--cream-faint);
+  font-family: var(--font-mono);
+  transition: transform 0.16s var(--ease-out), color 0.16s ease;
+}
+.pal__rowlabel {
+  flex: 1;
+}
+.pal__rowlabel em {
+  color: var(--amber);
+  font-style: italic;
+}
+.pal__rowgroup {
+  font-size: 0.6rem;
+  color: var(--cream-faint);
+}
+.pal__kbd {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--cream-dim);
+  border: 1px solid var(--line);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  padding: 0.08rem 0.42rem;
+}
+.pal__row--ask .pal__rowicon {
+  color: var(--signal);
+}
+
+.pal__foot {
+  display: flex;
+  gap: 1.25rem;
+  padding: 0.65rem 1.15rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.6rem;
+  color: var(--cream-faint);
+}
+
+@media (max-width: 560px) {
+  .pal__foot span:nth-child(2) {
+    display: none;
+  }
+}

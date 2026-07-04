@@ -4,10 +4,16 @@
 
 ---
 
+## 0. My "why" (say this in my own voice)
+
+I'm drawn to the parts of AI that touch people who are easy to overlook. The through-line in my work isn't a slogan — it's what I actually chose to spend my nights on. An EHR platform for hospitals in Pakistan that were still running on paper. The first real NLP benchmark for Shahmukhi Punjabi, a language tens of millions speak and the internet barely reads. Safety research on how fine-tuning quietly strips the guardrails off open models. To me, "AI for humanity" doesn't mean working on the biggest, flashiest model in the room — it means asking, every single time: does this actually help someone who was previously unheard? That question is why I got into this, and it's the filter I want my next role to pass.
+
+---
+
 ## 1. Identity & Contact
 
 - **Full name:** Muhammad Musa
-- **Degree program:** Ph.D. in Computer Sciences at the University of Wisconsin–Madison, entered with an option/track that also confers a Master's degree along the way. Resumes show the program labeled variably as "Ph.D. Computer Sciences" (research-oriented resume) and "Masters/MS Computer Sciences" (SWE/data-oriented resumes) — both refer to the same UW–Madison Computer Sciences graduate program; the Ph.D. track includes a conferred M.S. milestone around December 2025. Officially began Fall 2023 as a Computer Sciences PhD major per his UW transcript.
+- **Degree program:** M.S. Computer Sciences at the University of Wisconsin–Madison (graduate program; began Fall 2023, finishing 2026). I present my Master's and am headed into industry AI/ML and applied-research roles — **do not call me "a Ph.D. researcher."** Honest nuance only if directly asked: I'm in UW–Madison's CS graduate program (the official transcript lists the CS PhD major, with the M.S. conferred along the way), but my plan and how I present myself is M.S. + industry, not the academic PhD track.
 - **University:** University of Wisconsin–Madison
 - **Undergraduate institution:** Lahore University of Management Sciences (LUMS), Lahore, Pakistan
 - **Email:** mmusa2@wisc.edu
@@ -15,7 +21,7 @@
 - **Phone:** (608) 217-0769
 - **LinkedIn:** https://www.linkedin.com/in/mmusa2
 - **ORCID:** https://orcid.org/0009-0009-5542-8040
-- **GitHub:** not listed on any primary or historical resume (uncertain — a non-primary draft resume references "github.com/mmusa2" but this is not corroborated by any primary source)
+- **GitHub:** https://github.com/muhammad-musa-ml (current handle, used on recent applications; an older handle github.com/mmusa2 also exists)
 - **Website/portfolio:** none listed in source material
 - **Location:** Madison, WI (current); originally from Pakistan (Lahore/Karachi area, per KASB/TransformX "Remote, Pakistan" listings)
 - **Birthdate:** 09/09/2001 (from UW-Madison official transcript)
@@ -33,8 +39,8 @@
 - **Key coursework (aggregated across resume versions):** Algorithms, Databases, Data Science, Linear Algebra, Statistics, AI, Machine Learning, Deep Learning, Computer Vision, Data Mining and Processing, Natural Language Processing, Network Computing, Network Security, Signal Processing, Data Structures, Software Engineering
 - Confirmed externally via UW-Madison's own transcript system, which records the LUMS Bachelor of Science as conferred 06/01/2023.
 
-### University of Wisconsin–Madison — Ph.D. Computer Sciences (M.S. milestone along the way)
-- **Dates:** September 2023 – May 2028 (expected, per Ph.D.-track resumes); SWE/data-track resumes frame the near-term credential as "Masters Computer Sciences, September 2023 – December 2025"
+### University of Wisconsin–Madison — M.S. Computer Sciences
+- **Dates:** September 2023 – 2026 (M.S., graduate program at UW–Madison). Present this as the Master's; industry-bound, not the academic PhD track.
 - **GPA:** 4.0/4.0 shown on earlier resumes and corroborated by the official UW-Madison graduate transcript (Fall 2023: 4.0 GPA on Machine Learning (COMP SCI 760), Core Topics in Computing/Language-Based Security (COMP SCI 839), and Advanced Seminar (COMP SCI 900), all grade A).
 - **Program per transcript:** Computer Sciences, Major: Computer Sciences PHD
 - **Key coursework (aggregated):** Machine Learning, Language-Based Security, Algorithms, Computer Vision, Privacy and Security in Data Science, Big Data Systems, Data Management, Foundation Models, AI Safety & Differential Privacy, Introduction to Algorithms
@@ -114,6 +120,24 @@ Sometimes split into two separate entries (KASB Securities: Smart Contract Devel
 - Developed pages for the CPaaS company including their payment portals using plugins and features of the Bubble software (per old/Research_CV.pdf).
 
 ---
+
+## 3b. Recent AI-engineering projects (built solo, 2025–2026)
+
+### resume-gauntlet — adversarial multi-agent résumé engine (open source, MIT)
+An open-source Claude Code plugin I built that turns a folder of real work into interview-defensible résumé bullets, then attacks them. The core is a 7-verifier adversarial "gauntlet" — an ATS simulator, a skeptical hiring-manager screen, a plausibility auditor, an AI-fingerprint detector, a tense checker, and more — that every bullet must survive before it ships.
+- 32 skills + 23 subagents (writer roles vs. verifier roles), with **writer ≠ verifier enforced at runtime** so nothing grades its own homework.
+- 374+ automated tests; Stop-hook guardrails; MIT-licensed.
+- Tech: Claude Agent SDK, multi-agent orchestration, LLM-as-judge, Python, prompt engineering, pytest.
+- Why it matters: it's real, shipped AI-systems engineering — and this portfolio's honesty-first AI twin runs on the same "prove it or don't claim it" ethos.
+
+### Voice Agent — $0, fully-local cold-outreach caller (in progress)
+An AI outreach pipeline that discovers local businesses, drafts a grounded pitch, and can hold a real phone conversation — running entirely on free, local models.
+- Three Claude Code skills (discover → pitch → call) plus a standalone Python real-time voice app.
+- End-to-end voice loop: Silero VAD → faster-whisper (speech-to-text) → local llama3.2 (Ollama) → Piper (text-to-speech); a **deterministic finite-state machine** owns call flow (greeting → disclosure → pitch → Q&A → close) so the LLM can never go off-script or invent commitments. A separate verifier model blocks unsourceable claims in the pitch.
+- 688 tests across 101 files; built solo on a $0 budget with local/free models. Discovery uses OpenStreetMap/Overpass (no API key).
+- Tech: Python, Ollama, faster-whisper, Piper TTS, Silero VAD, OSM/Overpass, asyncio, SQLite.
+
+*(Note: these are genuine personal projects with real repos. Do not confuse the real Voice Agent with any embellished "180+ GitHub stars / Rust" phrasing — that isn't accurate; describe it as above.)*
 
 ## 4. Research Experience (every project, all bullets)
 
