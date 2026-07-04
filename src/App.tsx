@@ -132,7 +132,7 @@ export default function App() {
       <SceneCanvas />
       <TorchVeil />
       <Cursor />
-      <Nav onOpenChat={() => openChat()} />
+      <Nav onOpenChat={() => openChat()} onOpenPalette={() => setPaletteOpen(true)} />
       <main style={{ position: 'relative', zIndex: 2 }}>
         <Hero onOpenChat={() => openChat()} />
         <Journey />
