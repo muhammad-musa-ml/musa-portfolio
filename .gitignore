@@ -1,5 +1,7 @@
 node_modules
 dist
+# local design-lab demos — not for production
+public/concepts
 *.local
 .env
 .env.*

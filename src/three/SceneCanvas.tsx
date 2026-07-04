@@ -1,39 +1,56 @@
 import { Canvas } from '@react-three/fiber'
 import { Suspense } from 'react'
+import * as THREE from 'three'
 import NeuralField from './NeuralField'
+import { MOTION_OFF } from '../lib/motionEnv'
 
 export default function SceneCanvas() {
   return (
     <div
+      className="scene-root"
       style={{
         position: 'fixed',
         inset: 0,
+        width: '100vw',
+        height: '100vh',
         zIndex: 0,
-        background:
-          'radial-gradient(ellipse 120% 90% at 50% -10%, #14161f 0%, #0b0c10 55%, #07080b 100%)',
+        // flat ink, exactly like the torchlight concept — the veil above
+        // keeps it near-black anyway; no gradient, no vignette
+        background: '#0b0c10',
       }}
       aria-hidden
     >
       <Canvas
-        camera={{ position: [0, 1.2, 16], fov: 55, near: 0.1, far: 120 }}
+        style={{ display: 'block', width: '100%', height: '100%' }}
+        camera={{ position: [0, 0, 9], fov: 55, near: 0.1, far: 100 }}
         dpr={[1, 2]}
-        gl={{ antialias: false, powerPreference: 'high-performance', alpha: true }}
+        flat
+        frameloop={MOTION_OFF ? 'demand' : 'always'}
+        gl={{ antialias: true, powerPreference: 'high-performance', alpha: true }}
+        // R3F sizes via ResizeObserver, which can silently no-op in some
+        // embedded/webview contexts (leaving a 300x150 buffer). Drive the GL
+        // buffer directly from the window so the field always renders crisp.
+        onCreated={(state) => {
+          const fit = () => {
+            const w = window.innerWidth
+            const h = window.innerHeight
+            state.gl.setSize(w, h, false)
+            const cam = state.camera as THREE.PerspectiveCamera
+            cam.aspect = w / h
+            cam.updateProjectionMatrix()
+            state.setSize(w, h)
+            state.invalidate()
+          }
+          fit()
+          requestAnimationFrame(fit)
+          window.addEventListener('resize', fit)
+          window.addEventListener('orientationchange', fit)
+        }}
       >
         <Suspense fallback={null}>
           <NeuralField />
         </Suspense>
-        <fog attach="fog" args={['#0b0c10', 18, 55]} />
       </Canvas>
-      {/* vignette to keep edges quiet and text legible */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background:
-            'radial-gradient(ellipse 90% 70% at 50% 45%, transparent 45%, rgba(7,8,11,0.55) 100%)',
-          pointerEvents: 'none',
-        }}
-      />
     </div>
   )
 }

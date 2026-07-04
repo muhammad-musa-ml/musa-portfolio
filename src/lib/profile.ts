@@ -15,6 +15,7 @@ export interface Experience {
   start: string
   end: string
   location?: string
+  summary?: string
   bullets: string[]
   tags?: string[]
 }
@@ -24,6 +25,7 @@ export interface Project {
   tech: string[]
   highlights?: string[]
   category?: string
+  featured?: boolean
   link?: string | null
 }
 export interface Milestone {
@@ -36,18 +38,22 @@ export interface Milestone {
 export interface Profile {
   name: string
   tagline: string
+  role_line?: string
   location?: string
   email?: string
   linkedin?: string | null
   github?: string | null
   website?: string | null
+  orcid?: string | null
+  resume_pdf?: string | null
+  availability?: string
   education: Education[]
   experience: Experience[]
   projects: Project[]
   skills: Record<string, string[]>
   research: { title: string; venue?: string; year?: string | number; description?: string }[]
   awards: string[]
-  ai_for_humanity: { themes: string[]; evidence: string[] }
+  ai_for_humanity: { why?: string; themes: string[]; evidence: string[] }
   journey_milestones: Milestone[]
 }
 

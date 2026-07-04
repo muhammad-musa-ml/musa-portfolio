@@ -73,12 +73,31 @@ a {
 
 button {
   font-family: inherit;
+  color: inherit; /* buttons default to UA black — invisible on an ink theme */
   cursor: none;
 }
 @media (hover: none), (pointer: coarse) {
   button {
     cursor: pointer;
   }
+}
+
+/* the 3D field must always fill its fixed container, even if R3F's
+   ResizeObserver no-ops in an embedded/webview context */
+.scene-root canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* torchlight veil — ink layer between the 3D field (z0) and content (z2) */
+.torch-veil {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
 }
 
 /* film grain over everything, under UI pointer events */
@@ -140,38 +159,78 @@ button {
   z-index: 2;
 }
 
-/* ——— custom cursor ——— */
-.cursor-dot,
-.cursor-ring {
+/* ——— custom cursor (mode picked via ⌘K: reticle · dot · system) ——— */
+/* system mode: hand the native cursor back */
+body[data-cursor='system'],
+body[data-cursor='system'] button {
+  cursor: auto;
+}
+body[data-cursor='system'] a,
+body[data-cursor='system'] [data-cursor='hover'] {
+  cursor: pointer;
+}
+
+/* dot */
+.cur-dot {
   position: fixed;
   top: 0;
   left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 10px rgba(255, 180, 84, 0.6);
   pointer-events: none;
   z-index: 200;
-  border-radius: 50%;
+  will-change: transform;
+  transition: width 0.2s var(--ease-out), height 0.2s var(--ease-out), box-shadow 0.2s;
+}
+.cur-dot.is-hover {
+  width: 12px;
+  height: 12px;
+  box-shadow: 0 0 18px rgba(255, 180, 84, 0.9);
+}
+
+/* lock-on reticle */
+.cur-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: var(--cream-faint);
+  pointer-events: none;
+  z-index: 200;
   will-change: transform;
 }
-.cursor-dot {
-  width: 6px;
-  height: 6px;
-  background: var(--amber);
+.cur-line--h {
+  width: 14px;
+  height: 1px;
 }
-.cursor-ring {
-  width: 34px;
-  height: 34px;
-  border: 1px solid var(--cream-faint);
-  transition: width 0.25s var(--ease-out), height 0.25s var(--ease-out),
-    border-color 0.25s var(--ease-out), background 0.25s var(--ease-out);
+.cur-line--v {
+  width: 1px;
+  height: 14px;
 }
-.cursor-ring.is-hover {
-  width: 52px;
-  height: 52px;
-  border-color: var(--amber);
-  background: rgba(255, 180, 84, 0.08);
+.cur-bracket {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--amber);
+  border-radius: 2px;
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 200;
+  will-change: transform;
 }
+.cur-bracket--tl { border-right: none; border-bottom: none; }
+.cur-bracket--tr { border-left: none; border-bottom: none; }
+.cur-bracket--bl { border-right: none; border-top: none; }
+.cur-bracket--br { border-left: none; border-top: none; }
+
 @media (hover: none), (pointer: coarse) {
-  .cursor-dot,
-  .cursor-ring {
+  .cur-dot,
+  .cur-line,
+  .cur-bracket {
     display: none;
   }
 }
@@ -199,5 +258,13 @@ button {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  /* the JS custom cursor is disabled here — hand control back to the OS cursor */
+  body,
+  button {
+    cursor: auto;
+  }
+  .grain {
+    display: none;
   }
 }

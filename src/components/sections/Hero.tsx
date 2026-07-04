@@ -1,5 +1,6 @@
-import { motion } from 'motion/react'
+import { motion, useReducedMotion } from 'motion/react'
 import { profile } from '../../lib/profile'
+import { CountUp, Magnetic } from '../ui'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
@@ -12,33 +13,48 @@ const FACTS = [
   'first Shahmukhi NLP benchmark',
 ]
 
+const STATS = [
+  { node: <>4% → <CountUp value={68} />%</>, label: 'jailbreak success rate' },
+  { node: <><CountUp value={1600} separator />+</>, label: 'students taught' },
+  { node: <><CountUp value={92.9} decimals={1} />%</>, label: 'Shahmukhi NLP accuracy' },
+  { node: <><CountUp value={1200} separator />+</>, label: 'hospitals unified' },
+]
+
 export default function Hero({ onOpenChat }: { onOpenChat: () => void }) {
+  const reduce = useReducedMotion()
+
   return (
     <section className="hero" id="top">
       <div className="hero__inner">
-        <motion.p
-          className="hero__status mono-label"
-          initial={{ opacity: 0, y: 16 }}
+        <motion.div
+          className="hero__kicker"
+          initial={reduce ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
         >
-          <span className="hero__status-dot" /> {profile.name} · CS grad researcher,
-          UW–Madison · AI/ML × security × health
-        </motion.p>
+          <p className="mono-label hero__kicker-role">{profile.role_line}</p>
+          <p className="mono-label hero__kicker-degree">M.S. COMPUTER SCIENCES · UW–MADISON</p>
+          {profile.availability && (
+            <span className="hero__pill">
+              <span className="hero__pill-dot" aria-hidden />
+              {profile.availability}
+            </span>
+          )}
+        </motion.div>
 
         <h1 className="hero__title display" aria-label="I teach machines to serve people.">
-          <Line delay={0.3}>I teach</Line>
-          <Line delay={0.42}>
+          <Line delay={0.3} reduce={!!reduce}>I teach</Line>
+          <Line delay={0.42} reduce={!!reduce}>
             <em className="hero__em">machines</em>
           </Line>
-          <Line delay={0.54}>
+          <Line delay={0.54} reduce={!!reduce}>
             to serve <em className="hero__em hero__em--teal">people.</em>
           </Line>
         </h1>
 
         <motion.p
           className="hero__sub"
-          initial={{ opacity: 0, y: 20 }}
+          initial={reduce ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.75, ease: EASE }}
         >
@@ -49,17 +65,49 @@ export default function Hero({ onOpenChat }: { onOpenChat: () => void }) {
 
         <motion.div
           className="hero__cta"
-          initial={{ opacity: 0, y: 20 }}
+          initial={reduce ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.9, ease: EASE }}
         >
-          <a href="#journey" className="btn btn--ghost" data-cursor="hover">
-            walk the journey <span aria-hidden>↓</span>
-          </a>
-          <button className="btn btn--amber" onClick={onOpenChat} data-cursor="hover">
-            interrogate my AI twin <span aria-hidden>→</span>
-          </button>
+          <Magnetic>
+            <a href="#journey" className="btn btn--ghost" data-cursor="hover">
+              walk the journey <span aria-hidden>↓</span>
+            </a>
+          </Magnetic>
+          <Magnetic>
+            <button className="btn btn--twin" onClick={onOpenChat} data-cursor="hover">
+              <span className="btn__pulse" aria-hidden />
+              interrogate my AI twin
+              <kbd>/</kbd>
+            </button>
+          </Magnetic>
         </motion.div>
+
+        <motion.div
+          className="hero__stats"
+          initial={reduce ? false : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 1.05, ease: EASE }}
+        >
+          {STATS.map((s, i) => (
+            <div className="hero__stat" key={i} data-cursor="hover">
+              <span className="hero__stat-num display">{s.node}</span>
+              <span className="hero__stat-label">{s.label}</span>
+            </div>
+          ))}
+        </motion.div>
+
+        <motion.a
+          href="#journey"
+          className="hero__scrollcue mono-label"
+          initial={reduce ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.9, delay: 1.3 }}
+          data-cursor="hover"
+        >
+          <span>scroll</span>
+          <span className="hero__scrollcue-rail" aria-hidden />
+        </motion.a>
       </div>
 
       <motion.div
@@ -81,12 +129,20 @@ export default function Hero({ onOpenChat }: { onOpenChat: () => void }) {
   )
 }
 
-function Line({ children, delay }: { children: React.ReactNode; delay: number }) {
+function Line({
+  children,
+  delay,
+  reduce,
+}: {
+  children: React.ReactNode
+  delay: number
+  reduce: boolean
+}) {
   return (
     <span className="hero__line">
       <motion.span
         style={{ display: 'inline-block' }}
-        initial={{ y: '110%' }}
+        initial={reduce ? false : { y: '110%' }}
         animate={{ y: 0 }}
         transition={{ duration: 1, delay, ease: EASE }}
       >

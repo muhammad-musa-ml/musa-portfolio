@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { profile } from '../../lib/profile'
-import { Reveal } from '../ui'
+import { Reveal, Magnetic } from '../ui'
 
 export default function Footer({ onOpenChat }: { onOpenChat: () => void }) {
   const [copied, setCopied] = useState(false)
@@ -16,19 +16,40 @@ export default function Footer({ onOpenChat }: { onOpenChat: () => void }) {
     }
   }
 
+  const resumeHref = profile.resume_pdf
+    ? `${import.meta.env.BASE_URL}${profile.resume_pdf.replace(/^\//, '')}`
+    : null
+
   return (
     <footer className="section footer" id="contact">
       <Reveal>
-        <p className="mono-label section-kicker">05 · say salaam</p>
+        <p className="mono-label section-kicker">05 · get in touch</p>
       </Reveal>
       <Reveal delay={0.1}>
         <h2 className="footer__title display">
           Let’s build something that <em>matters.</em>
         </h2>
       </Reveal>
+
+      {profile.availability && (
+        <Reveal delay={0.15}>
+          <p className="footer__availability mono-label">
+            <span className="footer__availability-dot" aria-hidden />
+            {profile.availability}
+          </p>
+        </Reveal>
+      )}
+
       <Reveal delay={0.2}>
         <div className="footer__actions">
-          <button className="btn btn--amber" onClick={copyEmail} data-cursor="hover">
+          <Magnetic className="footer__ai-cta">
+            <button className="btn btn--twin" onClick={onOpenChat} data-cursor="hover">
+              <span className="btn__pulse" aria-hidden />
+              ask my AI twin
+              <kbd>/</kbd>
+            </button>
+          </Magnetic>
+          <button className="btn btn--ghost" onClick={copyEmail} data-cursor="hover">
             {copied ? '✓ copied to clipboard' : email}
           </button>
           {profile.linkedin && (
@@ -42,23 +63,40 @@ export default function Footer({ onOpenChat }: { onOpenChat: () => void }) {
               linkedin ↗
             </a>
           )}
-          <a
-            className="btn btn--ghost"
-            href={`${import.meta.env.BASE_URL}Muhammad-Musa-Resume.pdf`}
-            download
-            data-cursor="hover"
-          >
-            résumé ↓
-          </a>
-          <button className="btn btn--ghost" onClick={onOpenChat} data-cursor="hover">
-            or just ask my AI →
-          </button>
+          {profile.github && (
+            <a
+              className="btn btn--ghost"
+              href={profile.github}
+              target="_blank"
+              rel="noreferrer"
+              data-cursor="hover"
+            >
+              github ↗
+            </a>
+          )}
+          {profile.orcid && (
+            <a
+              className="btn btn--ghost"
+              href={profile.orcid}
+              target="_blank"
+              rel="noreferrer"
+              data-cursor="hover"
+            >
+              orcid ↗
+            </a>
+          )}
+          {resumeHref && (
+            <a className="btn btn--ghost" href={resumeHref} download data-cursor="hover">
+              download résumé ↓
+            </a>
+          )}
         </div>
       </Reveal>
+
       <Reveal delay={0.3}>
         <p className="footer__colophon mono-label">
-          designed & engineered by musa — react · three.js · one honest AI twin —
-          press <kbd>/</kbd> anywhere
+          built with react, three.js, and a lot of coffee — the AI twin runs on free,
+          local-first models — <kbd>⌘K</kbd> palette · <kbd>/</kbd> twin · <kbd>1</kbd>–<kbd>5</kbd> jump sections
         </p>
       </Reveal>
     </footer>

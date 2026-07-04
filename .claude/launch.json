@@ -6,6 +6,13 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
       "port": 5173
+    },
+    {
+      "name": "concepts-static",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8935"],
+      "port": 8935,
+      "cwd": "public/concepts"
     }
   ]
 }
