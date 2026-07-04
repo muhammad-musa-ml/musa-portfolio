@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useReducedMotion } from 'motion/react'
 import { getScrollProgress } from '../lib/scrollBus'
+import { PALETTE_KEY } from '../lib/platform'
 
 // index doubles as the keyboard shortcut (press 1 → journey, etc.) and
 // matches the section numbering on the page (01–05)
@@ -12,7 +13,13 @@ const LINKS = [
   { href: '#contact', id: 'contact', label: 'Contact', index: '5' },
 ]
 
-export default function Nav({ onOpenChat }: { onOpenChat: () => void }) {
+export default function Nav({
+  onOpenChat,
+  onOpenPalette,
+}: {
+  onOpenChat: () => void
+  onOpenPalette: () => void
+}) {
   const [scrolled, setScrolled] = useState(false)
   const [active, setActive] = useState<string | null>(null)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -116,11 +123,22 @@ export default function Nav({ onOpenChat }: { onOpenChat: () => void }) {
             </a>
           ))}
         </div>
-        <button className="nav__ai" onClick={onOpenChat} data-cursor="hover">
-          <span className="nav__ai-pulse" />
-          ask my AI
-          <kbd>/</kbd>
-        </button>
+        <div className="nav__right">
+          <button className="nav__ai" onClick={onOpenChat} data-cursor="hover">
+            <span className="nav__ai-pulse" />
+            ask my AI
+            <kbd>/</kbd>
+          </button>
+          <button
+            className="nav__palette"
+            onClick={onOpenPalette}
+            title="Command palette — jump anywhere"
+            aria-label="Open command palette"
+            data-cursor="hover"
+          >
+            <kbd>{PALETTE_KEY}</kbd>
+          </button>
+        </div>
         <button
           className={`nav__burger ${menuOpen ? 'is-open' : ''}`}
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}

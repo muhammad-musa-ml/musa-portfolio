@@ -194,6 +194,35 @@ kbd {
   transform: scaleX(1);
   transform-origin: left;
 }
+.nav__right {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.nav__palette {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.7rem;
+  border-radius: 10px;
+  border: 1px solid var(--line-strong);
+  background: rgba(18, 19, 26, 0.5);
+  transition: border-color 0.3s, background 0.3s, transform 0.3s var(--ease-out);
+}
+.nav__palette kbd {
+  border: none;
+  padding: 0;
+  color: var(--cream-dim);
+  letter-spacing: 0.06em;
+  transition: color 0.3s;
+}
+.nav__palette:hover {
+  border-color: rgba(255, 180, 84, 0.5);
+  background: rgba(255, 180, 84, 0.06);
+  transform: translateY(-1px);
+}
+.nav__palette:hover kbd {
+  color: var(--amber);
+}
 .nav__ai {
   display: inline-flex;
   align-items: center;
@@ -323,6 +352,8 @@ kbd {
 @media (max-width: 720px) {
   .nav__links { display: none; }
   .nav__burger { display: flex; }
+  /* no hardware keyboard — the shortcut chip is desktop-only */
+  .nav__palette { display: none; }
 }
 
 /* ——— hero ——— */
