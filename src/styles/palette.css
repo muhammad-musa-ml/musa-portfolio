@@ -7,9 +7,9 @@
   justify-content: center;
   align-items: flex-start;
   padding: clamp(4rem, 14vh, 10rem) 1.25rem 2rem;
-  background: rgba(5, 6, 9, 0.62);
-  backdrop-filter: blur(6px) saturate(120%);
-  -webkit-backdrop-filter: blur(6px) saturate(120%);
+  /* no backdrop blur: re-blurring the live WebGL field every frame is what
+     made the palette feel heavy — a deeper dim reads the same and costs nothing */
+  background: rgba(5, 6, 9, 0.82);
 }
 
 .pal__window {
@@ -59,6 +59,7 @@
 .pal__list {
   max-height: min(50vh, 380px);
   overflow-y: auto;
+  overscroll-behavior: contain; /* don't hand leftover scroll to the page */
   padding: 0.5rem;
 }
 .pal__empty {

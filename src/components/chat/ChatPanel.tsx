@@ -120,7 +120,7 @@ export default function ChatPanel({
             </button>
           </header>
 
-          <div className="chat__scroll" ref={scrollRef}>
+          <div className="chat__scroll" ref={scrollRef} data-lenis-prevent>
             {msgs.map((m, i) => (
               <div key={i} className={`chat__msg chat__msg--${m.role} ${m.error ? 'chat__msg--error' : ''}`}>
                 <span className="chat__who mono-label">
