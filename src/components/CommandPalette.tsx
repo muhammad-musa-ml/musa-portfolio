@@ -89,7 +89,8 @@ export default function CommandPalette({
         onClose()
       },
     })
-    list.push(
+    // cursor options lead the list, per the owner's taste
+    list.unshift(
       cursor('reticle', 'Cursor: lock-on reticle'),
       cursor('dot', 'Cursor: just a dot'),
       cursor('system', 'Cursor: system default')

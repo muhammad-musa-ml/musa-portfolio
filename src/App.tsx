@@ -13,7 +13,7 @@ import Humanity from './components/sections/Humanity'
 import Footer from './components/sections/Footer'
 import CommandPalette from './components/CommandPalette'
 import { setScrollProgress, setPointer } from './lib/scrollBus'
-import { registerLenis, scrollToId } from './lib/scroll'
+import { registerLenis, scrollToId, startLenis, stopLenis } from './lib/scroll'
 import { MOTION_OFF } from './lib/motionEnv'
 
 const ChatPanel = lazy(() => import('./components/chat/ChatPanel'))
@@ -122,9 +122,13 @@ export default function App() {
     return () => window.removeEventListener('keydown', onKey)
   }, [openChat, paletteOpen, chatOpen])
 
-  // lock page scroll while an overlay is open
+  // lock page scroll while an overlay is open — both the native scroller and
+  // Lenis, which otherwise keeps eating wheel events under the overlay
   useEffect(() => {
-    document.body.style.overflow = chatOpen || paletteOpen ? 'hidden' : ''
+    const open = chatOpen || paletteOpen
+    document.body.style.overflow = open ? 'hidden' : ''
+    if (open) stopLenis()
+    else startLenis()
   }, [chatOpen, paletteOpen])
 
   return (
