@@ -12,13 +12,23 @@ export function scrollToId(id: string) {
   const el = document.getElementById(id)
   if (!el) return
   if (lenis) {
-    lenis.scrollTo(el, { offset: -48, duration: 1.1 })
+    // force: still works when lenis is paused behind an overlay
+    lenis.scrollTo(el, { offset: -48, duration: 1.1, force: true })
   } else {
     el.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 }
 
 export function scrollToTop() {
-  if (lenis) lenis.scrollTo(0, { duration: 1.0 })
+  if (lenis) lenis.scrollTo(0, { duration: 1.0, force: true })
   else window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+
+/** Pause/resume smooth scrolling while an overlay owns the wheel —
+    otherwise Lenis keeps scrolling the page under the palette/chat. */
+export function stopLenis() {
+  lenis?.stop()
+}
+export function startLenis() {
+  lenis?.start()
 }
