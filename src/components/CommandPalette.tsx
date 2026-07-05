@@ -36,8 +36,12 @@ export default function CommandPalette({
       group: 'Navigate',
       run: () => {
         onClose()
-        if (id === 'top') scrollToTop()
-        else scrollToId(id)
+        // defer one tick: closing restarts Lenis, and lenis.start() resets
+        // any in-flight scroll — starting ours after the restart survives
+        window.setTimeout(() => {
+          if (id === 'top') scrollToTop()
+          else scrollToId(id)
+        }, 0)
       },
     })
     const list: Cmd[] = [
@@ -201,7 +205,7 @@ export default function CommandPalette({
           />
           <kbd className="pal__esc">esc</kbd>
         </div>
-        <div className="pal__list" ref={listRef}>
+        <div className="pal__list" ref={listRef} data-lenis-prevent>
           {rows.length === 0 && <div className="pal__empty">No matches — try “projects” or a question.</div>}
           {rows.map((row, i) =>
             'ask' in row ? (
