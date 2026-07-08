@@ -24,6 +24,14 @@ export function scrollToTop() {
   else window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
+/** Nudge the page by a wheel delta, keeping Lenis smoothing. Inner scrollers
+    (the certificate piles) call this to hand the wheel back to the page once
+    their own travel is exhausted, so they never become dead zones. */
+export function scrollPageBy(delta: number) {
+  if (lenis) lenis.scrollTo(lenis.targetScroll + delta)
+  else window.scrollBy(0, delta)
+}
+
 /** Pause/resume smooth scrolling while an overlay owns the wheel —
     otherwise Lenis keeps scrolling the page under the palette/chat. */
 export function stopLenis() {
