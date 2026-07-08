@@ -1510,10 +1510,9 @@ kbd {
   font-size: 0.84rem;
   color: var(--cream-dim);
   line-height: 1.6;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  /* never clamped: the summaries are written short, and a pile card can be
+     any height — hiding text behind an ellipsis with no way to expand it
+     is worse than a slightly taller card */
 }
 .certs__tags {
   display: flex;
