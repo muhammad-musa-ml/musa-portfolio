@@ -1589,6 +1589,108 @@ kbd {
   color: var(--cream-faint);
   letter-spacing: 0.04em;
 }
+
+/* ————— flow mode: the certificates drift across the full screen, toolkit-style ————— */
+.certs__mode {
+  margin-left: auto;
+  background: none;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 0.4rem 0.95rem;
+  color: var(--amber);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  transition: border-color 0.25s, background 0.25s, transform 0.25s var(--ease-out);
+}
+.certs__mode:hover {
+  border-color: rgba(255, 180, 84, 0.5);
+  background: rgba(255, 180, 84, 0.06);
+  transform: translateY(-1px);
+}
+/* when the arrows share the row (stacks mode), the toggle carries the push-right */
+.certs__mode ~ .certs__arrows {
+  margin-left: 0;
+}
+
+/* full-bleed escape from the centered section — body clips x, so 50vw is safe */
+.certflow {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  overflow: hidden;
+  padding-block: 0.6rem;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+.certflow__track {
+  display: flex;
+  gap: clamp(1rem, 1.8vw, 1.6rem);
+  width: max-content;
+  animation: certflow-marquee 63s linear infinite;
+}
+/* hovering a certificate stops the drift so it can be read and clicked */
+.certflow:hover .certflow__track {
+  animation-play-state: paused;
+}
+@keyframes certflow-marquee {
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .certflow__track { animation: none; }
+}
+
+.certflow__card {
+  flex: 0 0 auto;
+  width: clamp(260px, 26vw, 340px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.75rem 0.75rem 0.9rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 18px;
+  /* solid base, no backdrop-filter — the strip animates over live WebGL */
+  background: linear-gradient(160deg, rgba(38, 36, 50, 0.5), rgba(14, 14, 22, 0.15) 55%), #12131c;
+  text-decoration: none;
+  transition: transform 0.35s var(--ease-out), border-color 0.35s;
+}
+a.certflow__card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 180, 84, 0.45);
+}
+.certflow__art {
+  display: block;
+  aspect-ratio: 1743 / 1347;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0d0f14;
+  margin-bottom: 0.45rem;
+}
+.certflow__art img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* mixed certificate ratios — always show the whole thing */
+  display: block;
+}
+.certflow__name {
+  color: var(--cream);
+  font-size: 1.02rem;
+  line-height: 1.25;
+}
+.certflow__sub {
+  color: var(--cream-faint);
+}
+
+/* searching in flow mode: a still, wrapped grid of the matches */
+.certflow__results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.certflow__results .certflow__card {
+  width: clamp(240px, 23vw, 300px);
+}
 @media (max-width: 720px) {
   .certs__item {
     width: 86vw;
@@ -1598,5 +1700,11 @@ kbd {
   }
   .certs__colscroll {
     height: clamp(520px, 64vh, 660px);
+  }
+  .certflow__card {
+    width: 72vw;
+  }
+  .certflow__results .certflow__card {
+    width: 100%;
   }
 }

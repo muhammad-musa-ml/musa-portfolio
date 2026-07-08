@@ -28,8 +28,13 @@ export function scrollToTop() {
     (the certificate piles) call this to hand the wheel back to the page once
     their own travel is exhausted, so they never become dead zones. */
 export function scrollPageBy(delta: number) {
-  if (lenis) lenis.scrollTo(lenis.targetScroll + delta)
-  else window.scrollBy(0, delta)
+  if (lenis) {
+    // Lenis scales raw wheel deltas by its wheelMultiplier — the hand-off
+    // must too, or scrolling over an exhausted pile reads slower than the page
+    lenis.scrollTo(lenis.targetScroll + delta * (lenis.options.wheelMultiplier ?? 1))
+  } else {
+    window.scrollBy(0, delta)
+  }
 }
 
 /** Pause/resume smooth scrolling while an overlay owns the wheel —
