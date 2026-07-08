@@ -1344,10 +1344,29 @@ kbd {
   gap: clamp(1.2rem, 2.5vw, 2rem);
   overflow-x: auto;
   scroll-snap-type: x proximity;
-  padding: 0.4rem 0.2rem 1rem;
+  /* bleed into the section gutter by exactly the mask's fade width: at the
+     rail's resting ends the first/last columns sit fully past the fade
+     (no borders or text swallowed), while mid-scroll columns still dissolve
+     at the edges — but only over gutter space content never occupies */
+  --rail-bleed: clamp(1.25rem, 5vw, 4rem); /* = .section inline padding */
+  margin-inline: calc(var(--rail-bleed) * -1);
+  padding: 0.4rem var(--rail-bleed) 1rem;
+  scroll-padding-inline: var(--rail-bleed);
   scrollbar-width: none;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 2.5%, #000 97.5%, transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0, #000 2.5%, #000 97.5%, transparent 100%);
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 var(--rail-bleed),
+    #000 calc(100% - var(--rail-bleed)),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 var(--rail-bleed),
+    #000 calc(100% - var(--rail-bleed)),
+    transparent 100%
+  );
 }
 .certs__rail::-webkit-scrollbar {
   display: none;
