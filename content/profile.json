@@ -348,8 +348,8 @@
       ]
     },
     {
-      "id": "kaggle-ml",
-      "title": "Intro to Machine Learning",
+      "id": "python-ml",
+      "title": "Python & Machine Learning",
       "certs": [
         {
           "id": "kaggle-intro-ml",
@@ -360,6 +360,16 @@
           "url": "/certificates/kaggle-intro-ml.png",
           "tags": ["kaggle", "machine learning", "python", "scikit-learn", "decision trees", "model validation"],
           "summary": "Kaggle Learn's applied ML track — data handling, decision trees and random forests, overfitting, and model validation on real datasets."
+        },
+        {
+          "id": "udemy-python-cert",
+          "name": "The Complete Python 3 Course: Beginner to Advanced",
+          "issuer": "Udemy",
+          "issued": "Jan 2021",
+          "image": "/certificates/udemy-python.png",
+          "pdf": "/certificates/udemy-python.pdf",
+          "tags": ["udemy", "python", "programming", "oop", "fundamentals"],
+          "summary": "Eighteen hours from first script to advanced Python — data structures, OOP, file handling, and the standard library."
         }
       ]
     },
@@ -406,24 +416,8 @@
       ]
     },
     {
-      "id": "udemy-python",
-      "title": "The Complete Python 3 Course",
-      "certs": [
-        {
-          "id": "udemy-python-cert",
-          "name": "The Complete Python 3 Course: Beginner to Advanced",
-          "issuer": "Udemy",
-          "issued": "Jan 2021",
-          "image": "/certificates/udemy-python.png",
-          "pdf": "/certificates/udemy-python.pdf",
-          "tags": ["udemy", "python", "programming", "oop", "fundamentals"],
-          "summary": "Eighteen hours from first script to advanced Python — data structures, OOP, file handling, and the standard library."
-        }
-      ]
-    },
-    {
-      "id": "coursera",
-      "title": "Coursera Courses",
+      "id": "duke-r",
+      "title": "Probability & Data with R",
       "certs": [
         {
           "id": "coursera-prob-r",
@@ -435,7 +429,13 @@
           "url": "https://coursera.org/verify/ZMCGZR3DG27Y",
           "tags": ["coursera", "duke", "statistics", "probability", "r", "data analysis"],
           "summary": "Duke's statistics foundation — probability, distributions, and exploratory data analysis in R."
-        },
+        }
+      ]
+    },
+    {
+      "id": "android-app",
+      "title": "Build Your First Android App",
+      "certs": [
         {
           "id": "coursera-android",
           "name": "Build Your First Android App",

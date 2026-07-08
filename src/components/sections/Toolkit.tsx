@@ -138,7 +138,13 @@ function scoreTool(tool: string, category: string, terms: string[]): number {
   const cat = category.toLowerCase()
   let best = 0
   for (const t of terms) {
-    if (t.length < 2) continue
+    if (t.length < 2) {
+      // single-letter queries ("c", "r") match exact names/tags only —
+      // substring matching would light up half the toolkit
+      if (name === t) best = Math.max(best, 100)
+      else if (tags.includes(t)) best = Math.max(best, 60)
+      continue
+    }
     if (name === t) best = Math.max(best, 100)
     else if (name.includes(t)) best = Math.max(best, 70)
     else if (tags.includes(t)) best = Math.max(best, 60)
@@ -270,11 +276,9 @@ export default function Toolkit() {
               <p className="toolkit__cat mono-label">{cat}</p>
               <div className="toolkit__chips">
                 {tools.map((t) => (
-                  <span
-                    key={t}
-                    className={`chip toolkit__chip ${chipState(t)}`}
-                    data-hot={!scores && HOT.has(t) ? 1 : 0}
-                  >
+                  // no data-hot here: the amber "most-used" emphasis belongs to
+                  // the ticker; the browse panel stays neutral until you search
+                  <span key={t} className={`chip toolkit__chip ${chipState(t)}`}>
                     {t}
                   </span>
                 ))}

@@ -96,8 +96,8 @@ export default function CommandPalette({
     })
     // cursor options lead the list, per the owner's taste
     list.unshift(
-      cursor('reticle', 'Cursor: lock-on reticle'),
       cursor('dot', 'Cursor: just a dot'),
+      cursor('reticle', 'Cursor: lock-on reticle'),
       cursor('system', 'Cursor: system default')
     )
     const link = (id: string, label: string, url: string | null | undefined, kw: string): Cmd | null =>
