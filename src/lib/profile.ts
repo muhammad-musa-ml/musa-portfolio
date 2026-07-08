@@ -35,6 +35,23 @@ export interface Milestone {
   description: string
   icon_hint?: string
 }
+export interface Certificate {
+  id: string
+  name: string
+  issuer: string
+  issued: string
+  image: string
+  pdf?: string
+  url?: string
+  sample?: boolean
+  tags: string[]
+  summary: string
+}
+export interface CertificateGroup {
+  id: string
+  title: string
+  certs: Certificate[]
+}
 export interface Profile {
   name: string
   tagline: string
@@ -54,6 +71,7 @@ export interface Profile {
   research: { title: string; venue?: string; year?: string | number; description?: string }[]
   awards: string[]
   ai_for_humanity: { why?: string; themes: string[]; evidence: string[] }
+  certificate_groups: CertificateGroup[]
   journey_milestones: Milestone[]
 }
 

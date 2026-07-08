@@ -4,13 +4,15 @@ import { getScrollProgress } from '../lib/scrollBus'
 import { PALETTE_KEY } from '../lib/platform'
 
 // index doubles as the keyboard shortcut (press 1 → journey, etc.) and
-// matches the section numbering on the page (01–05)
+// matches the section numbering on the page (01–07)
 const LINKS = [
   { href: '#journey', id: 'journey', label: 'Journey', index: '1' },
   { href: '#work', id: 'work', label: 'Work', index: '2' },
-  { href: '#projects', id: 'projects', label: 'Projects', index: '3' },
-  { href: '#humanity', id: 'humanity', label: 'Humanity', index: '4' },
-  { href: '#contact', id: 'contact', label: 'Contact', index: '5' },
+  { href: '#toolkit', id: 'toolkit', label: 'Toolkit', index: '3' },
+  { href: '#projects', id: 'projects', label: 'Projects', index: '4' },
+  { href: '#certificates', id: 'certificates', label: 'Certificates', index: '5' },
+  { href: '#humanity', id: 'humanity', label: 'Humanity', index: '6' },
+  { href: '#contact', id: 'contact', label: 'Contact', index: '7' },
 ]
 
 export default function Nav({

@@ -29,7 +29,7 @@ export default function Projects() {
   return (
     <section className="section" id="projects">
       <SectionHeader
-        index="03"
+        index="04"
         kicker="projects & research"
         title={
           <>

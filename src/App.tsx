@@ -9,6 +9,7 @@ import Journey from './components/sections/Journey'
 import Experience from './components/sections/Experience'
 import Toolkit from './components/sections/Toolkit'
 import Projects from './components/sections/Projects'
+import Certificates from './components/sections/Certificates'
 import Humanity from './components/sections/Humanity'
 import Footer from './components/sections/Footer'
 import CommandPalette from './components/CommandPalette'
@@ -18,14 +19,16 @@ import { MOTION_OFF } from './lib/motionEnv'
 
 const ChatPanel = lazy(() => import('./components/chat/ChatPanel'))
 
-// digit shortcuts — match the section numbering on the page (01–05);
+// digit shortcuts — match the section numbering on the page (01–07);
 // "back to top" is the m.musa mark in the nav, no key needed
 const SECTION_KEYS: Record<string, string> = {
   '1': 'journey',
   '2': 'work',
-  '3': 'projects',
-  '4': 'humanity',
-  '5': 'contact',
+  '3': 'toolkit',
+  '4': 'projects',
+  '5': 'certificates',
+  '6': 'humanity',
+  '7': 'contact',
 }
 
 export default function App() {
@@ -100,7 +103,7 @@ export default function App() {
         openChat()
         return
       }
-      // 1–5 — jump between sections, same numbers the nav shows
+      // 1–7 — jump between sections, same numbers the nav shows
       if (
         !typing &&
         !paletteOpen &&
@@ -143,6 +146,7 @@ export default function App() {
         <Experience />
         <Toolkit />
         <Projects />
+        <Certificates />
         <Humanity />
         <Footer onOpenChat={() => openChat()} />
       </main>

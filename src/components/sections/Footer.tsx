@@ -97,7 +97,7 @@ export default function Footer({ onOpenChat }: { onOpenChat: () => void }) {
       <Reveal delay={0.3}>
         <p className="footer__colophon mono-label">
           built with react, three.js, and a lot of coffee — the AI twin runs on free,
-          local-first models — <kbd>{PALETTE_KEY}</kbd> palette · <kbd>/</kbd> twin · <kbd>1</kbd>–<kbd>5</kbd> jump sections
+          local-first models — <kbd>{PALETTE_KEY}</kbd> palette · <kbd>/</kbd> twin · <kbd>1</kbd>–<kbd>7</kbd> jump sections
         </p>
       </Reveal>
     </footer>
