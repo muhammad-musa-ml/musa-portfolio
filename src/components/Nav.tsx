@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useReducedMotion } from 'motion/react'
 import { getScrollProgress } from '../lib/scrollBus'
 import { PALETTE_KEY } from '../lib/platform'
+import { startLenis, stopLenis } from '../lib/scroll'
 
 // index doubles as the keyboard shortcut (press 1 → journey, etc.) and
 // matches the section numbering on the page (01–07)
@@ -75,13 +76,18 @@ export default function Nav({
     return () => observer.disconnect()
   }, [])
 
-  // lock body scroll while the mobile overlay is open
+  // lock the page while the mobile overlay is open. Lenis scrolls the window
+  // itself and intercepts the wheel, so body{overflow:hidden} alone never
+  // stopped it — the background kept scrolling under the menu. Pause Lenis
+  // explicitly and lock the real scroller (html, not body).
   useEffect(() => {
     if (!menuOpen) return
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
+    stopLenis()
+    const prev = document.documentElement.style.overflow
+    document.documentElement.style.overflow = 'hidden'
     return () => {
-      document.body.style.overflow = prev
+      document.documentElement.style.overflow = prev
+      startLenis()
     }
   }, [menuOpen])
 
@@ -158,6 +164,9 @@ export default function Nav({
         {menuOpen && (
           <motion.div
             className="nav__overlay"
+            // stopped Lenis still swallows wheel defaults — opt this scroller out
+            // so short windows can scroll the menu itself
+            data-lenis-prevent
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

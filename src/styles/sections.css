@@ -332,15 +332,22 @@ kbd {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  /* safe center: centered when the list fits, top-anchored (and scrollable)
+     when a short window can't hold it — plain center hides the first links */
   justify-content: center;
-  gap: 1.6rem;
-  padding: 2rem clamp(1.5rem, 8vw, 4rem);
+  justify-content: safe center;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  gap: clamp(0.9rem, 2.4svh, 1.6rem);
+  padding: 5.5rem clamp(1.5rem, 8vw, 4rem) 2.5rem;
   background: rgba(11, 12, 16, 0.92);
   backdrop-filter: blur(20px);
 }
 .nav__overlay-link {
+  flex-shrink: 0;
   font-family: var(--font-display);
-  font-size: clamp(2rem, 9vw, 3.2rem);
+  /* height-aware: eight rows must fit a short window, not just a tall phone */
+  font-size: clamp(1.7rem, min(8.5vw, 6svh), 3.2rem);
   color: var(--cream-dim);
   text-decoration: none;
   letter-spacing: -0.01em;
@@ -349,10 +356,21 @@ kbd {
 .nav__overlay-link:active {
   color: var(--amber);
 }
-@media (max-width: 720px) {
+
+/* ——— the nav row must never overflow: shed ornament as the window narrows ——— */
+@media (max-width: 1520px) {
+  .nav__links { gap: clamp(0.75rem, 1.6vw, 1.5rem); }
+}
+@media (max-width: 1380px) {
+  /* the number keycaps are ornament at this width — the labels keep the room */
+  .nav__links .nav__link-index { display: none; }
+}
+@media (max-width: 1080px) {
   .nav__links { display: none; }
   .nav__burger { display: flex; }
-  /* no hardware keyboard — the shortcut chip is desktop-only */
+}
+@media (max-width: 720px) {
+  /* no hardware keyboard likely — the shortcut chip is desktop-only */
   .nav__palette { display: none; }
 }
 
