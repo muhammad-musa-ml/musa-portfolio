@@ -1,9 +1,11 @@
 // Cursor preference — picked in the ⌘K palette, remembered across visits.
-//   reticle (default) · dot · system
+//   dot (default) · reticle · system
+// v2 key: the default changed reticle → dot, so stale v1 values don't pin
+// returning visitors to the old default they never actively chose.
 
 export type CursorMode = 'reticle' | 'dot' | 'system'
 
-const KEY = 'musa-cursor'
+const KEY = 'musa-cursor-v2'
 
 function read(): CursorMode {
   try {
@@ -12,7 +14,7 @@ function read(): CursorMode {
   } catch {
     /* private mode etc. */
   }
-  return 'reticle'
+  return 'dot'
 }
 
 let mode: CursorMode = read()
