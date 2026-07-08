@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'motion/react'
 import { profile } from '../../lib/profile'
 import type { Certificate, CertificateGroup } from '../../lib/profile'
 import { scrollPageBy } from '../../lib/scroll'
+import { MOTION_OFF } from '../../lib/motionEnv'
 import { Reveal, SectionHeader } from '../ui'
 
 /* ————— search: graded scoring over names, issuers, tags, summaries ————— */
@@ -86,6 +87,9 @@ export default function Certificates() {
   const groups = useMemo(() => profile.certificate_groups ?? [], [])
   const allCount = useMemo(() => groups.reduce((n, g) => n + g.certs.length, 0), [groups])
   const [q, setQ] = useState('')
+  // flow (default): one flat gallery drifting across the screen, toolkit-style;
+  // stacks: the manual rail of group piles. Motion-off visitors get stacks only.
+  const [mode, setMode] = useState<'flow' | 'stacks'>(MOTION_OFF ? 'stacks' : 'flow')
   const railRef = useRef<HTMLDivElement>(null)
   const fillRef = useRef<HTMLDivElement>(null)
 
@@ -97,6 +101,7 @@ export default function Certificates() {
       .filter((v) => v.certs.length > 0)
   }, [groups, q, terms])
   const visibleCount = visible.reduce((n, v) => n + v.certs.length, 0)
+  const flowCerts = useMemo(() => visible.flatMap((v) => v.certs), [visible])
 
   /* drag-to-scroll with axis intent: sideways drags drive the rail,
      vertical drags are released to the piles. No wheel hijacking at all —
@@ -197,47 +202,124 @@ export default function Certificates() {
           <span className="certs__count mono-label">
             {visibleCount} / {allCount}
           </span>
-          <div className="certs__arrows">
-            <button className="certs__arrow" onClick={() => nudge(-1)} aria-label="Scroll certificates left" data-cursor="hover">
-              ←
+          {!MOTION_OFF && (
+            <button
+              className="certs__mode"
+              onClick={() => setMode((m) => (m === 'flow' ? 'stacks' : 'flow'))}
+              data-cursor="hover"
+            >
+              {mode === 'flow' ? '⏸ stop scroll · browse the stacks' : '▶ back to the flow'}
             </button>
-            <button className="certs__arrow" onClick={() => nudge(1)} aria-label="Scroll certificates right" data-cursor="hover">
-              →
-            </button>
-          </div>
+          )}
+          {mode === 'stacks' && (
+            <div className="certs__arrows">
+              <button className="certs__arrow" onClick={() => nudge(-1)} aria-label="Scroll certificates left" data-cursor="hover">
+                ←
+              </button>
+              <button className="certs__arrow" onClick={() => nudge(1)} aria-label="Scroll certificates right" data-cursor="hover">
+                →
+              </button>
+            </div>
+          )}
         </div>
       </Reveal>
 
-      <Reveal>
-        <div className="certs__railwrap">
-          <div className="certs__rail" ref={railRef} onScroll={onRailScroll} data-lenis-prevent>
-            <AnimatePresence mode="popLayout">
-              {visible.map(({ group, certs }) => (
-                <motion.div
-                  key={group.id}
-                  className="certs__item"
-                  layout="position"
-                  initial={{ opacity: 0, y: 14 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 14 }}
-                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <GroupColumn group={group} certs={certs} onTag={setQ} />
-                </motion.div>
+      {mode === 'flow' ? (
+        <Reveal>
+          {flowCerts.length === 0 ? (
+            <p className="certs__empty">
+              nothing matches “{q}” — try “anthropic”, “python”, or “statistics”
+            </p>
+          ) : q.trim() ? (
+            /* searching: matches hold still instead of drifting away from the cursor */
+            <div className="certflow__results">
+              {flowCerts.map((c) => (
+                <FlowCard key={c.id} cert={c} />
               ))}
-            </AnimatePresence>
-            {visible.length === 0 && (
-              <p className="certs__empty">
-                nothing matches “{q}” — try “anthropic”, “python”, or “statistics”
-              </p>
-            )}
+            </div>
+          ) : (
+            <div className="certflow">
+              <div
+                className="certflow__track"
+                style={{ animationDuration: `${flowCerts.length * 7}s` }}
+              >
+                {[...flowCerts, ...flowCerts].map((c, i) => (
+                  <FlowCard key={`${c.id}-${i}`} cert={c} clone={i >= flowCerts.length} />
+                ))}
+              </div>
+            </div>
+          )}
+        </Reveal>
+      ) : (
+        <Reveal>
+          <div className="certs__railwrap">
+            <div className="certs__rail" ref={railRef} onScroll={onRailScroll} data-lenis-prevent>
+              <AnimatePresence mode="popLayout">
+                {visible.map(({ group, certs }) => (
+                  <motion.div
+                    key={group.id}
+                    className="certs__item"
+                    layout="position"
+                    initial={{ opacity: 0, y: 14 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 14 }}
+                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    <GroupColumn group={group} certs={certs} onTag={setQ} />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+              {visible.length === 0 && (
+                <p className="certs__empty">
+                  nothing matches “{q}” — try “anthropic”, “python”, or “statistics”
+                </p>
+              )}
+            </div>
+            <div className="certs__progress" aria-hidden>
+              <div className="certs__progress-fill" ref={fillRef} />
+            </div>
           </div>
-          <div className="certs__progress" aria-hidden>
-            <div className="certs__progress-fill" ref={fillRef} />
-          </div>
-        </div>
-      </Reveal>
+        </Reveal>
+      )}
     </section>
+  )
+}
+
+/* ————— flow mode: one flat card drifting past — image-first, click to open ————— */
+
+function FlowCard({ cert, clone }: { cert: Certificate; clone?: boolean }) {
+  const href = cert.pdf || cert.url
+  const inner = (
+    <>
+      <span className="certflow__art">
+        <img
+          src={cert.image}
+          alt={clone ? '' : `${cert.name} — ${cert.issuer} certificate`}
+          loading="lazy"
+        />
+      </span>
+      <span className="certflow__name display">{cert.name}</span>
+      <span className="certflow__sub mono-label">
+        {cert.issuer} · issued {cert.issued}
+      </span>
+    </>
+  )
+  return href ? (
+    <a
+      className="certflow__card"
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      aria-hidden={clone || undefined}
+      tabIndex={clone ? -1 : undefined}
+      data-cursor="hover"
+    >
+      {inner}
+    </a>
+  ) : (
+    <span className="certflow__card" aria-hidden={clone || undefined}>
+      {inner}
+    </span>
   )
 }
 
