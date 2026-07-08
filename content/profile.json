@@ -320,6 +320,136 @@
       "Deliberately took graduate coursework in AI Safety & Differential Privacy alongside core ML — sustained academic commitment to responsible AI"
     ]
   },
+  "certificate_groups": [
+    {
+      "id": "anthropic-academy",
+      "title": "Anthropic Academy",
+      "certs": [
+        {
+          "id": "claude-101",
+          "name": "Claude 101",
+          "issuer": "Anthropic",
+          "issued": "Jul 2026",
+          "image": "/certificates/claude-101.png",
+          "pdf": "/certificates/claude-101.pdf",
+          "tags": ["anthropic", "claude", "llm", "prompting", "api", "gen ai"],
+          "summary": "Anthropic's foundation course — the Claude model family, prompt construction, tool use, and building against the Anthropic API."
+        },
+        {
+          "id": "claude-code-101",
+          "name": "Claude Code 101",
+          "issuer": "Anthropic",
+          "issued": "Jul 2026",
+          "image": "/certificates/claude-code-101.png",
+          "pdf": "/certificates/claude-code-101.pdf",
+          "tags": ["anthropic", "claude code", "agentic coding", "ai tooling", "developer tools"],
+          "summary": "Agentic engineering with Claude Code — planning, editing, testing, and verifying changes in real repositories with an AI pair."
+        }
+      ]
+    },
+    {
+      "id": "kaggle-ml",
+      "title": "Intro to Machine Learning",
+      "certs": [
+        {
+          "id": "kaggle-intro-ml",
+          "name": "Intro to Machine Learning",
+          "issuer": "Kaggle",
+          "issued": "Jul 2021",
+          "image": "/certificates/kaggle-intro-ml.png",
+          "url": "/certificates/kaggle-intro-ml.png",
+          "tags": ["kaggle", "machine learning", "python", "scikit-learn", "decision trees", "model validation"],
+          "summary": "Kaggle Learn's applied ML track — data handling, decision trees and random forests, overfitting, and model validation on real datasets."
+        }
+      ]
+    },
+    {
+      "id": "bulandi",
+      "title": "Bulandi Fellowship · Seeds of Peace",
+      "certs": [
+        {
+          "id": "bulandi-achievement",
+          "name": "Bulandi Fellowship — Certificate of Achievement",
+          "issuer": "Beyond the Classroom × Seeds of Peace",
+          "issued": "Spring 2021",
+          "image": "/certificates/bulandi-achievement.png",
+          "url": "/certificates/bulandi-achievement.png",
+          "tags": ["fellowship", "leadership", "education", "community", "seeds of peace"],
+          "summary": "Completed the Bulandi Fellowship (Spring 2021 cycle) — a Seeds of Peace / Beyond the Classroom program on dialogue-driven leadership and community education."
+        },
+        {
+          "id": "bulandi-training",
+          "name": "Bulandi Virtual Training & Workshop",
+          "issuer": "Beyond the Classroom",
+          "issued": "Spring 2021",
+          "image": "/certificates/bulandi-training.png",
+          "url": "/certificates/bulandi-training.png",
+          "tags": ["teaching", "training", "workshop", "facilitation", "education"],
+          "summary": "Finished the Bulandi virtual training program, then designed and ran a three-day workshop implementing it with students."
+        }
+      ]
+    },
+    {
+      "id": "codinguru",
+      "title": "CodinGuru 3.0 · IEEE LUMS",
+      "certs": [
+        {
+          "id": "codinguru-ieee",
+          "name": "CodinGuru 3.0 — AIGuru Technical Team",
+          "issuer": "IEEE LUMS",
+          "issued": "Jan 2021",
+          "image": "/certificates/codinguru-ieee.jpg",
+          "url": "/certificates/codinguru-ieee.jpg",
+          "tags": ["ieee", "lums", "competitive programming", "coding contest", "technical team"],
+          "summary": "On the technical team behind AIGuru at CodinGuru 3.0 — Pakistan's largest coding contest, run by IEEE LUMS and the IEEE Computer Society over Jan 30–31, 2021."
+        }
+      ]
+    },
+    {
+      "id": "udemy-python",
+      "title": "The Complete Python 3 Course",
+      "certs": [
+        {
+          "id": "udemy-python-cert",
+          "name": "The Complete Python 3 Course: Beginner to Advanced",
+          "issuer": "Udemy",
+          "issued": "Jan 2021",
+          "image": "/certificates/udemy-python.png",
+          "pdf": "/certificates/udemy-python.pdf",
+          "tags": ["udemy", "python", "programming", "oop", "fundamentals"],
+          "summary": "Eighteen hours from first script to advanced Python — data structures, OOP, file handling, and the standard library."
+        }
+      ]
+    },
+    {
+      "id": "coursera",
+      "title": "Coursera Courses",
+      "certs": [
+        {
+          "id": "coursera-prob-r",
+          "name": "Introduction to Probability and Data with R",
+          "issuer": "Duke University · Coursera",
+          "issued": "Jun 2020",
+          "image": "/certificates/coursera-prob-r.png",
+          "pdf": "/certificates/coursera-prob-r.pdf",
+          "url": "https://coursera.org/verify/ZMCGZR3DG27Y",
+          "tags": ["coursera", "duke", "statistics", "probability", "r", "data analysis"],
+          "summary": "Duke's statistics foundation — probability, distributions, and exploratory data analysis in R."
+        },
+        {
+          "id": "coursera-android",
+          "name": "Build Your First Android App",
+          "issuer": "CentraleSupélec · Coursera",
+          "issued": "Jul 2016",
+          "image": "/certificates/coursera-android.png",
+          "pdf": "/certificates/coursera-android.pdf",
+          "url": "https://coursera.org/verify/8TY85894WUHG",
+          "tags": ["coursera", "android", "mobile", "java", "app development"],
+          "summary": "Project-centered Android development with CentraleSupélec — from an empty project to a working app."
+        }
+      ]
+    }
+  ],
   "journey_milestones": [
     {
       "year": "2001",

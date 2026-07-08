@@ -252,7 +252,17 @@ An AI outreach pipeline that discovers local businesses, drafts a grounded pitch
 - **Project Head, TUBITAK TEKNOFEST UAV Competition** (March 2021 – July 2021) — led a team of 7 building a fixed-wing UAV; personally led the electronics and systems sub-team selecting autopilot software, components, and circuit design.
 - **President, IEEE LUMS Student Chapter** (August 2022 – June 2023, sometimes listed as ending May 2023)
 - **Assistant Director HR, LUMS Community Service Society** (August 2021 – June 2022)
-- **Student Fellow, Bulandi Fellowship Program** (per old/Research_CV.pdf; details of this program not further elaborated in sources — uncertain)
+- **Student Fellow, Bulandi Fellowship Program** — completed the Spring 2021 cycle of this Seeds of Peace / Beyond the Classroom program on dialogue-driven leadership and community education, then finished its virtual training and personally ran a 3-day workshop implementing it with students (both certificates on file)
+
+**Certifications (all verified from certificate files, shown on the site's Certificates section):**
+- **Claude 101** — Anthropic (Jul 2026): foundations of building with Claude — model capabilities, prompting, tool use, and the Anthropic API
+- **Claude Code 101** — Anthropic (Jul 2026): agentic software engineering with Claude Code on real codebases
+- **Intro to Machine Learning** — Kaggle (Jul 24, 2021): applied ML — decision trees, random forests, overfitting, model validation
+- **Bulandi Fellowship — Certificate of Achievement** and **Bulandi Virtual Training & Workshop** — Beyond the Classroom × Seeds of Peace (Spring 2021)
+- **CodinGuru 3.0 — AIGuru Technical Team** — IEEE LUMS (Jan 30–31, 2021): technical team member of Pakistan's largest coding contest
+- **The Complete Python 3 Course: Beginner to Advanced** — Udemy (Jan 19, 2021): 18-hour Python course
+- **Introduction to Probability and Data with R** — Duke University via Coursera (Jun 17, 2020)
+- **Build Your First Android App (Project-Centered Course)** — CentraleSupélec via Coursera (Jul 25, 2016)
 
 **Teaching (extensive — see also Section 3):**
 - Head Graduate TA, CS 320: Data Science Programming II, UW–Madison (2024–present) — leads a staff of 20 TAs for 500–600 students

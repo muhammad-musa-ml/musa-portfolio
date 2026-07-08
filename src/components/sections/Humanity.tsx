@@ -10,7 +10,7 @@ export default function Humanity() {
     <section className="section humanity" id="humanity">
       <div className="humanity__halo" aria-hidden />
       <SectionHeader
-        index="04"
+        index="06"
         kicker="ai for humanity"
         title={
           <>

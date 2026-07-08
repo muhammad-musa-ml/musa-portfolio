@@ -197,7 +197,7 @@ export default function Toolkit() {
     <section className="toolkit" id="toolkit" aria-label="Toolkit">
       <div className="toolkit__bar">
         <p className="toolkit__label mono-label">
-          // toolkit — {all.length} tools across research, ML, and the stack
+          03 · toolkit — {all.length} tools across research, ML, and the stack
         </p>
         {!MOTION_OFF && (
           <button
