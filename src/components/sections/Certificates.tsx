@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { profile } from '../../lib/profile'
 import type { Certificate, CertificateGroup } from '../../lib/profile'
+import { scrollPageBy } from '../../lib/scroll'
 import { Reveal, SectionHeader } from '../ui'
 
 /* ————— search: graded scoring over names, issuers, tags, summaries ————— */
@@ -255,6 +256,28 @@ function GroupColumn({
   const [active, setActive] = useState(0)
   const [touched, setTouched] = useState(false)
   const shownActive = Math.min(active, certs.length - 1)
+
+  /* while the pile has travel left the wheel scrolls it natively; once it's
+     exhausted (or a one-card group never had overflow) the delta hands off to
+     the page — overscroll-behavior blocks native chaining (a vertical flick
+     must never become rail travel), so without this the column is a dead zone
+     the site can't scroll past. Native listener: React's onWheel is passive,
+     and the boundary case needs preventDefault. */
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const onWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return // sideways input belongs to the rail
+      const max = el.scrollHeight - el.clientHeight
+      const exhausted = max <= 0 || (e.deltaY > 0 ? el.scrollTop >= max - 1 : el.scrollTop <= 0)
+      if (!exhausted) return
+      e.preventDefault()
+      const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? window.innerHeight : 1
+      scrollPageBy(e.deltaY * unit)
+    }
+    el.addEventListener('wheel', onWheel, { passive: false })
+    return () => el.removeEventListener('wheel', onWheel)
+  }, [])
 
   const onScroll = () => {
     const el = scrollRef.current
