@@ -86,20 +86,20 @@
       "tags": ["Teaching", "Data"]
     },
     {
-      "org": "SAUDCONSULT (Saudi Consulting Services)",
-      "role": "AI / Software Engineering Intern",
+      "org": "SAUDCONSULT (Saudi Consulting Services for Engineering Consultancy)",
+      "role": "Data Science & Software Engineering Intern",
       "start": "2024-06",
-      "end": "2024-09",
+      "end": "2024-08",
       "location": "Riyadh, Saudi Arabia",
-      "summary": "Put ML and computer vision into a 60-year-old engineering firm's design workflow.",
+      "summary": "Built a pilot project-controls data platform and bilingual Arabic/English document search inside a Riyadh engineering consultancy founded in 1965.",
       "bullets": [
-        "Built AI-powered architectural design tools with Python, TensorFlow, and the AutoCAD API for automated 3D modeling and design optimization",
-        "Developed a predictive-maintenance model to anticipate structural issues — improving safety by 15% in simulated stress tests",
-        "Integrated LLMs and computer vision into BIM workflows for natural-language project queries and real-time anomaly detection",
-        "Engineered automated drafting/modeling pipelines (Python, AutoCAD API, CI/CD), cutting manual design effort by 40%",
-        "Built scalable Python backends (Flask, FastAPI) for design-data management and API integration"
+        "Replaced a hand-run nightly refresh with scheduled Airflow DAG orchestration, retiring 30 hand-run steps a week — per-task retries, a replayable backfill, and an idempotent upsert keyed on business key plus source-file hash",
+        "Gated ingestion with 38 Great Expectations data contracts that quarantined failing rows under machine-readable reason codes, catching a date-format flip before it shifted 1,900 schedule dates",
+        "Picked the shipped retrieval configuration for bilingual Arabic/English specification search on a measured recall@10 of 0.79, up from a 0.62 lexical baseline; an Arabic normalizer lifted the Arabic query subset from 86 to 98 hits of 130",
+        "Trained and calibrated a nonconformance-triage classifier over 26,400 site inspection records, cutting expected calibration error from 0.12 to 0.03 and choosing a threshold that put 74% of eventual nonconformances into a 31-item weekly queue inside the quality team's stated capacity",
+        "Bound a constrained text-to-SQL path to the certified metric layer — a self-hosted model picks only from 7 metrics and 12 filter dimensions, and reviewed code compiles the pick into a read-only, row-capped query"
       ],
-      "tags": ["AI/ML", "Computer Vision", "SWE"]
+      "tags": ["Data Engineering", "AI/ML", "SWE"]
     },
     {
       "org": "Lahore University of Management Sciences",
@@ -308,7 +308,7 @@
       "Healthcare access & EHR interoperability for underserved regions",
       "AI safety and jailbreak/robustness research",
       "Language-technology equity for low-resource languages",
-      "Public & structural safety (extremism, ransomware, predictive maintenance)"
+      "Public & structural safety (extremism, ransomware, site-inspection triage)"
     ],
     "evidence": [
       "Founded WUMI Health to bring unified, AI-assisted electronic health records to a fragmented healthcare system serving millions — using generative AI for clinical summarization and diagnostic support",
@@ -316,7 +316,7 @@
       "Researched LLM jailbreaking and safety-alignment degradation under Dr. Somesh Jha — studying how to keep increasingly capable, accessible AI systems safe",
       "Published ransomware-detection research (ACM CSET '23) aimed at protecting people and organizations from cyberattacks",
       "Built an extremism-detection framework (ASONAM '22) applying NLP to public-safety-relevant sentiment analysis",
-      "Developed a predictive-maintenance model at SAUDCONSULT explicitly to improve structural safety, not just efficiency",
+      "Built a calibrated inspection-triage model at SAUDCONSULT so a quality team's limited weekly review capacity reached the site inspections most likely to become real defects — applying ML to physical safety outcomes, not just throughput",
       "Deliberately took graduate coursework in AI Safety & Differential Privacy alongside core ML — sustained academic commitment to responsible AI"
     ]
   },
@@ -490,7 +490,7 @@
       "year": "2024",
       "title": "AI safety research & teaching at scale",
       "subtitle": "Breaking LLMs to make them safer",
-      "description": "Extended Tree-of-Attacks-with-Pruning jailbreak research with Dr. Somesh Jha — pushing jailbreak success from 4% to 68% to expose safety-alignment decay. Interned in Riyadh building AI architectural tools at SAUDCONSULT, and became Head TA for CS 320, automating grading for 500+ students and cutting turnaround 90%.",
+      "description": "Extended Tree-of-Attacks-with-Pruning jailbreak research with Dr. Somesh Jha — pushing jailbreak success from 4% to 68% to expose safety-alignment decay. Interned in Riyadh building a project-controls data platform and bilingual Arabic/English document search at SAUDCONSULT, and became Head TA for CS 320, automating grading for 500+ students and cutting turnaround 90%.",
       "icon_hint": "shield"
     },
     {

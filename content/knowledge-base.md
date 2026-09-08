@@ -80,21 +80,26 @@ I'm drawn to the parts of AI that touch people who are easy to overlook. The thr
 - Lead lab sessions and provide individual guidance to 1100 students in Python and data manipulation, analysis, and visualization.
 - Foster an inclusive learning environment, support grading, and facilitate in making projects and quizzes.
 
-### SAUDCONSULT Saudi Consulting Services — Software Engineering Intern (also titled "Data Analyst Intern" on the data-focused resume variant)
-**Riyadh, Saudi Arabia · June 2024 – September 2024**
-- Built AI-powered architectural design tools using Python, TensorFlow, and AutoCAD API, enabling automated 3D modeling and design optimization.
-- Developed a predictive maintenance model leveraging machine learning to anticipate structural issues, improving safety by 15% in simulated stress tests.
-- Integrated LLMs and computer vision into BIM workflows, allowing natural language project queries and real-time anomaly detection.
-- Collaborated in Agile sprints with cross-functional teams to deploy AI-driven features for 500+ design projects.
-- Engineered automated drafting and modeling pipelines using Python, AutoCAD API, and CI/CD workflows, reducing manual design effort by 40%.
-- Implemented BIM-integrated tools for real-time project visualization, streamlining cross-department collaboration across 5+ engineering teams.
-- Developed scalable backend services in Python (Flask, FastAPI) to support design data management and API integrations.
-- Worked in Agile teams, delivering software features in 2-week sprints for enterprise-scale architectural platforms.
-- Researched AI and automation applications in architectural engineering, producing a technical report on integrating BIM, AutoCAD APIs, and ML models for smarter infrastructure planning.
-- Prototyped a predictive analytics system for load calculations, improving estimation accuracy by 20% compared to traditional methods.
-- Conducted comparative studies on data exchange standards for cross-functional workflows, influencing adoption of BIM-linked automation.
-- Collaborated with senior engineers to publish findings internally, supporting long-term innovation initiatives within digital twin and smart city projects.
-- (Condensed bullet variants seen on shorter resumes): Developed architectural design tools using AutoCAD API, allowing automated structure data analysis and 3D modeling processes. Contributed to the integration of BIM technology with existing design platforms. Actively participated in daily stand-up meetings and bi-weekly sprints within Agile development framework with product team. Developed a predictive maintenance tool for architectural projects, enhancing accuracy in load calculations and safety.
+### SAUDCONSULT (Saudi Consulting Services for Engineering Consultancy) — Data Science & Software Engineering Intern
+**Riyadh, Saudi Arabia (on site) · June 2024 – August 2024**
+
+Twelve-week summer placement in the data and digital group of a Riyadh engineering and architecture consultancy founded in 1965. The brief was a pilot data platform for the group's project-controls reporting on one building-type programme, plus the tooling its design, planning and quality staff on that programme used — running from raw engineering exports (bilingual Arabic and English specifications and submittals, IFC models, Primavera P6 schedules and inspection records) through a scheduled, contract-gated pipeline into certified metrics, dashboards and two small models.
+
+- Retired 30 hand-run steps a week by replacing a hand-run nightly refresh with scheduled Airflow DAG orchestration — per-task retries, a replayable backfill and an idempotent upsert keyed on business key plus source-file hash.
+- Verified the pipeline replays safely by re-running a 6-month backfill from an immutable object-storage landing zone, reconciling per-source and per-period row counts to the source exports with 0 duplicate business keys.
+- Gated ingestion with 38 Great Expectations data contracts that quarantined failing rows under machine-readable reason codes, catching a date-format flip before it shifted 1,900 schedule dates.
+- Restructured ad-hoc SQL into a layered dbt project where each of 84 published mart columns carries a lineage path to a source column and at least one of 96 automated tests, run on every change before promotion.
+- Collapsed three conflicting definitions of "documents pending review" that disagreed by 22% in one week, publishing the definition the owning teams selected in a semantic metric layer and migrating its consumers onto it.
+- Automated a weekly reconciliation between the document register and the file store, classifying 385 of 412 mismatches into five named break types and routing the rest to document control with a triage runbook.
+- Picked the shipped retrieval configuration for bilingual Arabic/English specification search on a measured recall@10 of 0.79, up from a 0.62 lexical baseline, after sweeping dense and blended retrieval with nDCG@10 and MRR beside it.
+- Ablated an Arabic normalizer and measured recall@10 on the Arabic query subset rising from 86 to 98 hits of 130 — alef and hamza unification, diacritic and tatweel stripping, and bidirectional repair.
+- Quantified the cross-lingual gap normalization did not close: 65 of 96 questions whose governing clause sits in the other language resolved, a 19-point deficit against same-language questions, reported as a named limit.
+- Parsed 28 Primavera P6 XER exports into a relational schedule model and extracted 34 IFC building-model exports with IfcOpenShell into a GUID-keyed property and quantity store, reconciling element counts per discipline so no element type was silently dropped.
+- Raised MEP required-parameter completeness from 67.9% to 84.1% with the modelers by encoding the project BIM execution plan's naming and parameter rules as an automated nightly compliance check with a per-element drill-down.
+- Trained a gradient-boosted nonconformance classifier on 26,400 site inspection records split by inspection date (no same-visit leakage), calibrated it with isotonic regression from 0.12 to 0.03 expected calibration error, and chose a triage threshold that put 74% of eventual nonconformances into a 31-item weekly queue inside the quality team's stated capacity.
+- Monitored the model's inputs with a population stability index test that surfaced an injected 0.8-SD shift 9 days before the outcome series moved, wired to a named owner and a retrain-and-recalibrate path.
+- Deployed the internal query service onto the firm's single-node Kubernetes pilot cluster — a 42s rolling update, a 19s rollback, and 0 failed requests across 12,000 under load while killing a pod mid-request.
+- Bound a constrained text-to-SQL path to the certified metric layer: a self-hosted language model picks only from its 7 metrics and 12 filter dimensions, and reviewed code compiles the pick into a read-only, row-capped query; 105 of 125 answerable questions were execution-correct and 50 of 55 deliberately unanswerable questions refused.
 
 ### Lahore University of Management Sciences — Head Teaching Assistant, "CS 331: Introduction to Artificial Intelligence"
 **Lahore, Pakistan · January 2022 – May 2023**
@@ -293,7 +298,7 @@ This theme runs consistently through the subject's later work and stated motivat
 
 7. **Extremism detection research (ASONAM '22):** Built a "context-aware framework for extremist content detection and prevention through urban sentiment analysis on Twitter" — applying NLP/sentiment analysis to public safety and social-harm prevention.
 
-8. **Predictive maintenance / structural safety (SAUDCONSULT internship):** Developed a predictive-maintenance ML model explicitly to "anticipate structural issues, improving safety by 15% in simulated stress tests" — applying ML to physical/structural safety outcomes, not just efficiency.
+8. **Inspection triage / site safety (SAUDCONSULT internship):** Built a calibrated nonconformance-triage model so a quality team's limited weekly review capacity reached the site inspections most likely to become real defects — applying ML to physical safety outcomes, not just throughput.
 
 **Synthesis:** The throughline across the subject's most recent and most personally-driven work (WUMI Health) and stated motivations (Osmo cover letter) is applying AI/ML to health, safety, and accessibility problems that affect underserved populations — first in Pakistan (healthcare infrastructure, low-resource language technology), and more broadly in AI safety/security research. This is not a single side project but a repeated pattern across research (jailbreaking/safety), coursework (differential privacy, AI safety), entrepreneurship (WUMI Health), and stated career interest (Osmo).
 
