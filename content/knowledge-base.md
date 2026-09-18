@@ -50,10 +50,10 @@ I'm drawn to the parts of AI that touch people who are easy to overlook. The thr
 
 ## 3. Work / Research Experience (every entry, all bullets, verbatim metrics)
 
-### WUMI Health — CEO & Founder
-**Lahore, Pakistan · May 2025 – September 2025**
+### WUMI Health — Lead Software Engineer
+**Islamabad, Pakistan · July 2025 – Present**
 *(This entry appears only in the all_things.docx master document, dated after the primary resume_latest_* PDFs; treated as current/primary per task instructions.)*
-- Founded Pakistan's first integrated hospital & diagnostic ecosystem app, consolidating 1,200+ hospitals, 5,000+ clinics, and 2,000+ labs into a unified, FHIR/HL7-compliant digital platform.
+- Built a patient-owned, consent-governed EHR/HMIS on FHIR/HL7 for a Pakistani market of 1,200+ hospitals, 5,000+ clinics and 2,000+ labs still running on paper. (Those figures are MARKET SIZE, not onboarded volume — actual traction is below.)
 - Led end-to-end product development in Flutter/Dart, PostgreSQL, and Supabase, enabling cross-platform (iOS/Android/Web) access with secure role-based authentication, ACID-compliant storage, and real-time sync.
 - Built Electronic Health Record (EHR) modules: patient onboarding, appointment booking, lab integrations, e-prescriptions, QR-based health IDs, and secure report uploads with encryption & audit trails.
 - Designed system architecture (identity layer, provider registry, interoperability APIs, governance layer) ensuring compliance with HIPAA/GDPR-inspired local data protection laws.
@@ -62,8 +62,8 @@ I'm drawn to the parts of AI that touch people who are easy to overlook. The thr
 - Integrated FHIR/HL7/DICOM standards for interoperability with hospitals, labs, and insurance systems, enabling national-scale health record exchange.
 - Used modern developer productivity tools — Warp, Claude Code, Cursor, Gemini CLI — to accelerate debugging, prototyping, and AI-assisted coding workflows.
 - Created data analytics dashboards (Power BI, Supabase, PostgreSQL) for public health authorities, labs, and NGOs to visualize epidemic trends, patient behaviors, and hospital resource utilization.
-- Directed MVP rollout across 10 clinics and 5 labs within 4 months; achieved 70% gross margin targets with scalable SaaS monetization for hospitals, labs, and doctors.
-- Oversaw a cross-functional team of engineers, clinicians, and business partners, while personally contributing >70% of initial codebase spanning Flutter UI, backend schema design, and AI integrations.
+- Drove the MVP through 5 of 12 phases and onboarded 7 clinics, 2 hospitals and 3 labs; ran a 70-person patient pilot at 90% positive intent (0 rejections).
+- Led 3 engineering interns alongside a co-founder (COO, MBBS); owned the build end-to-end — ~59K LOC, 74 DB migrations, row-level security on every table, TOTP/biometric auth and an immutable audit trail.
 - Note: (uncertain) A non-primary draft resume relocates this venture to Nigeria with different metrics and team-growth narrative (solo founder to 6 engineers); this conflicts with the all_things.docx master document (Lahore, Pakistan) and is not used as source material per task scope. The Pakistan framing is treated as authoritative.
 
 ### University of Wisconsin–Madison — Head Graduate Teaching Assistant, "CS 320: Data Science Programming II"
@@ -208,7 +208,7 @@ An AI outreach pipeline that discovers local businesses, drafts a grounded pitch
 | House Boundary Detection | VGG16 U-Net, SpaceNet dataset, QGIS | High-precision boundary detection on Pakistani satellite imagery; secured follow-on research funding |
 | Urban Sentiment / Extremism Detection | Twitter scraping, topic modelling | Poster at IEEE/ACM ASONAM '22 |
 | Mask Detector | YOLOv5, homography, multi-camera fusion | Real-time SOP-violation detection across 3 camera angles |
-| WUMI Health (EHR platform) | Flutter/Dart, PostgreSQL, Supabase, TensorFlow Lite, FHIR/HL7/DICOM, Claude/Gemini/GPT | MVP live across 10 clinics + 5 labs in 4 months; 70% gross margin target; consolidated 1,200+ hospitals, 5,000+ clinics, 2,000+ labs into one platform |
+| WUMI Health (EHR platform) | Flutter/Dart, PostgreSQL, Supabase, TensorFlow Lite, FHIR/HL7/DICOM, Claude/Gemini/GPT | MVP through 5 of 12 phases; onboarded 7 clinics, 2 hospitals and 3 labs; 70-person patient pilot at 90% positive intent; market of 1,200+ hospitals, 5,000+ clinics, 2,000+ labs |
 | CS 320 Auto-Grading Pipeline | Python, GitLab API, Canvas API | 90% reduction in grading turnaround for 500+ students |
 | MOSS Plagiarism Detection Workflow | MOSS | Academic integrity enforcement across 1,000+ submissions |
 | TUBITAK TEKNOFEST UAV | Autopilot software, circuit design, systems engineering | Fixed-wing UAV; team of 7; selected top 20 teams globally |
@@ -284,7 +284,7 @@ An AI outreach pipeline that discovers local businesses, drafts a grounded pitch
 
 This theme runs consistently through the subject's later work and stated motivations:
 
-1. **WUMI Health (Founder & CEO, 2025):** Built "Pakistan's first integrated hospital & diagnostic ecosystem app," explicitly targeting underserved healthcare infrastructure — consolidating 1,200+ hospitals, 5,000+ clinics, and 2,000+ labs into one FHIR/HL7-compliant platform. Used generative AI (Claude, Gemini, GPT) specifically for doctor–patient conversation summarization, lab anomaly detection, and proactive diagnostic recommendations — i.e., applying AI directly to clinical/health outcomes for populations with fragmented healthcare access. Built with attention to HIPAA/GDPR-inspired data protection for patient privacy.
+1. **WUMI Health (Lead Software Engineer, 2025–present):** Built a patient-owned, consent-governed EHR/HMIS explicitly targeting underserved healthcare infrastructure — for a market of 1,200+ hospitals, 5,000+ clinics and 2,000+ labs still on paper, with 7 clinics, 2 hospitals and 3 labs onboarded to date. Used generative AI (Claude, Gemini, GPT) specifically for doctor–patient conversation summarization, lab anomaly detection, and proactive diagnostic recommendations — i.e., applying AI directly to clinical/health outcomes for populations with fragmented healthcare access. Built with attention to HIPAA/GDPR-inspired data protection for patient privacy.
 
 2. **Osmo cover letter (February 2024):** Applied for a Psychophysics Analyst Internship at Osmo, a company whose mission is "digitizing olfaction to improve human health and wellbeing." The subject wrote: *"Your commitment to digitizing olfaction to improve human health and wellbeing is not only inspiring but also echoes my own passion for applying advanced AI and ML to uncharted domains."* This is a direct, quotable statement of the subject's own passion for applying AI to human-health-relevant, unconventional domains.
 
@@ -309,9 +309,9 @@ This theme runs consistently through the subject's later work and stated motivat
 - Resume variants are explicitly tailored across three tracks, indicating the subject is targeting: **(1) Software Engineering roles** (resume_latest_SWE), **(2) Data Science / Data Engineering roles** (resume_latest_data), and **(3) Research / AI-research-oriented roles** (resume_latest_research), plus a company-specific ML resume tailored for **Ripple** (companies/resume_ML_ripple.pdf — same content as resume_latest_data.pdf, suggesting a data/ML engineering angle was used for that application).
 - The SWE-track resume lists an expanded technical skill set aimed at engineering roles: Google Cloud Platform, CI/CD, cloud computing, Kubernetes, GitHub, Postman, Agile Framework — signaling readiness for production software engineering positions.
 - The data-track resume emphasizes AWS, GCP, gRPC, Spark, CUDA, ReactJS — signaling readiness for data engineering / applied ML engineering roles.
-- The research-track resume retains the full "Ph.D. Computer Sciences" framing and leads with published research (ACM CSET '23, ASONAM '22) — signaling interest in research scientist / research engineer positions, potentially in AI safety/security given the jailbreaking and ransomware-provenance research lines.
+- The research-track resume retains a research-forward framing and leads with published research (ACM CSET '23, ASONAM '22) — signaling interest in research scientist / research engineer positions, potentially in AI safety/security given the jailbreaking and ransomware-provenance research lines.
 - The Osmo cover letter (2024) shows the subject also pursues roles at the intersection of AI/ML and human health/wellbeing (Psychophysics Analyst Internship) — a data-science-meets-health-science role.
-- Overall picture: a Ph.D. student building optionality across SWE, data/ML engineering, and AI research career paths, with a clear personal pull toward applying AI to human health, safety, and accessibility problems.
+- Overall picture: an M.S. student (industry-bound, not the academic PhD track) building optionality across SWE, data/ML engineering, and AI research career paths, with a clear personal pull toward applying AI to human health, safety, and accessibility problems.
 
 ---
 
@@ -325,7 +325,7 @@ From the Osmo cover letter (February 20, 2024), which is the fullest first-perso
 
 Voice characteristics evident in the cover letter: enthusiastic, achievement-forward, emphasizes cross-disciplinary collaboration (works well with neuroscientists, clinicians, business partners — recurring pattern also seen at WUMI Health, which explicitly involved "a cross-functional team of engineers, clinicians, and business partners"). Consistently frames his own work in terms of applying AI/ML to "uncharted domains" and using technical skill for tangible real-world impact rather than pure research for its own sake — he explicitly cites his research work (ransomware analysis, house boundary detection) as evidence of his "drive for groundbreaking research and results," suggesting he sees research and applied impact as connected, not separate tracks.
 
-The pattern of founding WUMI Health mid-Ph.D. (May–September 2025) — stepping away from a pure research track to build and personally code (>70% of the codebase) a healthcare startup — is strong behavioral evidence (not just stated preference) that the subject is drawn toward hands-on building with direct human impact, not only academic research.
+The pattern of building WUMI Health during the M.S. (from July 2025) — stepping away from a pure research track to build and personally code a healthcare platform — is strong behavioral evidence (not just stated preference) that the subject is drawn toward hands-on building with direct human impact, not only academic research.
 
 ---
 
@@ -336,7 +336,7 @@ The pattern of founding WUMI Health mid-Ph.D. (May–September 2025) — steppin
 | Name, contact info, ORCID | All resume_latest_* PDFs; word_docs/all_things.docx |
 | LUMS education, GPA history | resume_latest_SWE/research/data.pdf; old/Research_CV.pdf; old/uw_resume_1.0.pdf; old/resume-uw(old).docx |
 | UW-Madison education, transcript-verified GPA/courses | old/SSR_TSRPT.pdf (official transcript) |
-| WUMI Health (CEO/Founder role, full bullet list) | word_docs/all_things.docx |
+| WUMI Health (Lead Software Engineer, full bullet list) | word_docs/all_things.docx |
 | CS 320 / CS 220 TA roles | resume_latest_SWE.pdf, resume_latest_research.pdf, resume_latest_data.pdf, word_docs/all_things.docx |
 | SAUDCONSULT internship (full detail) | word_docs/all_things.docx; condensed versions in resume_latest_* PDFs |
 | CS 331 / CS 3812 TA roles at LUMS | all resume variants; old/Research_CV.pdf (most detailed) |

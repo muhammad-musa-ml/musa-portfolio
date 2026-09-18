@@ -42,20 +42,20 @@
   "experience": [
     {
       "org": "WUMI Health",
-      "role": "Founder & CEO",
-      "start": "2025-05",
+      "role": "Lead Software Engineer",
+      "start": "2025-07",
       "end": "Present",
-      "location": "Lahore, Pakistan (remote)",
-      "summary": "Founded and personally built Pakistan's first integrated hospital & diagnostic ecosystem app — an AI-assisted, FHIR/HL7-compliant EHR platform for a healthcare system still running on paper.",
+      "location": "Islamabad, Pakistan (remote)",
+      "summary": "Built and led engineering for a patient-owned, consent-governed, FHIR-aligned EHR/HMIS — an AI-assisted platform for a healthcare system still running on paper.",
       "bullets": [
-        "Founded Pakistan's first integrated hospital & diagnostic ecosystem app, unifying 1,200+ hospitals, 5,000+ clinics, and 2,000+ labs onto one FHIR/HL7-compliant digital platform",
+        "Built a patient-owned, consent-governed EHR/HMIS on FHIR/HL7 for a Pakistani market of 1,200+ hospitals, 5,000+ clinics and 2,000+ labs still running on paper",
         "Built the product end-to-end in Flutter/Dart, PostgreSQL, and Supabase — cross-platform (iOS/Android/Web) with role-based auth, ACID-compliant storage, and real-time sync",
         "Shipped EHR modules: patient onboarding, appointment booking, lab integrations, e-prescriptions, QR-based health IDs, and encrypted report uploads with audit trails",
         "Implemented AI/ML pipelines (Python, TensorFlow Lite, and Claude/Gemini/GPT) for doctor–patient conversation summarization, lab anomaly detection, and diagnostic support",
         "Built REST + gRPC microservices on PostgreSQL, Supabase Realtime, and AWS S3; tuned queries with GIN indices to scale across millions of records",
-        "Directed the MVP rollout across 10 clinics and 5 labs within 4 months — while personally writing over 70% of the initial codebase and leading a cross-functional team of engineers, clinicians, and partners"
+        "Drove the MVP through 5 of 12 phases (~59K LOC, 74 DB migrations, row-level security on every table); onboarded 7 clinics, 2 hospitals and 3 labs, and ran a 70-person patient pilot at 90% positive intent (0 rejections), leading 3 engineering interns"
       ],
-      "tags": ["Founder", "AI/ML", "Healthcare", "Full-Stack"]
+      "tags": ["Engineering Lead", "AI/ML", "Healthcare", "Full-Stack"]
     },
     {
       "org": "University of Wisconsin–Madison",
@@ -158,12 +158,12 @@
     },
     {
       "name": "WUMI Health — AI-assisted EHR platform",
-      "description": "Founded and built Pakistan's first integrated hospital & diagnostic ecosystem app, unifying hospitals, clinics, and labs onto one FHIR/HL7-compliant platform with generative-AI clinical support.",
+      "description": "Built and led engineering for a patient-owned, consent-governed EHR/HMIS unifying hospitals, clinics and labs on one FHIR/HL7-aligned platform with generative-AI clinical support.",
       "tech": ["Flutter/Dart", "PostgreSQL", "Supabase", "TensorFlow Lite", "Claude / GPT / Gemini", "AWS S3", "FHIR/HL7/DICOM"],
       "highlights": [
-        "Consolidated 1,200+ hospitals, 5,000+ clinics, and 2,000+ labs into one platform",
-        "MVP live across 10 clinics and 5 labs within 4 months",
-        "Personally wrote 70%+ of the initial codebase"
+        "Targets a Pakistani market of 1,200+ hospitals, 5,000+ clinics and 2,000+ labs",
+        "Onboarded 7 clinics, 2 hospitals and 3 labs; 70-person patient pilot at 90% positive intent",
+        "~59K LOC, 74 DB migrations, row-level security on every table"
       ],
       "category": "AI for Health",
       "featured": true,
@@ -311,7 +311,7 @@
       "Public & structural safety (extremism, ransomware, site-inspection triage)"
     ],
     "evidence": [
-      "Founded WUMI Health to bring unified, AI-assisted electronic health records to a fragmented healthcare system serving millions — using generative AI for clinical summarization and diagnostic support",
+      "Built WUMI Health to bring unified, AI-assisted electronic health records to a fragmented healthcare system serving millions — using generative AI for clinical summarization and diagnostic support",
       "Built the first large-scale NLP corpus and benchmark for Shahmukhi Punjabi, explicitly to close an equity gap in language technology",
       "Researched LLM jailbreaking and safety-alignment degradation under Dr. Somesh Jha — studying how to keep increasingly capable, accessible AI systems safe",
       "Published ransomware-detection research (ACM CSET '23) aimed at protecting people and organizations from cyberattacks",
