@@ -45,17 +45,15 @@
       "role": "Lead Software Engineer",
       "start": "2025-07",
       "end": "Present",
-      "location": "Islamabad, Pakistan (remote)",
-      "summary": "Built and led engineering for a patient-owned, consent-governed, FHIR-aligned EHR/HMIS — an AI-assisted platform for a healthcare system still running on paper.",
+      "location": "Remote",
+      "summary": "Built and led engineering for a patient-owned, consent-governed, FHIR-aligned EHR/HMIS — a platform for a healthcare system still running on paper.",
       "bullets": [
         "Built a patient-owned, consent-governed EHR/HMIS on FHIR/HL7 for a Pakistani market of 1,200+ hospitals, 5,000+ clinics and 2,000+ labs still running on paper",
         "Built the product end-to-end in Flutter/Dart, PostgreSQL, and Supabase — cross-platform (iOS/Android/Web) with role-based auth, ACID-compliant storage, and real-time sync",
-        "Shipped EHR modules: patient onboarding, appointment booking, lab integrations, e-prescriptions, QR-based health IDs, and encrypted report uploads with audit trails",
-        "Implemented AI/ML pipelines (Python, TensorFlow Lite, and Claude/Gemini/GPT) for doctor–patient conversation summarization, lab anomaly detection, and diagnostic support",
-        "Built REST + gRPC microservices on PostgreSQL, Supabase Realtime, and AWS S3; tuned queries with GIN indices to scale across millions of records",
-        "Drove the MVP through 5 of 12 phases (~59K LOC, 74 DB migrations, row-level security on every table); onboarded 7 clinics, 2 hospitals and 3 labs, and ran a 70-person patient pilot at 90% positive intent (0 rejections), leading 3 engineering interns"
+        "Shipped EHR modules: patient onboarding, lab orders and results, e-prescriptions, QR-based health IDs, and encrypted report uploads with audit trails; appointment booking is in progress",
+        "Delivered seven of thirteen planned verticals (~122K lines of application code, 129 DB migrations, row-level security on every table); secured 7 clinics, 2 hospitals and 3 labs onboard and ran a 70-person patient pilot at 90% positive intent (0 rejections), leading 3 engineering interns"
       ],
-      "tags": ["Engineering Lead", "AI/ML", "Healthcare", "Full-Stack"]
+      "tags": ["Engineering Lead", "Healthcare", "Full-Stack"]
     },
     {
       "org": "University of Wisconsin–Madison",
@@ -157,13 +155,13 @@
       "link": null
     },
     {
-      "name": "WUMI Health — AI-assisted EHR platform",
-      "description": "Built and led engineering for a patient-owned, consent-governed EHR/HMIS unifying hospitals, clinics and labs on one FHIR/HL7-aligned platform with generative-AI clinical support.",
-      "tech": ["Flutter/Dart", "PostgreSQL", "Supabase", "TensorFlow Lite", "Claude / GPT / Gemini", "AWS S3", "FHIR/HL7/DICOM"],
+      "name": "WUMI Health — EHR platform",
+      "description": "Built and led engineering for a patient-owned, consent-governed EHR/HMIS: one FHIR-aligned platform for patients, clinicians, labs and pharmacies.",
+      "tech": ["Flutter/Dart", "PostgreSQL", "Supabase", "Row-level security", "FHIR R4 / HL7"],
       "highlights": [
         "Targets a Pakistani market of 1,200+ hospitals, 5,000+ clinics and 2,000+ labs",
         "Onboarded 7 clinics, 2 hospitals and 3 labs; 70-person patient pilot at 90% positive intent",
-        "~59K LOC, 74 DB migrations, row-level security on every table"
+        "~122K lines of application code, 129 DB migrations, row-level security on every table"
       ],
       "category": "AI for Health",
       "featured": true,
@@ -171,12 +169,12 @@
     },
     {
       "name": "resume-gauntlet — adversarial multi-agent résumé engine",
-      "description": "An open-source Claude Code plugin that turns a folder of real work into interview-defensible résumé bullets, then attacks them. Its core is a 7-verifier adversarial gauntlet — ATS simulator, skeptical hiring-manager, plausibility auditor, AI-fingerprint detector and more — that every bullet must survive. Writer and verifier models are forced to differ at runtime, so nothing grades its own homework. (This site's honesty-first AI twin runs on the same ethos.)",
-      "tech": ["Claude Agent SDK", "Multi-agent orchestration", "LLM-as-judge", "Python", "Prompt engineering", "pytest"],
+      "description": "A Claude Code plugin that turns a folder of real work into interview-defensible résumé bullets, then attacks them. Its core is an 8-verifier adversarial gauntlet — ATS simulator, skeptical hiring-manager, plausibility auditor, AI-fingerprint detector and more — that every bullet must survive. Writer and verifier models are forced to differ at runtime, so nothing grades its own homework. (This site's honesty-first AI twin runs on the same ethos.)",
+      "tech": ["Claude Code plugin (skills, subagents, hooks)", "Multi-agent orchestration", "LLM-as-judge", "Python", "Prompt engineering", "pytest"],
       "highlights": [
-        "32 skills + 23 subagents (writer vs. verifier roles), writer≠verifier enforced at runtime",
-        "7-verifier adversarial gauntlet gates every claim before it ships",
-        "374+ automated tests, Stop-hook guardrails, MIT-licensed"
+        "41 skills + 29 subagents (writer vs. verifier roles); writer and verifiers are different model families, enforced at config time",
+        "8-verifier adversarial gauntlet gates every claim before it ships",
+        "6,567-test suite, Stop-hook guardrails, MIT-licensed"
       ],
       "category": "AI Systems",
       "featured": true,
@@ -200,7 +198,7 @@
       "description": "Undergraduate senior thesis with SRI International (Dr. Ashish Gehani) and Dr. Fareed Zaffar (LUMS): an automated pipeline for large-scale ransomware behavioral analysis via provenance graphs. Published at ACM CSET '23.",
       "tech": ["Python", "SPADE", "Process Monitor", "Virtual Machines", "MalwareBazaar API"],
       "highlights": [
-        "Published at ACM CSET '23 as first co-author",
+        "Published at ACM CSET '23 as co-author",
         "Automated detonation → real-time monitoring → provenance-graph generation at scale",
         "Built a large-scale provenance dataset from thousands of malware samples"
       ],
@@ -311,7 +309,7 @@
       "Public & structural safety (extremism, ransomware, site-inspection triage)"
     ],
     "evidence": [
-      "Built WUMI Health to bring unified, AI-assisted electronic health records to a fragmented healthcare system serving millions — using generative AI for clinical summarization and diagnostic support",
+      "Built WUMI Health to bring unified, patient-owned electronic health records to a healthcare system still running on paper",
       "Built the first large-scale NLP corpus and benchmark for Shahmukhi Punjabi, explicitly to close an equity gap in language technology",
       "Researched LLM jailbreaking and safety-alignment degradation under Dr. Somesh Jha — studying how to keep increasingly capable, accessible AI systems safe",
       "Published ransomware-detection research (ACM CSET '23) aimed at protecting people and organizations from cyberattacks",
@@ -455,7 +453,7 @@
       "year": "2001",
       "title": "Born in Pakistan",
       "subtitle": "Where the story starts",
-      "description": "Born September 9, 2001. Family roots in Pakistan shaped a career that keeps circling back to one idea: bringing technology to the people and places that usually get skipped.",
+      "description": "Family roots in Pakistan shaped a career that keeps circling back to one idea: bringing technology to the people and places that usually get skipped.",
       "icon_hint": "home"
     },
     {
@@ -502,9 +500,9 @@
     },
     {
       "year": "2025",
-      "title": "Founds WUMI Health",
-      "subtitle": "Pakistan's first integrated hospital & diagnostic platform",
-      "description": "Turned years of AI-for-good research interest into a real product — founding and personally building an AI-assisted EHR platform unifying 1,200+ hospitals, 5,000+ clinics, and 2,000+ labs. Wrote 70%+ of the code himself and shipped an MVP live in 10 clinics within 4 months.",
+      "title": "Builds WUMI Health",
+      "subtitle": "A patient-owned health record platform for Pakistan",
+      "description": "Turned years of AI-for-good research interest into a real product — building and leading engineering on a patient-owned, consent-governed health record platform, with 7 clinics, 2 hospitals and 3 labs onboard and a 70-person patient pilot at 90% positive intent.",
       "icon_hint": "heart-pulse"
     },
     {

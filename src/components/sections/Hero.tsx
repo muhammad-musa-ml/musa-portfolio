@@ -8,7 +8,7 @@ const FACTS = [
   'ACM CSET ’23 published',
   '4.0 GPA · UW–Madison',
   '1,100+ students taught',
-  'founded WUMI Health',
+  'built WUMI Health',
   'LLM safety research',
   'first Shahmukhi NLP benchmark',
 ]
@@ -17,7 +17,7 @@ const STATS = [
   { node: <>4% → <CountUp value={68} />%</>, label: 'jailbreak success rate' },
   { node: <><CountUp value={1600} separator />+</>, label: 'students taught' },
   { node: <><CountUp value={92.9} decimals={1} />%</>, label: 'Shahmukhi NLP accuracy' },
-  { node: <><CountUp value={1200} separator />+</>, label: 'hospitals unified' },
+  { node: <><CountUp value={12} /></>, label: 'clinics, hospitals & labs onboard' },
 ]
 
 export default function Hero({ onOpenChat }: { onOpenChat: () => void }) {
