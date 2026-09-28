@@ -17,15 +17,11 @@ I'm drawn to the parts of AI that touch people who are easy to overlook. The thr
 - **University:** University of Wisconsin–Madison
 - **Undergraduate institution:** Lahore University of Management Sciences (LUMS), Lahore, Pakistan
 - **Email:** mmusa2@wisc.edu
-- **Secondary/personal email:** danialyahoodi@gmail.com (uncertain — appears only in a non-primary draft resume, not in the primary resume set; the primary/canonical email is mmusa2@wisc.edu)
-- **Phone:** (608) 217-0769
 - **LinkedIn:** https://www.linkedin.com/in/mmusa2
 - **ORCID:** https://orcid.org/0009-0009-5542-8040
 - **GitHub:** https://github.com/muhammad-musa-ml (current handle, used on recent applications; an older handle github.com/mmusa2 also exists)
-- **Website/portfolio:** none listed in source material
-- **Location:** Madison, WI (current); originally from Pakistan (Lahore/Karachi area, per KASB/TransformX "Remote, Pakistan" listings)
-- **Birthdate:** 09/09/2001 (from UW-Madison official transcript)
-- **Visa status:** F1 Visa (noted on old/Research_CV.pdf)
+- **Website/portfolio:** https://iammusa.vercel.app
+- **Location:** Madison, WI (current); originally from Pakistan
 
 ---
 
@@ -51,20 +47,14 @@ I'm drawn to the parts of AI that touch people who are easy to overlook. The thr
 ## 3. Work / Research Experience (every entry, all bullets, verbatim metrics)
 
 ### WUMI Health — Lead Software Engineer
-**Islamabad, Pakistan · July 2025 – Present**
-*(This entry appears only in the all_things.docx master document, dated after the primary resume_latest_* PDFs; treated as current/primary per task instructions.)*
+**Remote · July 2025 – Present**
 - Built a patient-owned, consent-governed EHR/HMIS on FHIR/HL7 for a Pakistani market of 1,200+ hospitals, 5,000+ clinics and 2,000+ labs still running on paper. (Those figures are MARKET SIZE, not onboarded volume — actual traction is below.)
 - Led end-to-end product development in Flutter/Dart, PostgreSQL, and Supabase, enabling cross-platform (iOS/Android/Web) access with secure role-based authentication, ACID-compliant storage, and real-time sync.
-- Built Electronic Health Record (EHR) modules: patient onboarding, appointment booking, lab integrations, e-prescriptions, QR-based health IDs, and secure report uploads with encryption & audit trails.
+- Built Electronic Health Record (EHR) modules: patient onboarding, lab orders and results, e-prescriptions, QR-based health IDs, and secure report uploads with encryption & audit trails; appointment booking is in progress.
 - Designed system architecture (identity layer, provider registry, interoperability APIs, governance layer) ensuring compliance with HIPAA/GDPR-inspired local data protection laws.
-- Implemented AI/ML pipelines using Python, TensorFlow Lite, and generative AI models (Claude, Gemini, GPT) for doctor–patient conversation summarization, anomaly detection in labs, and proactive diagnostic recommendations.
-- Developed backend APIs & microservices (REST + gRPC) with PostgreSQL, Supabase Realtime, and AWS S3 storage; optimized queries using GIN indices for scalability across millions of records.
-- Integrated FHIR/HL7/DICOM standards for interoperability with hospitals, labs, and insurance systems, enabling national-scale health record exchange.
-- Used modern developer productivity tools — Warp, Claude Code, Cursor, Gemini CLI — to accelerate debugging, prototyping, and AI-assisted coding workflows.
-- Created data analytics dashboards (Power BI, Supabase, PostgreSQL) for public health authorities, labs, and NGOs to visualize epidemic trends, patient behaviors, and hospital resource utilization.
-- Drove the MVP through 5 of 12 phases and onboarded 7 clinics, 2 hospitals and 3 labs; ran a 70-person patient pilot at 90% positive intent (0 rejections).
-- Led 3 engineering interns alongside a co-founder (COO, MBBS); owned the build end-to-end — ~59K LOC, 74 DB migrations, row-level security on every table, TOTP/biometric auth and an immutable audit trail.
-- Note: (uncertain) A non-primary draft resume relocates this venture to Nigeria with different metrics and team-growth narrative (solo founder to 6 engineers); this conflicts with the all_things.docx master document (Lahore, Pakistan) and is not used as source material per task scope. The Pakistan framing is treated as authoritative.
+- Modelled the clinical record as a FHIR-aligned relational core (Patient, Practitioner, Organization, Encounter, DiagnosticReport, Observation and more), with consent scoping and an immutable audit trail.
+- Delivered seven of thirteen planned verticals, with scheduling and atomic booking in progress; secured 7 clinics, 2 hospitals and 3 labs onboard and ran a 70-person patient pilot at 90% positive intent (0 rejections).
+- Led 3 engineering interns and owned the build end to end: ~122K lines of application code, 129 database migrations, row-level security on every table, TOTP/biometric auth, an immutable audit trail and 1,177 pgTAP assertions passing locally and in the cloud.
 
 ### University of Wisconsin–Madison — Head Graduate Teaching Assistant, "CS 320: Data Science Programming II"
 **Madison, WI · July 2024 – Present**
@@ -128,11 +118,11 @@ Sometimes split into two separate entries (KASB Securities: Smart Contract Devel
 
 ## 3b. Recent AI-engineering projects (built solo, 2025–2026)
 
-### resume-gauntlet — adversarial multi-agent résumé engine (open source, MIT)
-An open-source Claude Code plugin I built that turns a folder of real work into interview-defensible résumé bullets, then attacks them. The core is a 7-verifier adversarial "gauntlet" — an ATS simulator, a skeptical hiring-manager screen, a plausibility auditor, an AI-fingerprint detector, a tense checker, and more — that every bullet must survive before it ships.
-- 32 skills + 23 subagents (writer roles vs. verifier roles), with **writer ≠ verifier enforced at runtime** so nothing grades its own homework.
-- 374+ automated tests; Stop-hook guardrails; MIT-licensed.
-- Tech: Claude Agent SDK, multi-agent orchestration, LLM-as-judge, Python, prompt engineering, pytest.
+### resume-gauntlet — adversarial multi-agent résumé engine (MIT-licensed)
+A Claude Code plugin I built that turns a folder of real work into interview-defensible résumé bullets, then attacks them. The core is an 8-verifier adversarial "gauntlet" — an ATS simulator, a skeptical hiring-manager screen, a plausibility auditor, an AI-fingerprint detector, a tense checker, and more — that every bullet must survive before it ships.
+- 41 skills + 29 subagents (writer roles vs. verifier roles); the writer and the verifiers are different model families, enforced at config time, so nothing grades its own homework.
+- A 6,567-test suite; Stop-hook guardrails; MIT-licensed.
+- Tech: Claude Code plugin (skills, subagents, hooks), multi-agent orchestration, LLM-as-judge, Python, prompt engineering, pytest.
 - Why it matters: it's real, shipped AI-systems engineering — and this portfolio's honesty-first AI twin runs on the same "prove it or don't claim it" ethos.
 
 ### Voice Agent — $0, fully-local cold-outreach caller (in progress)
@@ -208,7 +198,7 @@ An AI outreach pipeline that discovers local businesses, drafts a grounded pitch
 | House Boundary Detection | VGG16 U-Net, SpaceNet dataset, QGIS | High-precision boundary detection on Pakistani satellite imagery; secured follow-on research funding |
 | Urban Sentiment / Extremism Detection | Twitter scraping, topic modelling | Poster at IEEE/ACM ASONAM '22 |
 | Mask Detector | YOLOv5, homography, multi-camera fusion | Real-time SOP-violation detection across 3 camera angles |
-| WUMI Health (EHR platform) | Flutter/Dart, PostgreSQL, Supabase, TensorFlow Lite, FHIR/HL7/DICOM, Claude/Gemini/GPT | MVP through 5 of 12 phases; onboarded 7 clinics, 2 hospitals and 3 labs; 70-person patient pilot at 90% positive intent; market of 1,200+ hospitals, 5,000+ clinics, 2,000+ labs |
+| WUMI Health (EHR platform) | Flutter/Dart, PostgreSQL, Supabase, FHIR R4, row-level security | Seven of thirteen planned verticals delivered; 7 clinics, 2 hospitals and 3 labs onboard; 70-person patient pilot at 90% positive intent; market of 1,200+ hospitals, 5,000+ clinics, 2,000+ labs |
 | CS 320 Auto-Grading Pipeline | Python, GitLab API, Canvas API | 90% reduction in grading turnaround for 500+ students |
 | MOSS Plagiarism Detection Workflow | MOSS | Academic integrity enforcement across 1,000+ submissions |
 | TUBITAK TEKNOFEST UAV | Autopilot software, circuit design, systems engineering | Fixed-wing UAV; team of 7; selected top 20 teams globally |
@@ -284,23 +274,21 @@ An AI outreach pipeline that discovers local businesses, drafts a grounded pitch
 
 This theme runs consistently through the subject's later work and stated motivations:
 
-1. **WUMI Health (Lead Software Engineer, 2025–present):** Built a patient-owned, consent-governed EHR/HMIS explicitly targeting underserved healthcare infrastructure — for a market of 1,200+ hospitals, 5,000+ clinics and 2,000+ labs still on paper, with 7 clinics, 2 hospitals and 3 labs onboarded to date. Used generative AI (Claude, Gemini, GPT) specifically for doctor–patient conversation summarization, lab anomaly detection, and proactive diagnostic recommendations — i.e., applying AI directly to clinical/health outcomes for populations with fragmented healthcare access. Built with attention to HIPAA/GDPR-inspired data protection for patient privacy.
+1. **WUMI Health (Lead Software Engineer, 2025–present):** Built a patient-owned, consent-governed EHR/HMIS explicitly targeting underserved healthcare infrastructure — for a market of 1,200+ hospitals, 5,000+ clinics and 2,000+ labs still on paper, with 7 clinics, 2 hospitals and 3 labs onboarded to date. Built with attention to HIPAA/GDPR-inspired data protection for patient privacy.
 
-2. **Osmo cover letter (February 2024):** Applied for a Psychophysics Analyst Internship at Osmo, a company whose mission is "digitizing olfaction to improve human health and wellbeing." The subject wrote: *"Your commitment to digitizing olfaction to improve human health and wellbeing is not only inspiring but also echoes my own passion for applying advanced AI and ML to uncharted domains."* This is a direct, quotable statement of the subject's own passion for applying AI to human-health-relevant, unconventional domains.
+2. **Low-resource language NLP (Shahmukhi Punjabi):** Explicitly framed as "addressing a major gap in NLP for low-resource languages" — a direct equity/accessibility angle, giving AI/NLP tooling to a language (Shahmukhi Punjabi, tens of millions of speakers) that lacks mainstream NLP resources.
 
-3. **Low-resource language NLP (Shahmukhi Punjabi):** Explicitly framed as "addressing a major gap in NLP for low-resource languages" — a direct equity/accessibility angle, giving AI/NLP tooling to a language (Shahmukhi Punjabi, tens of millions of speakers) that lacks mainstream NLP resources.
+3. **LLM Jailbreaking & Security research (with Dr. Somesh Jha):** AI safety-oriented research — studying how fine-tuning degrades safety alignment in open-source LLMs. This is squarely in the AI-safety-for-humanity space: understanding and mitigating misuse risks of increasingly capable/accessible language models.
 
-4. **LLM Jailbreaking & Security research (with Dr. Somesh Jha):** AI safety-oriented research — studying how fine-tuning degrades safety alignment in open-source LLMs. This is squarely in the AI-safety-for-humanity space: understanding and mitigating misuse risks of increasingly capable/accessible language models.
+4. **Ransomware detection research (ACM CSET '23):** Defensive security research aimed at protecting organizations/individuals from ransomware — a direct contribution to digital safety infrastructure.
 
-5. **Ransomware detection research (ACM CSET '23):** Defensive security research aimed at protecting organizations/individuals from ransomware — a direct contribution to digital safety infrastructure.
+5. **Course coursework choices:** "AI Safety & Differential Privacy" listed explicitly among key UW–Madison courses, alongside "Privacy and Security in Data Science" — indicating a sustained academic interest in responsible/safe AI, not just capability-building.
 
-6. **Course coursework choices:** "AI Safety & Differential Privacy" listed explicitly among key UW–Madison courses, alongside "Privacy and Security in Data Science" — indicating a sustained academic interest in responsible/safe AI, not just capability-building.
+6. **Extremism detection research (ASONAM '22):** Built a "context-aware framework for extremist content detection and prevention through urban sentiment analysis on Twitter" — applying NLP/sentiment analysis to public safety and social-harm prevention.
 
-7. **Extremism detection research (ASONAM '22):** Built a "context-aware framework for extremist content detection and prevention through urban sentiment analysis on Twitter" — applying NLP/sentiment analysis to public safety and social-harm prevention.
+7. **Inspection triage / site safety (SAUDCONSULT internship):** Built a calibrated nonconformance-triage model so a quality team's limited weekly review capacity reached the site inspections most likely to become real defects — applying ML to physical safety outcomes, not just throughput.
 
-8. **Inspection triage / site safety (SAUDCONSULT internship):** Built a calibrated nonconformance-triage model so a quality team's limited weekly review capacity reached the site inspections most likely to become real defects — applying ML to physical safety outcomes, not just throughput.
-
-**Synthesis:** The throughline across the subject's most recent and most personally-driven work (WUMI Health) and stated motivations (Osmo cover letter) is applying AI/ML to health, safety, and accessibility problems that affect underserved populations — first in Pakistan (healthcare infrastructure, low-resource language technology), and more broadly in AI safety/security research. This is not a single side project but a repeated pattern across research (jailbreaking/safety), coursework (differential privacy, AI safety), entrepreneurship (WUMI Health), and stated career interest (Osmo).
+**Synthesis:** The throughline across the subject's most recent and most personally-driven work (WUMI Health) is applying AI/ML to health, safety, and accessibility problems that affect underserved populations — first in Pakistan (healthcare infrastructure, low-resource language technology), and more broadly in AI safety/security research. This is not a single side project but a repeated pattern across research (jailbreaking/safety), coursework (differential privacy, AI safety) and product engineering (WUMI Health).
 
 ---
 
@@ -310,54 +298,4 @@ This theme runs consistently through the subject's later work and stated motivat
 - The SWE-track resume lists an expanded technical skill set aimed at engineering roles: Google Cloud Platform, CI/CD, cloud computing, Kubernetes, GitHub, Postman, Agile Framework — signaling readiness for production software engineering positions.
 - The data-track resume emphasizes AWS, GCP, gRPC, Spark, CUDA, ReactJS — signaling readiness for data engineering / applied ML engineering roles.
 - The research-track resume retains a research-forward framing and leads with published research (ACM CSET '23, ASONAM '22) — signaling interest in research scientist / research engineer positions, potentially in AI safety/security given the jailbreaking and ransomware-provenance research lines.
-- The Osmo cover letter (2024) shows the subject also pursues roles at the intersection of AI/ML and human health/wellbeing (Psychophysics Analyst Internship) — a data-science-meets-health-science role.
 - Overall picture: an M.S. student (industry-bound, not the academic PhD track) building optionality across SWE, data/ML engineering, and AI research career paths, with a clear personal pull toward applying AI to human health, safety, and accessibility problems.
-
----
-
-## 11. Voice & Motivation Notes
-
-From the Osmo cover letter (February 20, 2024), which is the fullest first-person statement of motivation available in the source material:
-
-> "Your commitment to digitizing olfaction to improve human health and wellbeing is not only inspiring but also echoes my own passion for applying advanced AI and ML to uncharted domains."
-
-> "Joining Osmo's multidisciplinary team would be a significant step in my career. I am particularly excited about collaborating with neuroscientists and software engineers to design experiments and analyze data that will pave the way for Osmo's groundbreaking olfactory technologies."
-
-Voice characteristics evident in the cover letter: enthusiastic, achievement-forward, emphasizes cross-disciplinary collaboration (works well with neuroscientists, clinicians, business partners — recurring pattern also seen at WUMI Health, which explicitly involved "a cross-functional team of engineers, clinicians, and business partners"). Consistently frames his own work in terms of applying AI/ML to "uncharted domains" and using technical skill for tangible real-world impact rather than pure research for its own sake — he explicitly cites his research work (ransomware analysis, house boundary detection) as evidence of his "drive for groundbreaking research and results," suggesting he sees research and applied impact as connected, not separate tracks.
-
-The pattern of building WUMI Health during the M.S. (from July 2025) — stepping away from a pure research track to build and personally code a healthcare platform — is strong behavioral evidence (not just stated preference) that the subject is drawn toward hands-on building with direct human impact, not only academic research.
-
----
-
-## 12. Source Map
-
-| Claim area | Primary source file(s) |
-|---|---|
-| Name, contact info, ORCID | All resume_latest_* PDFs; word_docs/all_things.docx |
-| LUMS education, GPA history | resume_latest_SWE/research/data.pdf; old/Research_CV.pdf; old/uw_resume_1.0.pdf; old/resume-uw(old).docx |
-| UW-Madison education, transcript-verified GPA/courses | old/SSR_TSRPT.pdf (official transcript) |
-| WUMI Health (Lead Software Engineer, full bullet list) | word_docs/all_things.docx |
-| CS 320 / CS 220 TA roles | resume_latest_SWE.pdf, resume_latest_research.pdf, resume_latest_data.pdf, word_docs/all_things.docx |
-| SAUDCONSULT internship (full detail) | word_docs/all_things.docx; condensed versions in resume_latest_* PDFs |
-| CS 331 / CS 3812 TA roles at LUMS | all resume variants; old/Research_CV.pdf (most detailed) |
-| KASB Securities / TransformX blockchain & web dev work | all resume variants; old/Research_CV.pdf (most detailed, incl. tech stack) |
-| Shahmukhi Punjabi NLP research | resume_latest_* PDFs; word_docs/all_things.docx |
-| LLM Jailbreaking / TAP research with Dr. Somesh Jha | resume_latest_* PDFs; word_docs/all_things.docx |
-| Ransomware Analysis / ACM CSET '23 | all resume variants; word_docs/all_things.docx (fullest detail incl. Dr. Ashish Gehani, Dr. Maneesh, SRI International); old/Research_CV.pdf (thesis framing, Dr. Fareed) |
-| Adversarial Sentiment Classifier | resume_latest_research.pdf; old/resume-google.docx; old/Resume_research.docx |
-| House Boundary Detection | all resume variants; old/Research_CV.pdf (advisor: Dr. Murtaza Taj) |
-| Sentiment Analysis / ASONAM '22 poster | all resume variants; old/Research_CV.pdf (advisors: Dr. Momin Ayub, Dr. Usama) |
-| Mask Detector (YOLOv5) | resume_latest_research.pdf; old/Resume_research.docx; old/resume-grad.pdf |
-| TUBITAK TEKNOFEST UAV | all resume variants |
-| STACKS Hackathon (3rd place) | old/Research_CV.pdf only |
-| IEEE LUMS President, Community Service Society | all resume variants |
-| Dean's Honor List, Merit Scholarship | old/Research_CV.pdf; old/uw_resume_1.0.pdf |
-| Skills inventory (aggregated) | all resume_latest_* PDFs and word_docs; old/Research_CV.pdf; old/uw_resume_1.0.pdf |
-| Osmo cover letter / motivation quotes | old/cover_letter_osmo.pdf; old/Muhammad Musa.docx (identical text) |
-| Interests (sports, robotics, anime, cars) | old/Research_CV.pdf; old/uw_resume_1.0.pdf |
-| Career-track resume tailoring (SWE/data/research) | resume_latest_SWE.pdf vs resume_latest_data.pdf vs resume_latest_research.pdf (comparative analysis) |
-| Ripple-specific resume | companies/resume_ML_ripple.pdf (near-identical to resume_latest_data.pdf) |
-
-**Files excluded from this knowledge base (out of task scope):** the `others\` folder (other individuals' resumes — Faraz, Danial Saleem, Waleed), `wa-pipeline\` (unrelated media pipeline). Additionally, several newer draft files found in the Resumes root directory (e.g., `Muhammad_Musa_Master_Resume_2.0.docx`, `AI_MASTER.docx`, `Final_Resume_Musa_ML_AI.docx`, `resume1.txt`) were reviewed but **deliberately excluded as sources** because they (a) were not named in the task's PRIMARY/HISTORICAL file list, and (b) contain internally inconsistent and implausibly over-precise claims (e.g., conflicting WUMI Health location — Pakistan vs. Nigeria — and highly specific fabricated-looking statistics such as exact p-values and confidence intervals for a defunct 4-month startup) that read as speculative/aspirational drafts rather than verified fact. They were not used to support any claim in this document.
-
-**Files that failed to parse:** none. All files in the specified PRIMARY and HISTORICAL lists were successfully read.
