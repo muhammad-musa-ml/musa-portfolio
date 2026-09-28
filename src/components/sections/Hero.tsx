@@ -7,7 +7,7 @@ const EASE = [0.16, 1, 0.3, 1] as const
 const FACTS = [
   'ACM CSET ’23 published',
   '4.0 GPA · UW–Madison',
-  '1,100+ students taught',
+  '1,600+ students taught',
   'built WUMI Health',
   'LLM safety research',
   'first Shahmukhi NLP benchmark',
