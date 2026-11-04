@@ -33,7 +33,7 @@ export function useTorchlight() {
     const p = pointer.current
     const e = eased.current
     const fade = Math.max(0, performance.now() - p.lastMove - 1400) / 1800
-    const target = p.outside ? 0.35 : Math.max(0.35, 1 - fade)
+    const target = p.outside ? 0.6 : Math.max(0.6, 1 - fade)
     const frames = Math.min(delta, 0.05) * 60
     e.x += (p.x - e.x) * (1 - Math.pow(0.88, frames))
     e.y += (p.y - e.y) * (1 - Math.pow(0.88, frames))
@@ -57,7 +57,7 @@ export function useTorchlight() {
       float torchFalloff = torchDistance < 0.55
         ? mix(0.95, 0.55, torchDistance / 0.55)
         : mix(0.55, 0.0, clamp((torchDistance - 0.55) / 0.45, 0.0, 1.0));
-      diffuseColor.a *= 0.08 + 0.92 * uTorchGlow * torchFalloff;
+      diffuseColor.a *= 0.22 + 0.78 * uTorchGlow * torchFalloff;
       #include <opaque_fragment>
     `)
   }, [uniforms])
