@@ -90,16 +90,6 @@ button {
   height: 100% !important;
 }
 
-/* torchlight veil — ink layer between the 3D field (z0) and content (z2) */
-.torch-veil {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1;
-  pointer-events: none;
-}
-
 /* film grain over everything, under UI pointer events */
 .grain {
   position: fixed;

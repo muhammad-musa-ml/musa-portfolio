@@ -7,7 +7,7 @@ import { MOTION_OFF } from '../lib/motionEnv'
 // Faithful port of the "Torchlight Reveal" concept constellation:
 // 1,400 crisp additive points in a flattened shell, sparse teal links,
 // slow rotation, camera drifting down with scroll. No pulses, no pointer
-// physics — the torch veil above does the revealing; the field just exists.
+// physics — the scene mask controls the spotlight.
 
 const COUNT = 1400
 const MAX_SEGMENTS = 380

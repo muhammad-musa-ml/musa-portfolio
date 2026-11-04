@@ -1,7 +1,6 @@
 import { useEffect, useState, useCallback, lazy, Suspense } from 'react'
 import Lenis from 'lenis'
 import SceneCanvas from './three/SceneCanvas'
-import TorchVeil from './components/TorchVeil'
 import Cursor from './components/Cursor'
 import Nav from './components/Nav'
 import Hero from './components/sections/Hero'
@@ -137,7 +136,6 @@ export default function App() {
   return (
     <>
       <SceneCanvas />
-      <TorchVeil />
       <Cursor />
       <Nav onOpenChat={() => openChat()} onOpenPalette={() => setPaletteOpen(true)} />
       <main style={{ position: 'relative', zIndex: 2 }}>
