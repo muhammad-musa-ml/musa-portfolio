@@ -3,11 +3,12 @@ import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import { getScrollProgress } from '../lib/scrollBus'
 import { MOTION_OFF } from '../lib/motionEnv'
+import { useTorchlight } from './useTorchlight'
 
 // Faithful port of the "Torchlight Reveal" concept constellation:
 // 1,400 crisp additive points in a flattened shell, sparse teal links,
 // slow rotation, camera drifting down with scroll. No pulses, no pointer
-// physics — the scene mask controls the spotlight.
+// physics — the materials reveal the field around the pointer.
 
 const COUNT = 1400
 const MAX_SEGMENTS = 380
@@ -71,6 +72,7 @@ function buildField() {
 
 export default function NeuralField() {
   const group = useRef<THREE.Group>(null)
+  const reveal = useTorchlight()
 
   const { pointsGeo, lineGeo } = useMemo(() => {
     const f = buildField()
@@ -100,6 +102,7 @@ export default function NeuralField() {
     <group ref={group}>
       <points geometry={pointsGeo} frustumCulled={false}>
         <pointsMaterial
+          onBeforeCompile={reveal}
           size={0.045}
           vertexColors
           transparent
@@ -111,6 +114,7 @@ export default function NeuralField() {
       </points>
       <lineSegments geometry={lineGeo} frustumCulled={false}>
         <lineBasicMaterial
+          onBeforeCompile={reveal}
           color="#63e2c6"
           transparent
           opacity={0.18}
