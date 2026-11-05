@@ -23,6 +23,7 @@ const MEMBERS: Record<string, string[]> = {
     "sentiment-robustness",
   ],
   build: [
+    "kaiju-cats",
     "wumi",
     "gauntlet",
     "kiln",

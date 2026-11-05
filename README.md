@@ -13,7 +13,7 @@ Vite runs the same streaming chat handler as production. Copy `.env.example` set
 
 ## MusA.I
 
-The browser sends a bounded conversation to `/api/chat`. The server supplies the instructions and retrieves evidence from the curated public portfolio: all 16 projects, five articles, experience, education, skills, credentials and publications. Answers stream as they arrive, with clickable source links. The client supports Stop, Retry and long conversations; raw model reasoning is never displayed.
+The browser sends a bounded conversation to `/api/chat`. The server supplies the instructions and retrieves evidence from the curated public portfolio: all 17 projects, six articles, experience, education, skills, credentials and publications. Answers stream as they arrive, with clickable source links. The client supports Stop, Retry and long conversations; raw model reasoning is never displayed.
 
 The default model is Groq's `openai/gpt-oss-120b`, with `openai/gpt-oss-20b` as its secondary model. Add `GROQ_API_KEY` in Vercel's project environment variables and redeploy. An independent Gemini fallback is opt-in; verify its account is on the intended free tier before enabling it. Free services have changing quotas and cannot guarantee uninterrupted generation.
 

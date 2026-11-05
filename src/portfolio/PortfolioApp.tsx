@@ -26,6 +26,7 @@ import "./theme-motion.css";
 
 const PortfolioCommands = lazy(() => import("./PortfolioCommands"));
 const BuildsPlayground = lazy(() => import("./BuildsPlayground"));
+const KaijuPlanner = lazy(() => import("./KaijuPlanner"));
 const WorkIndex = lazy(() => import("./WorkIndex"));
 const AboutPage = lazy(() =>
   import("./profile-sections").then((module) => ({
@@ -568,10 +569,12 @@ function ArticlePage({ slug }: { slug: string }) {
           )}
         </div>
       </header>
+      {article.projectId === "kaiju-cats" && <Suspense fallback={<p>Opening the interactive build…</p>}><KaijuPlanner /></Suspense>}
       <div className="pf-article-layout">
         <aside>
           <nav aria-label="In this article">
             <span>In this note</span>
+            {article.projectId === "kaiju-cats" && <a href="#try-planner">Try the planner</a>}
             {article.sections.map((section, i) => (
               <a key={section.heading} href={`#section-${i}`}>
                 {section.heading}

@@ -275,7 +275,7 @@ export function rankSearch(
     const intentIndex = intents.indexOf(doc.entry.id);
     if (intentIndex >= 0) lexical += 95 - intentIndex * 12;
     const meaning = semantic.get(doc.entry.id) ?? 0;
-    let semanticRelevant = meaning >= Math.max(0.31, bestSemantic * 0.67);
+    let semanticRelevant = meaning >= Math.max(0.30, bestSemantic * 0.67);
     if (
       doc.entry.id.startsWith("toolkit-") &&
       !namedSkill &&

@@ -36,6 +36,62 @@ export const BIO = {
 
 export const PROJECTS: PortfolioProject[] = [
   {
+    "id": "kaiju-cats",
+    "name": "Kaiju Cats planner",
+    "category": "Simulation & optimization",
+    "headline": "Three cats. Fifteen turns. A better plan.",
+    "summary": "I built a screenshot-to-plan workspace for a grid puzzle: review the board, search within a money limit, and inspect the result one turn at a time.",
+    "role": "I built the screenshot reader, editable board, rule-based simulator, time-bounded search and replay interface, refining the rules against supplied in-game instructions.",
+    "outcome": "A saved 60-second search on the included example found a predicted 213,625 power using a $200 total budget. All three cats reached their beds in the simulator.",
+    "status": "Working planner with source kept private. Screenshot interpretation needs review; scores are model predictions, not an observed Roblox result or proof of optimality.",
+    "featured": false,
+    "technologies": [
+      "JavaScript",
+      "Python",
+      "NumPy",
+      "Pillow",
+      "Simulated annealing",
+      "Worker threads",
+      "Server-sent events"
+    ],
+    "sections": [
+      {
+        "title": "Start with the board, not the answer",
+        "body": "The reader converts a screenshot into 35 editable cells, including top- and bottom-floor commands. The image stays alongside the interpretation. Four-point alignment handles a changed crop, and money is entered explicitly rather than guessed from the image."
+      },
+      {
+        "title": "A shared world makes the routes interact",
+        "body": "All three cats modify the same buildings. Floors disappear, commands run in order, collisions happen before destination effects, and bed bonuses depend on arrival order. I made those rules explicit before trusting the search score."
+      },
+      {
+        "title": "Spend a fixed amount of time well",
+        "body": "Multiple search restarts explore command placements under the refund-aware budget. Visited floors and distance to beds guide exploration; the reported result remains the actual simulated total. The best valid plan stays available when the run ends or is stopped."
+      },
+      {
+        "title": "Keep the result inspectable",
+        "body": "The output names each tile and floor, explains how to refund existing commands, and provides a turn-by-turn predicted replay. Recognition, simulation and optimization have separate checks, so a wrong board cannot hide behind a convincing score."
+      },
+      {
+        "title": "What the number does and does not show",
+        "body": "The included example has $100 available and $100 in refundable commands. A recorded 60-second run found 213,625; a later 180.05-second run evaluated 99,230,720 candidates without improving it. This is one board and one declared rule model. An actual in-game replay and global optimality remain unverified."
+      }
+    ],
+    "links": [
+      {
+        "label": "Try the planner",
+        "url": "/playground?build=kaiju-cats"
+      },
+      {
+        "label": "Read the build story",
+        "url": "/writing/three-cats-fifteen-turns"
+      },
+      {
+        "label": "The article that started the experiment",
+        "url": "https://adamkulik.com/blog/kaijugo"
+      }
+    ]
+  },
+  {
     id: "wumi",
     name: "WUMI Health",
     category: "Healthcare software",
@@ -666,6 +722,83 @@ export const PROJECTS: PortfolioProject[] = [
 // New editorial drafts for the local redesign. No prior publication dates or
 // personal endorsements are implied; source links support the technical work.
 export const ARTICLES: Article[] = [
+  {
+    "slug": "three-cats-fifteen-turns",
+    "title": "Three cats. Fifteen turns. One useful model.",
+    "dek": "Building a screenshot-to-plan tool taught me that a search algorithm is only as useful as the world it is searching. Try the planner, then follow the decisions behind it.",
+    "topics": [
+      "Simulation",
+      "Optimization",
+      "Computer vision",
+      "Game systems",
+      "Simulated annealing"
+    ],
+    "projectId": "kaiju-cats",
+    "minutes": 7,
+    "sections": [
+      {
+        "heading": "A small board with coupled decisions",
+        "paragraphs": [
+          "I wanted a practical loop: give the tool a starting screenshot and the money available, get back exact command placements, then inspect what those commands would do. The map is only seven columns by five rows. The hard part is that three cats share it. A building another cat destroys is no longer the same building when the next cat arrives.",
+          "Adam Kulikowski’s KaijuGo article gave me the starting point: simulate the game, then search its command arrangements with simulated annealing. I built my own screenshot-to-plan workflow around that idea. My emphasis became the boundaries between reading an image, modeling the rules, and recommending a plan. I have not established a head-to-head improvement over his implementation."
+        ]
+      },
+      {
+        "heading": "Pixels are evidence, not a board specification",
+        "paragraphs": [
+          "The screenshot reader uses Pillow and NumPy to compare tile and command appearances against reference templates. It is calibrated to the supplied camera view. Proportional resizing works; a different crop can need four-point alignment. It does not understand arbitrary screenshots the way a general vision model might.",
+          "I put an editable board beside the image because detection errors have consequences. Confusing a silver building with gold changes the reward. Missing a bottom-floor command changes both the route and the refund. The user reviews the inferred cells, cats, beds and commands before a search can start.",
+          "The budget deserves its own boundary. Available money is entered manually. Existing commands are refundable, so the search budget is available money plus those refunds, counted once. For the included example, $100 available plus $100 in placed commands gives a $200 plan budget. Entering $200 as the available amount would quietly give the solver money the player does not have."
+        ]
+      },
+      {
+        "heading": "The simulator was the first thing to debug",
+        "paragraphs": [
+          "I checked the implementation against the supplied instruction panels and direct clarifications. A direction command changes facing after destroying a floor. Power Up adds 1,000; a power plant doubles the current power. When the two happen together, the doubling comes before the addition. Small sequencing differences produce very different totals.",
+          "All three cats act in the same world. I resolve movement and collisions before applying the surviving cat’s destination-floor effects. Swapping adjacent positions is safe. Reaching another cat’s bed causes a reversal rather than a finish. Simultaneous arrivals are ordered by current power; the first arrival gets a fixed bonus, while the next two receive multipliers.",
+          "Those cases became regression tests. They matter more than making the search impressive on one familiar board. A faster optimizer will exploit an incorrect rule just as enthusiastically as a correct one. I also keep uncertain fractional spike rounding explicit; the conservative setting avoids plans that depend on it."
+        ]
+      },
+      {
+        "heading": "Search for progress without changing the score",
+        "paragraphs": [
+          "The optimizer uses independently seeded restarts of simulated annealing. It can change several commands together, focus mutations on floors the cats actually visit, and remove purchases that no longer fit the budget. Coordinated changes matter because a useful route can require several turns to be placed together.",
+          "Distance to beds helps the search compare incomplete routes. That guidance belongs to the search objective, not the result presented to the user. The displayed score is always the simulated combined power. Otherwise a helpful heuristic could quietly become a number that the game itself never awards.",
+          "I keep the best valid plan throughout the run. A deadline or an early stop returns that incumbent, rather than requiring the current search state to be the best one. The interface stays usable while the search works, and the output names coordinates and exact floors instead of asking the user to decipher an abstract command array."
+        ]
+      },
+      {
+        "heading": "A result worth being precise about",
+        "paragraphs": [
+          "On the included example, a recorded 60-second run found a predicted total of 213,625 with $200 spent. Red reached its bed on turn eight. Blue and Green arrived on turn fifteen, with Blue taking the second-arrival bonus and Green the third. All three survived in the simulator.",
+          "A later 180.05-second run examined 99,230,720 candidates and returned the same best score. That is a useful experiment record, not proof that the score is globally optimal. It is also not an observed Roblox score. The next validation step is to compare the predicted replay with the game, starting at the first turn where they differ.",
+          "The second saved layout exposed a different problem: a Stomp icon split into several small image components. Improving that detection and testing a different alignment was more useful than simply running the optimizer longer on an incorrectly read board."
+        ]
+      },
+      {
+        "heading": "An answer should come with a way to inspect it",
+        "paragraphs": [
+          "The planner returns the purchases, their total cost, the refund instructions and every predicted turn. You can change a cell, rerun the search, and see why the result changed. That makes the tool useful even when a screenshot needs correction or an assumption needs revisiting.",
+          "The playable version is separate from the public portfolio code. Recognition and search run behind a private service; the website provides the interface and the returned plan. A loading state, a stopped run and an unavailable service each need to leave the board understandable.",
+          "The lesson I would carry into another project is to keep the stages inspectable. Reading the input, defining the world and searching for a decision are different jobs. A large final number should never make those intermediate decisions disappear."
+        ]
+      }
+    ],
+    "references": [
+      {
+        "label": "Adam Kulikowski — I used Machine Learning to Beat the Roblox Interview Game",
+        "url": "https://adamkulik.com/blog/kaijugo"
+      },
+      {
+        "label": "The Roblox authors’ paper on the assessment game",
+        "url": "https://educationaldatamining.org/edm2024/proceedings/2024.EDM-posters.96/index.html"
+      },
+      {
+        "label": "Kaiju Cats on Roblox",
+        "url": "https://www.roblox.com/games/13977123257/Kaiju-Cats"
+      }
+    ]
+  },
   {
     slug: "dynamic-workflows-need-a-stopping-rule",
     title: "Dynamic workflows still need a stopping rule",

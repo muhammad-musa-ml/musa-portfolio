@@ -1,20 +1,73 @@
 {
   "model": "Xenova/all-MiniLM-L6-v2",
   "revision": "751bff37182d3f1213fa05d7196b954e230abad9",
-  "corpusHash": "f36cc10a3f9268b7658111b30e07f802c3a7a77d99828fb762032f95aac8586c",
-  "rankHash": "f2fc4014cd29d54157214d77a8d6b0aa499692622814d3e0428e58f57f917158",
-  "casesHash": "8a91ca44d722f37440aebd58cc4d0acf9478f0a775c2c0540079e7b30bebb92c",
+  "corpusHash": "be038793745a3aef984292396b72ba6cc460e7b38e0f6ebb63c1c747b03c10b2",
+  "rankHash": "e297685998aef26b8a7d573bec1a16dba0e2d5626fdbfdfe3b7c9b4521e344b7",
+  "casesHash": "321516926d96c9e681abb3b682ebc4a3470ac508399a9dd1ceb5a439b7944a57",
   "backend": "onnxruntime-node CPU q8 (browser WASM timings are separate)",
-  "modelReadyMs": 2001,
-  "passed": 27,
-  "total": 27,
+  "modelReadyMs": 1082,
+  "passed": 29,
+  "total": 29,
   "results": [
+    {
+      "query": "KaijuGo",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": null,
+      "ms": 23,
+      "results": [
+        {
+          "label": "Kaiju Cats planner",
+          "href": "/work/kaiju-cats#project-overview",
+          "score": 8.2
+        },
+        {
+          "label": "Kaiju Cats planner · outcome & role",
+          "href": "/work/kaiju-cats#project-outcome",
+          "score": 6.4
+        },
+        {
+          "label": "Three cats. Fifteen turns. One useful model. · A small board with coupled decisions",
+          "href": "/writing/three-cats-fifteen-turns#section-0",
+          "score": 3.2
+        }
+      ]
+    },
+    {
+      "query": "turn a game screenshot into a plan",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": 1,
+      "ms": 39,
+      "results": [
+        {
+          "label": "Three cats. Fifteen turns. One useful model. · A small board with coupled decisions",
+          "href": "/writing/three-cats-fifteen-turns#section-0",
+          "score": 17.34
+        },
+        {
+          "label": "Kaiju Cats planner · Start with the board, not the answer",
+          "href": "/work/kaiju-cats#section-0",
+          "score": 16.54
+        },
+        {
+          "label": "Kaiju Cats planner",
+          "href": "/work/kaiju-cats#project-overview",
+          "score": 16.32
+        },
+        {
+          "label": "Three cats. Fifteen turns. One useful model. · Pixels are evidence, not a board specification",
+          "href": "/writing/three-cats-fifteen-turns#section-1",
+          "score": 15.63
+        }
+      ]
+    },
     {
       "query": "how are you",
       "passed": true,
       "rank": 1,
       "semanticRank": null,
-      "ms": 35,
+      "ms": 1,
       "results": [
         {
           "label": "About me",
@@ -33,7 +86,7 @@
       "passed": true,
       "rank": 1,
       "semanticRank": null,
-      "ms": 15,
+      "ms": 1,
       "results": [
         {
           "label": "About me",
@@ -52,7 +105,7 @@
       "passed": true,
       "rank": 1,
       "semanticRank": null,
-      "ms": 29,
+      "ms": 2,
       "results": [
         {
           "label": "Experience",
@@ -76,7 +129,7 @@
       "passed": true,
       "rank": 1,
       "semanticRank": null,
-      "ms": 14,
+      "ms": 2,
       "results": [
         {
           "label": "Skills & toolkit",
@@ -90,7 +143,7 @@
       "passed": true,
       "rank": 1,
       "semanticRank": null,
-      "ms": 154,
+      "ms": 3,
       "results": [
         {
           "label": "PostgreSQL",
@@ -124,7 +177,7 @@
       "passed": true,
       "rank": 1,
       "semanticRank": null,
-      "ms": 21,
+      "ms": 1,
       "results": [
         {
           "label": "Replicated lookup service",
@@ -153,7 +206,7 @@
       "passed": true,
       "rank": 2,
       "semanticRank": null,
-      "ms": 61,
+      "ms": 4,
       "results": [
         {
           "label": "The Complete Python 3 Course",
@@ -176,8 +229,8 @@
           "score": 5.32
         },
         {
-          "label": "Kiln",
-          "href": "/work/kiln#project-overview",
+          "label": "Kaiju Cats planner",
+          "href": "/work/kaiju-cats#project-overview",
           "score": 5.32
         }
       ]
@@ -187,32 +240,32 @@
       "passed": true,
       "rank": 1,
       "semanticRank": null,
-      "ms": 40,
+      "ms": 3,
       "results": [
         {
           "label": "PyTorch",
           "href": "/about#toolkit-1",
-          "score": 56.78
+          "score": 57.13
         },
         {
           "label": "Multi-camera detection & stitching",
           "href": "/work/mask-detection#project-overview",
-          "score": 7.71
+          "score": 7.85
         },
         {
           "label": "RAG attack & defense",
           "href": "/work/research#project-overview",
-          "score": 7.71
+          "score": 7.85
         },
         {
           "label": "Satellite building footprints",
           "href": "/work/satellite#project-overview",
-          "score": 7.71
+          "score": 7.85
         },
         {
           "label": "Adversarial sentiment classification",
           "href": "/work/sentiment-robustness#project-overview",
-          "score": 7.71
+          "score": 7.85
         }
       ]
     },
@@ -221,7 +274,7 @@
       "passed": true,
       "rank": 1,
       "semanticRank": null,
-      "ms": 12,
+      "ms": 1,
       "results": [
         {
           "label": "C++",
@@ -240,7 +293,7 @@
       "passed": true,
       "rank": 1,
       "semanticRank": null,
-      "ms": 11,
+      "ms": 2,
       "results": [
         {
           "label": "Education",
@@ -274,7 +327,7 @@
       "passed": true,
       "rank": 1,
       "semanticRank": 1,
-      "ms": 224,
+      "ms": 12,
       "results": [
         {
           "label": "WUMI Health · The decision that shaped the system",
@@ -284,12 +337,12 @@
         {
           "label": "WUMI Health",
           "href": "/work/wumi#project-overview",
-          "score": 17.64
+          "score": 17.06
         },
         {
           "label": "Lead Software Engineer · WUMI Health",
           "href": "/about#experience-wumi",
-          "score": 7.34
+          "score": 8.28
         },
         {
           "label": "Resume Gauntlet",
@@ -308,12 +361,12 @@
       "passed": true,
       "rank": 1,
       "semanticRank": 1,
-      "ms": 169,
+      "ms": 25,
       "results": [
         {
           "label": "WUMI Health",
           "href": "/work/wumi#project-overview",
-          "score": 6.99
+          "score": 6.64
         }
       ]
     },
@@ -322,32 +375,32 @@
       "passed": true,
       "rank": 1,
       "semanticRank": 1,
-      "ms": 214,
+      "ms": 23,
       "results": [
         {
           "label": "When a safety score hides the cost · What I would carry into the next experiment",
           "href": "/writing/when-a-safety-score-hides-the-cost#section-4",
-          "score": 10.64
+          "score": 10.19
         },
         {
           "label": "When a safety score hides the cost · The attractive number",
           "href": "/writing/when-a-safety-score-hides-the-cost#section-0",
-          "score": 8.38
+          "score": 8.65
         },
         {
           "label": "REPROD",
           "href": "/work/reprod#project-overview",
-          "score": 8.17
-        },
-        {
-          "label": "REPROD · A restrained conclusion",
-          "href": "/work/reprod#section-2",
-          "score": 7.08
+          "score": 7.81
         },
         {
           "label": "Resume Gauntlet",
           "href": "/work/gauntlet#project-overview",
-          "score": 6.99
+          "score": 7.01
+        },
+        {
+          "label": "REPROD · A restrained conclusion",
+          "href": "/work/reprod#section-2",
+          "score": 6.8
         }
       ]
     },
@@ -356,32 +409,32 @@
       "passed": true,
       "rank": 1,
       "semanticRank": 1,
-      "ms": 163,
+      "ms": 18,
       "results": [
         {
           "label": "Resume Gauntlet",
           "href": "/work/gauntlet#project-overview",
-          "score": 13.86
+          "score": 13.89
         },
         {
           "label": "Dynamic workflows still need a stopping rule · A concrete version of the problem",
           "href": "/writing/dynamic-workflows-need-a-stopping-rule#section-1",
-          "score": 13.84
+          "score": 13.83
         },
         {
           "label": "Dynamic workflows still need a stopping rule · Check the thing that will be delivered",
           "href": "/writing/dynamic-workflows-need-a-stopping-rule#section-3",
-          "score": 12.76
+          "score": 12.73
         },
         {
           "label": "Resume Gauntlet · The artifact is part of the answer",
           "href": "/work/gauntlet#section-2",
-          "score": 9.2
+          "score": 8.91
         },
         {
           "label": "Claude Agent SDK",
           "href": "/about#toolkit-2",
-          "score": 8.12
+          "score": 7.56
         }
       ]
     },
@@ -390,22 +443,22 @@
       "passed": true,
       "rank": 1,
       "semanticRank": 1,
-      "ms": 129,
+      "ms": 13,
       "results": [
         {
           "label": "A bookmark is not a research system",
           "href": "/writing/a-bookmark-is-not-a-research-system",
-          "score": 17.17
+          "score": 16.86
         },
         {
           "label": "A bookmark is not a research system · Saving was the easy part",
           "href": "/writing/a-bookmark-is-not-a-research-system#section-0",
-          "score": 16.2
+          "score": 16.34
         },
         {
           "label": "Kiln",
           "href": "/work/kiln#project-overview",
-          "score": 12.56
+          "score": 11.77
         }
       ]
     },
@@ -414,17 +467,22 @@
       "passed": true,
       "rank": 1,
       "semanticRank": 2,
-      "ms": 159,
+      "ms": 26,
       "results": [
         {
           "label": "Small-GPU serving bench",
           "href": "/work/serving#project-overview",
-          "score": 10.61
+          "score": 10.19
         },
         {
           "label": "Explore Small-GPU serving bench",
           "href": "/playground?build=serving",
-          "score": 9.37
+          "score": 9.16
+        },
+        {
+          "label": "Three cats. Fifteen turns. One useful model. · Pixels are evidence, not a board specification",
+          "href": "/writing/three-cats-fifteen-turns#section-1",
+          "score": 6.32
         }
       ]
     },
@@ -433,22 +491,22 @@
       "passed": true,
       "rank": 1,
       "semanticRank": 1,
-      "ms": 166,
+      "ms": 18,
       "results": [
         {
           "label": "Replicated lookup service · Make failure observable",
           "href": "/work/lookup#section-2",
-          "score": 17.38
+          "score": 17.44
         },
         {
           "label": "Replicated lookup service · outcome & role",
           "href": "/work/lookup#project-outcome",
-          "score": 15.15
+          "score": 15.95
         },
         {
           "label": "Dynamic workflows still need a stopping rule · A concrete version of the problem",
           "href": "/writing/dynamic-workflows-need-a-stopping-rule#section-1",
-          "score": 8.05
+          "score": 7.43
         }
       ]
     },
@@ -457,17 +515,17 @@
       "passed": true,
       "rank": 1,
       "semanticRank": 1,
-      "ms": 200,
+      "ms": 21,
       "results": [
         {
           "label": "Voice Agent",
           "href": "/work/voice-agent#project-overview",
-          "score": 7.43
+          "score": 7.49
         },
         {
           "label": "Voice Agent · outcome & role",
           "href": "/work/voice-agent#project-outcome",
-          "score": 6.94
+          "score": 7.1
         }
       ]
     },
@@ -476,27 +534,27 @@
       "passed": true,
       "rank": 1,
       "semanticRank": 1,
-      "ms": 126,
+      "ms": 13,
       "results": [
         {
           "label": "Satellite building footprints · Keep the evidence at its actual scale",
           "href": "/work/satellite#section-1",
-          "score": 9.36
+          "score": 9.41
         },
         {
           "label": "Satellite building footprints",
           "href": "/work/satellite#project-overview",
-          "score": 8.72
+          "score": 9.08
+        },
+        {
+          "label": "Three cats. Fifteen turns. One useful model. · Pixels are evidence, not a board specification",
+          "href": "/writing/three-cats-fifteen-turns#section-1",
+          "score": 6.75
         },
         {
           "label": "Multi-camera detection & stitching · Connect detection to geometry",
           "href": "/work/mask-detection#section-0",
-          "score": 5.65
-        },
-        {
-          "label": "Multi-camera detection & stitching",
-          "href": "/work/mask-detection#project-overview",
-          "score": 3.76
+          "score": 6.05
         }
       ]
     },
@@ -505,22 +563,27 @@
       "passed": true,
       "rank": 1,
       "semanticRank": 1,
-      "ms": 246,
+      "ms": 22,
       "results": [
         {
           "label": "Shahmukhi Punjabi NLP",
           "href": "/work/shahmukhi#project-overview",
-          "score": 15.37
+          "score": 15.01
         },
         {
           "label": "Shahmukhi Punjabi NLP · My part",
           "href": "/work/shahmukhi#section-0",
-          "score": 11.75
+          "score": 10.89
         },
         {
           "label": "Data Science & Software Engineering Intern · SAUDCONSULT",
           "href": "/about#experience-saudconsult",
-          "score": 10.55
+          "score": 10.76
+        },
+        {
+          "label": "Adversarial sentiment classification",
+          "href": "/work/sentiment-robustness#project-overview",
+          "score": 7.78
         }
       ]
     },
@@ -528,33 +591,33 @@
       "query": "code contributions to other people's tools",
       "passed": true,
       "rank": 3,
-      "semanticRank": 11,
-      "ms": 165,
+      "semanticRank": 12,
+      "ms": 20,
       "results": [
         {
           "label": "REPROD · The team’s contribution",
           "href": "/work/reprod#section-1",
-          "score": 15.01
+          "score": 13.83
         },
         {
           "label": "Claude Code 101",
           "href": "/about#credential-claude-code-101",
-          "score": 12.32
+          "score": 12.91
         },
         {
           "label": "Small fixes, real boundaries",
           "href": "/work/open-source#project-overview",
-          "score": 8.02
-        },
-        {
-          "label": "Explore Resume Gauntlet",
-          "href": "/playground?build=gauntlet",
-          "score": 5.67
+          "score": 7.71
         },
         {
           "label": "A bookmark is not a research system · sources",
           "href": "/writing/a-bookmark-is-not-a-research-system#sources",
-          "score": 5.15
+          "score": 5.53
+        },
+        {
+          "label": "CodinGuru 3.0 · AIGuru Technical Team",
+          "href": "/about#credential-codinguru-ieee",
+          "score": 5.22
         }
       ]
     },
@@ -563,32 +626,32 @@
       "passed": true,
       "rank": 1,
       "semanticRank": 1,
-      "ms": 87,
+      "ms": 10,
       "results": [
         {
           "label": "Head Teaching Assistant · CS 331 · Lahore University of Management Sciences",
           "href": "/about#experience-cs331",
-          "score": 12.59
+          "score": 12.93
         },
         {
           "label": "Head Graduate Teaching Assistant · CS 320 · University of Wisconsin–Madison",
           "href": "/about#experience-cs320",
-          "score": 12.56
+          "score": 12.5
         },
         {
           "label": "Graduate Teaching Assistant · CS 220 · University of Wisconsin–Madison",
           "href": "/about#experience-cs220",
-          "score": 10
+          "score": 10.2
         },
         {
           "label": "About me",
           "href": "/about",
-          "score": 8.08
+          "score": 8.43
         },
         {
           "label": "My story",
           "href": "/about#story",
-          "score": 7.81
+          "score": 8.33
         }
       ]
     },
@@ -597,17 +660,17 @@
       "passed": true,
       "rank": 1,
       "semanticRank": 1,
-      "ms": 95,
+      "ms": 12,
       "results": [
         {
           "label": "Replicated lookup service",
           "href": "/work/lookup#project-overview",
-          "score": 8.81
+          "score": 8.7
         },
         {
           "label": "Replicated lookup service · Failover has a budget",
           "href": "/work/lookup#section-1",
-          "score": 7.17
+          "score": 7.47
         }
       ]
     },
@@ -616,27 +679,32 @@
       "passed": true,
       "rank": 1,
       "semanticRank": 3,
-      "ms": 48,
+      "ms": 6,
       "results": [
         {
           "label": "Data & cloud",
           "href": "/about#toolkit-3",
-          "score": 7.77
+          "score": 8.39
         },
         {
           "label": "Lead Software Engineer · WUMI Health",
           "href": "/about#experience-wumi",
-          "score": 4.76
-        },
-        {
-          "label": "Data Science & Software Engineering Intern · SAUDCONSULT",
-          "href": "/about#experience-saudconsult",
-          "score": 4.3
+          "score": 5.77
         },
         {
           "label": "Explore WUMI Health",
           "href": "/playground?build=wumi",
           "score": 3.87
+        },
+        {
+          "label": "Data Science & Software Engineering Intern · SAUDCONSULT",
+          "href": "/about#experience-saudconsult",
+          "score": 3.55
+        },
+        {
+          "label": "WUMI Health",
+          "href": "/work/wumi#project-overview",
+          "score": 3.17
         }
       ]
     },
@@ -645,7 +713,7 @@
       "passed": true,
       "rank": 1,
       "semanticRank": 1,
-      "ms": 73,
+      "ms": 8,
       "results": [
         {
           "label": "Experience",
@@ -655,7 +723,7 @@
         {
           "label": "About me",
           "href": "/about",
-          "score": 85.34
+          "score": 88.8
         },
         {
           "label": "Get in touch",
@@ -663,13 +731,13 @@
           "score": 73.34
         },
         {
-          "label": "Replicated lookup service · Make failure observable",
-          "href": "/work/lookup#section-2",
-          "score": 1.22
+          "label": "Kaiju Cats planner · A shared world makes the routes interact",
+          "href": "/work/kaiju-cats#section-1",
+          "score": 2.34
         },
         {
-          "label": "Satellite building footprints · Make inference work end to end",
-          "href": "/work/satellite#section-0",
+          "label": "Replicated lookup service · Make failure observable",
+          "href": "/work/lookup#section-2",
           "score": 1.22
         }
       ]
@@ -678,67 +746,67 @@
       "query": "tools with less token overhead",
       "passed": true,
       "rank": 2,
-      "semanticRank": 3,
-      "ms": 85,
+      "semanticRank": 2,
+      "ms": 9,
       "results": [
         {
           "label": "Small-GPU serving bench",
           "href": "/work/serving#project-overview",
-          "score": 11.11
+          "score": 10.97
         },
         {
           "label": "Small fixes, real boundaries · A smaller tool contract",
           "href": "/work/open-source#section-0",
-          "score": 10.4
+          "score": 10.95
         },
         {
           "label": "Small fixes, real boundaries",
           "href": "/work/open-source#project-overview",
-          "score": 8.24
+          "score": 8.11
+        },
+        {
+          "label": "Only send the schema a tool needs",
+          "href": "/writing/only-send-the-schema-a-tool-needs",
+          "score": 7.42
         },
         {
           "label": "Skills & toolkit",
           "href": "/about#toolkit",
-          "score": 7.3
-        },
-        {
-          "label": "Small-GPU serving bench · The tradeoff",
-          "href": "/work/serving#section-2",
-          "score": 7
+          "score": 7.4
         }
       ]
     },
     {
       "query": "helping underrepresented languages",
       "passed": true,
-      "rank": 1,
+      "rank": 2,
       "semanticRank": 1,
-      "ms": 65,
+      "ms": 6,
       "results": [
-        {
-          "label": "Shahmukhi Punjabi NLP",
-          "href": "/work/shahmukhi#project-overview",
-          "score": 13.68
-        },
         {
           "label": "Languages",
           "href": "/about#toolkit-0",
-          "score": 13.38
+          "score": 13.12
+        },
+        {
+          "label": "Shahmukhi Punjabi NLP",
+          "href": "/work/shahmukhi#project-overview",
+          "score": 12.83
         },
         {
           "label": "About me",
           "href": "/about",
-          "score": 6.45
+          "score": 6.24
         },
         {
           "label": "My story",
           "href": "/about#story",
-          "score": 5.69
+          "score": 6.02
         },
         {
           "label": "Voice Agent · Separate language from control",
           "href": "/work/voice-agent#section-0",
-          "score": 5.45
+          "score": 5.6
         }
       ]
     }

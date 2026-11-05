@@ -419,7 +419,7 @@ test("public knowledge is current, all entity types are covered, and every link 
       knowledge.documents.some((doc) => doc.type === type),
       type,
     );
-  assert.equal(knowledge.projects.length, 16);
+  assert.equal(knowledge.projects.length, 17);
   for (const doc of knowledge.documents)
     for (const source of doc.links) {
       assert.match(source.url, /^(?:https:\/\/|\/(?!\/))/);
@@ -432,6 +432,8 @@ test("public knowledge is current, all entity types are covered, and every link 
 
 test("adjacent work and explicit project questions retrieve concrete evidence without fabricated scope", () => {
   const cases = [
+    ["Tell me about KaijuGo", "project-kaiju-cats"],
+    ["Can I upload a screenshot of the Roblox game", "project-kaiju-cats"],
     ["systems that keep working when a server goes down", "project-lookup"],
     ["can you work with databases", "project-wumi"],
     ["tools with less token overhead", "project-open-source"],

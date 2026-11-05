@@ -10,6 +10,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { RouteLink } from "../lib/router";
 import { trackAnalyticsControl } from "../lib/analytics";
 import ProjectDemo from "./Demos";
+import KaijuPlanner from "./KaijuPlanner";
 import { PROJECTS } from "./content";
 import {
   BUILDS,
@@ -396,6 +397,7 @@ function ServingResults() {
 }
 
 function Workbench({ selected }: { selected: BuildId }) {
+  if (selected === "kaiju-cats") return <KaijuPlanner initiallyOpen />;
   if (selected === "kiln") return <KilnLaunch />;
   if (selected === "lookup") return <CacheResults />;
   if (selected === "serving") return <ServingResults />;
@@ -458,8 +460,8 @@ export default function BuildsPlayground() {
           Try it. Inspect it.
         </h1>
         <p>
-          A way into things I’ve built: a live research library, measurements
-          from my systems, and walkthroughs of the decisions inside my products.
+          A way into things I’ve built: a screenshot-to-plan tool, a live research
+          library, measurements from my systems, and walkthroughs of my products.
         </p>
       </section>
       <section

@@ -7,6 +7,8 @@ import ts from "typescript";
 import { createExtractor } from "../../../scripts/build-command-search.mjs";
 
 export const CASES = [
+  { query: "KaijuGo", expected: ["/work/kaiju-cats", "/playground?build=kaiju-cats"], mode: "lexical", rank: 2 },
+  { query: "turn a game screenshot into a plan", expected: ["/work/kaiju-cats", "/writing/three-cats-fifteen-turns", "/playground?build=kaiju-cats"], rank: 3 },
   { query: "how are you", expected: ["/about"], mode: "lexical", rank: 1 },
   { query: "who are you", expected: ["/about"], mode: "lexical", rank: 1 },
   {

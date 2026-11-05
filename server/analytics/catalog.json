@@ -5,6 +5,7 @@
     "/writing": "Writing",
     "/about": "About",
     "/playground": "Playground",
+    "/work/kaiju-cats": "Kaiju Cats planner",
     "/work/wumi": "WUMI Health",
     "/work/research": "RAG attack & defense",
     "/work/gauntlet": "Resume Gauntlet",
@@ -21,6 +22,7 @@
     "/work/sentiment-robustness": "Adversarial sentiment classification",
     "/work/mask-detection": "Multi-camera detection & stitching",
     "/work/uav": "TEKNOFEST fixed-wing UAV",
+    "/writing/three-cats-fifteen-turns": "Three cats. Fifteen turns. One useful model.",
     "/writing/dynamic-workflows-need-a-stopping-rule": "Dynamic workflows still need a stopping rule",
     "/writing/only-send-the-schema-a-tool-needs": "Only send the schema a tool needs",
     "/writing/when-a-safety-score-hides-the-cost": "When a safety score hides the cost",
@@ -68,6 +70,15 @@
       "credential-coursera-android",
       "publication-0",
       "publication-1"
+    ],
+    "/work/kaiju-cats": [
+      "project-overview",
+      "project-outcome",
+      "section-0",
+      "section-1",
+      "section-2",
+      "section-3",
+      "section-4"
     ],
     "/work/wumi": [
       "project-overview",
@@ -181,6 +192,15 @@
       "section-0",
       "section-1"
     ],
+    "/writing/three-cats-fifteen-turns": [
+      "sources",
+      "section-0",
+      "section-1",
+      "section-2",
+      "section-3",
+      "section-4",
+      "section-5"
+    ],
     "/writing/dynamic-workflows-need-a-stopping-rule": [
       "sources",
       "section-0",
@@ -223,6 +243,7 @@
     ]
   },
   "builds": [
+    "kaiju-cats",
     "kiln",
     "lookup",
     "serving",
@@ -241,6 +262,10 @@
     "https://orcid.org/0009-0009-5542-8040": {
       "id": "social:orcid",
       "label": "ORCID"
+    },
+    "https://adamkulik.com/blog/kaijugo": {
+      "id": "work:kaiju-cats:2",
+      "label": "Kaiju Cats planner / The article that started the experiment"
     },
     "https://wumihealth.com": {
       "id": "work:wumi:0",
@@ -319,6 +344,8 @@
     "lookup-copy-command": "Lookup / Copy reproduction command",
     "serving-throughput": "Serving benchmark / Output throughput",
     "serving-latency": "Serving benchmark / First-token latency",
+    "kaiju-open": "Kaiju Cats / Open planner",
+    "kaiju-reconnect": "Kaiju Cats / Reconnect planner",
     "work-reset": "Work / Reset filters",
     "writing-topic-all": "Writing / All topics",
     "project-filter-all": "Work filter / Everything",
@@ -326,6 +353,7 @@
     "project-filter-ml": "Work filter / Machine learning",
     "project-filter-build": "Work filter / Building systems",
     "project-filter-teach": "Work filter / Teaching & leading",
+    "playground-build-kaiju-cats": "Playground / Kaiju Cats planner",
     "playground-build-kiln": "Playground / Kiln",
     "playground-build-lookup": "Playground / Replicated lookup service",
     "playground-build-serving": "Playground / Small-GPU serving bench",
@@ -341,6 +369,11 @@
     "serving-workers-2": "Serving benchmark / 4 concurrent workers",
     "serving-workers-3": "Serving benchmark / 8 concurrent workers",
     "serving-workers-4": "Serving benchmark / 16 concurrent workers",
+    "writing-topic-simulation": "Writing topic / Simulation",
+    "writing-topic-optimization": "Writing topic / Optimization",
+    "writing-topic-computer-vision": "Writing topic / Computer vision",
+    "writing-topic-game-systems": "Writing topic / Game systems",
+    "writing-topic-simulated-annealing": "Writing topic / Simulated annealing",
     "writing-topic-reading-notes": "Writing topic / Reading notes",
     "writing-topic-anthropic": "Writing topic / Anthropic",
     "writing-topic-dynamic-workflows": "Writing topic / Dynamic workflows",
@@ -369,6 +402,11 @@
   },
   "topicControls": {
     "": "writing-topic-all",
+    "Simulation": "writing-topic-simulation",
+    "Optimization": "writing-topic-optimization",
+    "Computer vision": "writing-topic-computer-vision",
+    "Game systems": "writing-topic-game-systems",
+    "Simulated annealing": "writing-topic-simulated-annealing",
     "Reading notes": "writing-topic-reading-notes",
     "Anthropic": "writing-topic-anthropic",
     "Dynamic workflows": "writing-topic-dynamic-workflows",

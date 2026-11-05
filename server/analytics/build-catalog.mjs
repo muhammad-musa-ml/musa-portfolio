@@ -104,6 +104,8 @@ const controls = {
   "lookup-copy-command": "Lookup / Copy reproduction command",
   "serving-throughput": "Serving benchmark / Output throughput",
   "serving-latency": "Serving benchmark / First-token latency",
+  "kaiju-open": "Kaiju Cats / Open planner",
+  "kaiju-reconnect": "Kaiju Cats / Reconnect planner",
   "work-reset": "Work / Reset filters",
   "writing-topic-all": "Writing / All topics",
 };
@@ -115,7 +117,7 @@ for (const [id, name] of [
   ["teach", "Teaching & leading"],
 ])
   controls["project-filter-" + id] = "Work filter / " + name;
-for (const id of ["kiln", "lookup", "serving", "research", "wumi"])
+for (const id of ["kaiju-cats", "kiln", "lookup", "serving", "research", "wumi"])
   controls["playground-build-" + id] =
     "Playground / " +
     content.PROJECTS.find((project) => project.id === id).name;
@@ -155,7 +157,7 @@ profile.EDUCATION.forEach((entry, index) => {
 const catalog = {
   paths,
   hashes,
-  builds: ["kiln", "lookup", "serving", "research", "wumi"],
+  builds: ["kaiju-cats", "kiln", "lookup", "serving", "research", "wumi"],
   outbound,
   controls,
   topicControls,

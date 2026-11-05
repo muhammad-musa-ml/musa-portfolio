@@ -22,6 +22,7 @@ export const SERVING_RESULTS = [
 ];
 
 export type BuildId =
+  | "kaiju-cats"
   | "kiln"
   | "lookup"
   | "serving"
@@ -35,6 +36,14 @@ export const BUILDS: {
   description: string;
   mode: string;
 }[] = [
+  {
+    id: "kaiju-cats",
+    name: "Kaiju Cats",
+    kind: "Simulation & optimization",
+    heading: "Three cats. One shared city.",
+    description: "Upload a board, check the reading, and let the planner search for command placements. Then inspect exactly what the simulator predicts will happen.",
+    mode: "Interactive planner",
+  },
   {
     id: "kiln",
     name: "Kiln",

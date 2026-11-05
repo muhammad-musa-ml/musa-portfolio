@@ -40,7 +40,7 @@ export function buildCorpus(
       "playground",
       "Playground",
       "/playground",
-      "Explore Kiln, recorded benchmarks, research results and product walkthroughs.",
+      "Explore Kaiju Cats, Kiln, recorded benchmarks, research results and product walkthroughs.",
       "interactive demos live projects experiments try",
     ],
     [
@@ -138,7 +138,7 @@ export function buildCorpus(
     const base = {
       parent,
       group: "Projects",
-      keywords: `${p.name} ${p.category} ${p.technologies.join(" ")}`,
+      keywords: `${p.name} ${p.category} ${p.technologies.join(" ")}${p.id === "kaiju-cats" ? " kaijugo kaijucats roblox game screenshot planner" : ""}`,
       kind: "section",
     };
     add({
@@ -169,7 +169,7 @@ export function buildCorpus(
       }),
     );
     if (
-      ["kiln", "lookup", "serving", "research", "wumi", "gauntlet"].includes(
+      ["kaiju-cats", "kiln", "lookup", "serving", "research", "wumi"].includes(
         p.id,
       )
     )

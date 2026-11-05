@@ -20,6 +20,8 @@ const terms = (text) =>
 const stem = (word) =>
   word.length > 5 ? word.replace(/(?:ing|ed|s)$/, "") : word;
 const ALIASES = {
+  kaijugo: ["kaiju", "cats"],
+  kaijucats: ["kaiju", "cats"],
   js: ["javascript"],
   ts: ["typescript"],
   ml: ["machine", "learning"],
@@ -35,6 +37,10 @@ const ALIASES = {
   oss: ["open", "source"],
 };
 const TOPICS = [
+  {
+    pattern: /\b(kaiju|kaijugo|kaijucats|roblox|simulated annealing|game planner|screenshot to plan)\b/,
+    ids: ["project-kaiju-cats", "article-three-cats-fifteen-turns"],
+  },
   {
     pattern: /\b(data pipelines?|data ingestion|etl|airflow)\b/,
     ids: ["experience-saudconsult", "project-lookup", "toolkit-3"],

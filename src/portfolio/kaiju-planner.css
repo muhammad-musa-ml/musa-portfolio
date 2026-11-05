@@ -1,0 +1,27 @@
+.pf-kaiju { max-width: 1280px; margin: 0 auto 80px; border: 1px solid var(--pf-line); border-radius: 18px; overflow: hidden; background: var(--pf-bg); }
+.pf-kaiju-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 22px; padding: 28px 32px 16px; }
+.pf-kaiju-kicker { color: var(--pf-teal); font-size: 11px; letter-spacing: .04em; }
+.pf-kaiju-toolbar h2 { font-size: clamp(26px, 3vw, 38px); line-height: 1.25; padding-bottom: .06em; margin: 8px 0; }
+.pf-kaiju-toolbar > a, .pf-kaiju-status a { color: var(--pf-muted); font-size: 12px; text-underline-offset: 4px; }
+.pf-kaiju-toolbar > a:hover, .pf-kaiju-status a:hover { color: var(--pf-accent); }
+.pf-kaiju-steps { display: flex; flex-wrap: wrap; gap: 14px 30px; margin: 0; padding: 8px 32px 24px; list-style: none; color: var(--pf-muted); font-size: 12px; }
+.pf-kaiju-steps li { display: flex; gap: 9px; align-items: baseline; }
+.pf-kaiju-steps span { color: var(--pf-accent); font-family: monospace; }
+.pf-kaiju-cover { position: relative; border-top: 1px solid var(--pf-line); }
+.pf-kaiju-cover img { display: block; width: 100%; height: auto; max-height: 540px; object-fit: cover; object-position: center; }
+.pf-kaiju-launch { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; padding: 22px 32px; background: var(--pf-solid); }
+.pf-kaiju-launch > span { font-size: 12px; color: var(--pf-muted); }
+.pf-kaiju-launch p { margin: 0; max-width: 65ch; line-height: 1.7; color: var(--pf-muted); }
+.pf-kaiju-caption { margin: 0; padding: 20px 32px; max-width: 90ch; font-size: 12px; line-height: 1.8; color: var(--pf-muted); }
+.pf-kaiju-frame { display: block; width: 100%; min-height: 980px; border: 0; border-top: 1px solid var(--pf-line); background: var(--pf-bg); color-scheme: dark light; }
+.pf-kaiju-status { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; padding: 14px 32px; color: var(--pf-teal); font-size: 12px; background: var(--pf-solid); }
+.pf-kaiju-status button { border: 1px solid var(--pf-line); padding: 5px 12px; color: var(--pf-text); background: transparent; border-radius: 5px; }
+.pf-build-workbench .pf-kaiju { margin-bottom: 0; border-radius: 10px; }
+@media (max-width: 700px) {
+  .pf-kaiju { margin-bottom: 44px; }
+  .pf-kaiju-toolbar { display: block; padding: 22px 18px 14px; }
+  .pf-kaiju-steps, .pf-kaiju-launch, .pf-kaiju-status, .pf-kaiju-caption { padding-left: 18px; padding-right: 18px; }
+  .pf-kaiju-steps { display: grid; gap: 10px; }
+  .pf-kaiju-cover img { object-fit: contain; }
+  .pf-kaiju-frame { min-height: 1250px; }
+}
