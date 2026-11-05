@@ -781,6 +781,24 @@ test("bare internal destinations become clickable Markdown even when split acros
   assert.equal(grounded.push("[/work/uav](/work/uav) "), "[/work/uav](/work/uav) ");
 });
 
+test("standalone bracketed internal paths are clickable without changing complete Markdown links", () => {
+  const input = "See details [/work/wumi]. Keep [WUMI](/work/wumi) and [/work/uav](/work/uav). Last: [ /work/uav ]";
+  const expected = "See details [/work/wumi](/work/wumi). Keep [WUMI](/work/wumi) and [/work/uav](/work/uav). Last: [/work/uav](/work/uav)";
+  for (let size = 1; size <= input.length; size++) {
+    const stream = createGroundedStream(new Set(["/work/wumi", "/work/uav"]));
+    let text = "";
+    for (let offset = 0; offset < input.length; offset += size)
+      text += stream.push(input.slice(offset, offset + size));
+    text += stream.finish();
+    assert.equal(text, expected, `chunk size ${size}`);
+    assert.deepEqual([...stream.links].sort(), ["/work/uav", "/work/wumi"]);
+  }
+  const unknown = createGroundedStream(new Set(["/work/wumi"]));
+  const text = unknown.push("[/work/invented]. ") + unknown.finish();
+  assert.doesNotMatch(text, /\/work\/invented/);
+  assert.equal(unknown.links.size, 0);
+});
+
 test("transfer prompts exclude earlier model claims and end with a general evidence-to-proposal plan", async () => {
   const messages = [
     ...question("What did you build at WUMI?"),

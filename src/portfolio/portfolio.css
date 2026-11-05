@@ -1123,6 +1123,11 @@ body.portfolio-active:has(.pf[data-theme="light"]) {
   line-height: 1.8;
   margin: 25px 0;
 }
+.pf-article-playground { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; padding: 28px; margin-bottom: 60px; }
+.pf-article-playground > div { flex: 1 1 280px; }
+.pf-article-playground > div > span { color: var(--pf-teal); font-size: 12px; }
+.pf-article-playground p { color: var(--pf-muted); line-height: 1.7; margin: 8px 0 0; max-width: 65ch; }
+.pf-article-playground > a { flex-shrink: 0; }
 .pf-article-project {
   padding: 30px;
   border-radius: 15px;

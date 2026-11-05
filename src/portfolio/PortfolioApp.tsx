@@ -26,7 +26,6 @@ import "./theme-motion.css";
 
 const PortfolioCommands = lazy(() => import("./PortfolioCommands"));
 const BuildsPlayground = lazy(() => import("./BuildsPlayground"));
-const KaijuPlanner = lazy(() => import("./KaijuPlanner"));
 const WorkIndex = lazy(() => import("./WorkIndex"));
 const AboutPage = lazy(() =>
   import("./profile-sections").then((module) => ({
@@ -569,12 +568,15 @@ function ArticlePage({ slug }: { slug: string }) {
           )}
         </div>
       </header>
-      {article.projectId === "kaiju-cats" && <Suspense fallback={<p>Opening the interactive build…</p>}><KaijuPlanner /></Suspense>}
+      {article.projectId === "kaiju-cats" && <section className="pf-article-playground pf-glass" id="try-planner" data-search-target aria-label="Try Kaiju Cats in the Playground">
+        <div><span>Try the build</span><p>Upload your own screenshot, edit the board, and inspect a plan one turn at a time.</p></div>
+        <RouteLink className="pf-solid-button" href="/playground?build=kaiju-cats">Open in Playground <span aria-hidden="true">↗</span></RouteLink>
+      </section>}
       <div className="pf-article-layout">
         <aside>
           <nav aria-label="In this article">
             <span>In this note</span>
-            {article.projectId === "kaiju-cats" && <a href="#try-planner">Try the planner</a>}
+            {article.projectId === "kaiju-cats" && <RouteLink href="/playground?build=kaiju-cats">Try the planner</RouteLink>}
             {article.sections.map((section, i) => (
               <a key={section.heading} href={`#section-${i}`}>
                 {section.heading}

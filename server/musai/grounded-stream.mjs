@@ -80,7 +80,11 @@ export function createGroundedStream(allowed) {
           pending = pending.slice(end + 1);
           continue;
         }
-        output += `[${label}]`;
+        const standalone = label.trim();
+        if (standalone.startsWith("/") && allowedUrl(standalone)) {
+          emittedLinks.add(standalone);
+          output += `[${standalone}](${standalone})`;
+        } else output += `[${label}]`;
         pending = pending.slice(close + 1);
         continue;
       }
