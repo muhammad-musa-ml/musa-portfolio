@@ -70,7 +70,8 @@
   font-size: 13px;
 }
 .pf-studio-caption > span {
-  font-family: "Syne", sans-serif;
+  font-family: "Syne Portfolio", sans-serif;
+  font-feature-settings: "ss04" 1;
   font-size: 35px;
   line-height: 1.2;
   color: var(--pf-accent);
@@ -136,7 +137,8 @@
 .pf-motion-layout nav strong {
   display: block;
   font-size: 30px;
-  font-family: "Syne", sans-serif;
+  font-family: "Syne Portfolio", sans-serif;
+  font-feature-settings: "ss04" 1;
   font-weight: 500;
   letter-spacing: -1px;
 }

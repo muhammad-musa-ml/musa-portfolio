@@ -44,7 +44,8 @@
   color: var(--pf-muted);
 }
 .pf-build-choice strong {
-  font-family: "Syne", sans-serif;
+  font-family: "Syne Portfolio", sans-serif;
+  font-feature-settings: "ss04" 1;
   font-size: 21px;
   font-weight: 500;
   line-height: 1.2;
@@ -122,7 +123,8 @@
   overflow: hidden;
 }
 .pf-build-library-mark > span {
-  font-family: "Syne", sans-serif;
+  font-family: "Syne Portfolio", sans-serif;
+  font-feature-settings: "ss04" 1;
   font-size: 100px;
   line-height: 1;
   font-weight: 600;
@@ -232,7 +234,8 @@
 .pf-build-slider label strong {
   font-size: 24px;
   font-weight: 500;
-  font-family: "Syne", sans-serif;
+  font-family: "Syne Portfolio", sans-serif;
+  font-feature-settings: "ss04" 1;
   color: var(--pf-accent);
 }
 .pf-build-slider input {
@@ -260,7 +263,8 @@
   font-size: 12px;
 }
 .pf-build-bar strong {
-  font-family: "Syne", sans-serif;
+  font-family: "Syne Portfolio", sans-serif;
+  font-feature-settings: "ss04" 1;
   font-size: 26px;
   font-weight: 500;
 }
@@ -414,7 +418,8 @@
   color: var(--pf-muted);
 }
 .pf-builds-more-links strong {
-  font-family: "Syne", sans-serif;
+  font-family: "Syne Portfolio", sans-serif;
+  font-feature-settings: "ss04" 1;
   font-size: 25px;
   letter-spacing: -0.04em;
   font-weight: 500;

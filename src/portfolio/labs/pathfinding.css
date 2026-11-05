@@ -25,7 +25,8 @@
   margin: 0 0 19px;
 }
 .pf-route-stage-bar h2 {
-  font-family: "Syne", sans-serif;
+  font-family: "Syne Portfolio", sans-serif;
+  font-feature-settings: "ss04" 1;
   font-size: 22px !important;
   letter-spacing: -0.04em;
   line-height: 1.2;
@@ -361,7 +362,8 @@
   font-size: 10px;
 }
 .pf-route-metrics dd {
-  font-family: "Syne", sans-serif;
+  font-family: "Syne Portfolio", sans-serif;
+  font-feature-settings: "ss04" 1;
   font-size: 29px;
   line-height: 1;
   letter-spacing: -0.05em;
@@ -403,7 +405,8 @@
   margin-top: 20px;
 }
 .pf-route-understanding h3 {
-  font-family: "Syne", sans-serif;
+  font-family: "Syne Portfolio", sans-serif;
+  font-feature-settings: "ss04" 1;
   font-size: 18px !important;
   line-height: 1.3;
   letter-spacing: -0.025em;

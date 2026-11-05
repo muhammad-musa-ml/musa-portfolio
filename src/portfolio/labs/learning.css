@@ -212,7 +212,8 @@
 }
 .pf-learning-metrics strong {
   font: 500 clamp(25px, 3.5vw, 44px) / 1.3
-    var(--font-display, "Syne", sans-serif);
+    var(--font-display, "Syne Portfolio", sans-serif);
+  font-feature-settings: "ss04" 1;
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.055em;
   margin: 5px 0 2px;

@@ -1,4 +1,13 @@
-@import url("https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=Instrument+Sans:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap");
+
+/* Keep the complete font: the hosted subset omits Syne's alternate g. */
+@font-face {
+  font-family: "Syne Portfolio";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("/fonts/syne-variable-full.woff2") format("woff2");
+}
 
 body.portfolio-active {
   cursor: auto;
@@ -25,7 +34,7 @@ body.portfolio-active:has(.pf[data-theme="light"]) {
   --cream-dim: var(--pf-muted);
   --amber: var(--pf-accent);
   --signal: var(--pf-teal);
-  --font-display: "Syne", sans-serif;
+  --font-display: "Syne Portfolio", sans-serif;
   --font-body: "Instrument Sans", sans-serif;
   position: relative;
   isolation: isolate;
@@ -84,10 +93,13 @@ body.portfolio-active:has(.pf[data-theme="light"]) {
 .pf main:focus {
   outline: none;
 }
+/* Syne defaults to an open-tailed g that looks clipped. Its ss04 alternate
+   supplies the complete lower loop; apply it wherever this typeface is used. */
 .pf h1,
 .pf h2,
 .pf h3 {
-  font-family: "Syne", sans-serif;
+  font-family: "Syne Portfolio", sans-serif;
+  font-feature-settings: "ss04" 1;
   line-height: 1.16;
   padding-bottom: 0.1em;
   overflow: visible;
@@ -219,7 +231,8 @@ body.portfolio-active:has(.pf[data-theme="light"]) {
 }
 .pf-position > p {
   font-size: clamp(27px, 3.1vw, 46px);
-  font-family: "Syne", sans-serif;
+  font-family: "Syne Portfolio", sans-serif;
+  font-feature-settings: "ss04" 1;
   letter-spacing: -1.7px;
   line-height: 1.1;
 }
@@ -520,7 +533,8 @@ body.portfolio-active:has(.pf[data-theme="light"]) {
   align-items: center;
   gap: 35px;
   font-size: clamp(45px, 5vw, 72px);
-  font-family: "Syne", sans-serif;
+  font-family: "Syne Portfolio", sans-serif;
+  font-feature-settings: "ss04" 1;
   letter-spacing: -3px;
   margin-top: 18px;
   line-height: 1.2;
@@ -625,7 +639,8 @@ body.portfolio-active:has(.pf[data-theme="light"]) {
 }
 .pf-record > strong {
   display: block;
-  font-family: "Syne", sans-serif;
+  font-family: "Syne Portfolio", sans-serif;
+  font-feature-settings: "ss04" 1;
   font-size: 28px;
   font-weight: 500;
   line-height: 1.2;
@@ -732,7 +747,8 @@ body.portfolio-active:has(.pf[data-theme="light"]) {
   margin: 22px 0;
 }
 .pf-experiment-result > strong {
-  font-family: "Syne", sans-serif;
+  font-family: "Syne Portfolio", sans-serif;
+  font-feature-settings: "ss04" 1;
   font-size: 110px;
   font-weight: 500;
   letter-spacing: -8px;
@@ -1145,7 +1161,8 @@ body.portfolio-active:has(.pf[data-theme="light"]) {
 }
 .pf-playground-tabs button > span {
   display: block;
-  font-family: "Syne", sans-serif;
+  font-family: "Syne Portfolio", sans-serif;
+  font-feature-settings: "ss04" 1;
   font-size: 25px;
   letter-spacing: -1px;
   line-height: 1.2;

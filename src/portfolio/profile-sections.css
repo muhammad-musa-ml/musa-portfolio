@@ -19,7 +19,8 @@
 }
 .pf-profile-numbers dd {
   margin: 0 0 8px;
-  font-family: "Syne", sans-serif;
+  font-family: "Syne Portfolio", sans-serif;
+  font-feature-settings: "ss04" 1;
   font-size: clamp(30px, 3.2vw, 46px);
   line-height: 1.1;
   letter-spacing: -0.05em;
@@ -138,8 +139,9 @@
 .pf-experience-title strong {
   display: block;
   font:
-    500 clamp(21px, 2.3vw, 29px) / 1.2 "Syne",
+    500 clamp(21px, 2.3vw, 29px) / 1.2 "Syne Portfolio",
     sans-serif;
+  font-feature-settings: "ss04" 1;
   letter-spacing: -0.04em;
 }
 .pf-experience-title > span {
@@ -402,8 +404,9 @@
 .pf-credential-card strong {
   display: block;
   font:
-    500 22px/1.2 "Syne",
+    500 22px/1.2 "Syne Portfolio",
     sans-serif;
+  font-feature-settings: "ss04" 1;
   letter-spacing: -0.04em;
   margin: 11px 0;
 }
@@ -443,8 +446,9 @@
 }
 .pf-credential-window h2 {
   font:
-    500 26px/1.2 "Syne",
+    500 26px/1.2 "Syne Portfolio",
     sans-serif;
+  font-feature-settings: "ss04" 1;
   margin: 0;
   letter-spacing: -0.04em;
 }
@@ -493,8 +497,9 @@
 }
 .pf-purpose-lead {
   font:
-    500 clamp(26px, 3.3vw, 43px) / 1.35 "Syne",
+    500 clamp(26px, 3.3vw, 43px) / 1.35 "Syne Portfolio",
     sans-serif;
+  font-feature-settings: "ss04" 1;
   letter-spacing: -0.045em;
   max-width: 42ch !important;
   margin-bottom: 28px;
