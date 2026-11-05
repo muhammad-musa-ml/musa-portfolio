@@ -1,4 +1,4 @@
-import catalog from "./catalog.json" with { type: "json" };
+import catalog from "./catalog.generated.mjs";
 
 export { catalog };
 export const LIMITS = Object.freeze({

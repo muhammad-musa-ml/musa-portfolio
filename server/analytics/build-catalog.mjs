@@ -163,8 +163,9 @@ const catalog = {
   topicControls,
   details,
 };
-const destination = new URL("catalog.json", import.meta.url);
-const serialized = JSON.stringify(catalog, null, 2) + "\n";
+const destination = new URL("catalog.generated.mjs", import.meta.url);
+// Plain ESM works in Node and Vercel's Edge bundler without JSON import attributes.
+const serialized = "export default " + JSON.stringify(catalog, null, 2) + ";\n";
 if (process.argv.includes("--check")) {
   if ((await readFile(destination, "utf8")) !== serialized)
     throw new Error(

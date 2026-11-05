@@ -5,6 +5,7 @@ import { createMusaiHandler, answerEvents } from "./handler.mjs";
 import { configuredProviders, providerBody } from "./providers.mjs";
 import { retrieve, portfolioAnswer, knowledge } from "./retrieve.mjs";
 import { AUTHORSHIP_RULES, buildModelMessages } from "./prompt.mjs";
+import { approvedLinks, createGroundedStream } from "./grounded-stream.mjs";
 import { buildKnowledge } from "../../scripts/build-musai-knowledge.mjs";
 
 const encoder = new TextEncoder();
@@ -693,4 +694,114 @@ test("singular and plural full-catalog requests return every project, credential
     for (const url of expected)
       assert.ok(answer.includes(`](${url})`), `${query}: ${url}`);
   }
+});
+
+test("full catalogs use exact public records even when a model key is configured", async () => {
+  for (const query of ["List every project with links", "Show all credentials", "List all blogs"]) {
+    let calls = 0;
+    const events = await collect(answerEvents(question(query), {
+      env, fetchImpl: () => { calls++; throw new Error("Catalogs need no model"); },
+    }));
+    assert.equal(calls, 0);
+    assert.equal(events[0].mode, "portfolio");
+    assert.equal(textOf(events), portfolioAnswer(retrieve(question(query))));
+    assert.doesNotMatch(textOf(events), /github\.com\/muhammad-musa-ml\/kaiju-cats/);
+  }
+});
+
+test("streamed links are validated before any invented destination crosses a chunk boundary", () => {
+  const retrieval = retrieve(question("Can I try Kaiju Cats?"));
+  const input = "Use [my code](https://github.com/muhammad-musa-ml/kaiju-cats) or https://invented.example/run. " +
+    "Also [missing page](/work/imaginary), github.com/muhammad-musa-ml/made-up and " +
+    "[planner](/playground?build=kaiju-cats). CI/CD is unrelated.";
+  for (let size = 1; size <= input.length; size++) {
+    const grounded = createGroundedStream(approvedLinks(retrieval));
+    let result = "";
+    for (let offset = 0; offset < input.length; offset += size) {
+      result += grounded.push(input.slice(offset, offset + size));
+      assert.doesNotMatch(result, /github\.com|invented\.example|\/work\/imaginary/);
+    }
+    result += grounded.finish();
+    assert.match(result, /\[planner\]\(\/playground\?build=kaiju-cats\)/);
+    assert.match(result, /CI\/CD is unrelated/);
+    assert.ok(grounded.links.has("/playground?build=kaiju-cats"));
+  }
+});
+
+test("an unfinished link never leaks its destination, while ordinary text streams immediately", () => {
+  const grounded = createGroundedStream(new Set(["/work/wumi"]));
+  assert.equal(grounded.push("I built the interface. [work](https://invented"), "I built the interface. ");
+  assert.equal(grounded.finish(), "work");
+  const valid = createGroundedStream(new Set(["https://wumihealth.com/"]));
+  assert.equal(valid.push("See https://wumihealth.com/ now. "), "See https://wumihealth.com/ now. ");
+});
+
+test("provider answers strip guessed repository links and add verified Kaiju entry points", async () => {
+  const messages = question("Where can I try Kaiju Cats and read about it?");
+  const text = "Try [my planner](https://github.com/muhammad-musa-ml/kaiju-cats).";
+  const events = await collect(answerEvents(messages, {
+    env, timeouts: fast,
+    fetchImpl: async () => upstream([...text].map(delta).concat(done)),
+  }));
+  assert.equal(events[0].mode, "model");
+  assert.doesNotMatch(textOf(events), /github\.com/);
+  assert.match(textOf(events), /\]\(\/playground\?build=kaiju-cats\)/);
+  assert.match(textOf(events), /\]\(\/writing\/three-cats-fifteen-turns\)/);
+});
+
+test("long anaphoric follow-ups retain WUMI evidence and explicit aerospace questions select UAV boundaries", () => {
+  const messages = [
+    ...question("What did you build at WUMI Health?"),
+    { role: "assistant", content: "An untrusted answer about immutable logs and regulatory audits." },
+    ...question("How would that experience translate to building a secure multi-tenant SaaS?"),
+  ];
+  const retrieval = retrieve(messages);
+  assert.ok(retrieval.selected.some(doc => doc.parent === "project-wumi"));
+  assert.ok(retrieval.sources.every(source => /wumi/.test(source.url)));
+  const prompt = buildModelMessages(messages, retrieval)[0].content;
+  assert.match(prompt, /Product in development/);
+  assert.match(prompt, /A technology's typical capabilities are not proof/);
+  assert.match(prompt, /use 'I would'/);
+  assert.doesNotMatch(prompt, /An untrusted answer/);
+  const aerospace = retrieve(question("Have you worked on safety-critical aerospace flight-control software?"));
+  assert.ok(aerospace.selected.some(doc => doc.id === "project-uav"));
+  assert.ok(aerospace.sources.every(source => source.url.startsWith("/work/uav")));
+  assert.match(buildModelMessages(question("Have you worked on safety-critical aerospace flight-control software?"), aerospace)[0].content,
+    /component selection, autopilot-software selection and circuit design/);
+});
+
+test("bare internal destinations become clickable Markdown even when split across provider chunks", async () => {
+  const text = "The documented role is here: /work/uav#section-0.";
+  const events = await collect(answerEvents(question("Tell me about the UAV project"), {
+    env, timeouts: fast,
+    fetchImpl: async () => upstream([...text].map(delta).concat(done)),
+  }));
+  assert.match(textOf(events), /\[\/work\/uav#section-0\]\(\/work\/uav#section-0\)\./);
+  const grounded = createGroundedStream(new Set(["/work/uav"]));
+  assert.equal(grounded.push("[/work/uav](/work/uav) "), "[/work/uav](/work/uav) ");
+});
+
+test("transfer prompts exclude earlier model claims and end with a general evidence-to-proposal plan", async () => {
+  const messages = [
+    ...question("What did you build at WUMI?"),
+    { role: "assistant", content: "I built a proven horizontally scalable backend serving millions with regulatory certification." },
+    ...question("How would that experience translate to building a secure multi-tenant SaaS?"),
+  ];
+  let sent;
+  const events = await collect(answerEvents(messages, {
+    env, timeouts: fast,
+    fetchImpl: async (_url, init) => {
+      sent = JSON.parse(init.body).messages;
+      return upstream([delta("I built database access controls. I would adapt them to tenant scope. "), done]);
+    },
+  }));
+  assert.equal(events[0].mode, "model");
+  assert.equal(sent.filter(message => message.role === "assistant").length, 0);
+  assert.doesNotMatch(JSON.stringify(sent), /serving millions with regulatory certification/);
+  assert.match(sent[0].content, /ANSWER PLAN FOR THIS TRANSFER QUESTION/);
+  assert.match(sent[0].content, /proposed application beginning 'I would'/);
+  assert.ok(sent[0].content.indexOf("ANSWER PLAN FOR THIS TRANSFER QUESTION") > sent[0].content.indexOf("MATCHING PUBLIC EVIDENCE"));
+  assert.equal(sent.at(-1).content, messages.at(-1).content);
+  const another = question("How would your UAV experience apply to robotics?");
+  assert.match(buildModelMessages(another, retrieve(another))[0].content, /ANSWER PLAN FOR THIS TRANSFER QUESTION/);
 });

@@ -1,5 +1,6 @@
 import { retrieve, portfolioAnswer } from "./retrieve.mjs";
 import { buildModelMessages } from "./prompt.mjs";
+import { approvedLinks, createGroundedStream } from "./grounded-stream.mjs";
 import {
   configuredProviders,
   streamProvider,
@@ -125,6 +126,16 @@ export async function* answerEvents(
 ) {
   const limits = { ...DEFAULT_TIMEOUTS, ...timeouts };
   const retrieval = retrieve(messages);
+  // A complete catalog is a database lookup, not a creative-generation task.
+  // Source-built text guarantees every item and its exact public destination.
+  if (retrieval.intent === "catalog" ||
+      (retrieval.allCollection && ["credentials", "writing"].includes(retrieval.intent))) {
+    yield { type: "meta", mode: "portfolio" };
+    yield { type: "delta", text: portfolioAnswer(retrieval) };
+    yield { type: "sources", sources: retrieval.sources };
+    yield { type: "done" };
+    return;
+  }
   const modelMessages = buildModelMessages(messages, retrieval);
   const deadline = Date.now() + limits.requestMs;
   let visible = false;
@@ -132,8 +143,9 @@ export async function* answerEvents(
     if (signal?.aborted) return;
     const remaining = deadline - Date.now();
     if (remaining <= 0) break;
+    const grounded = createGroundedStream(approvedLinks(retrieval));
     try {
-      for await (const text of streamProvider(provider, modelMessages, {
+      for await (const upstreamText of streamProvider(provider, modelMessages, {
         fetchImpl,
         signal,
         timeouts: {
@@ -143,6 +155,8 @@ export async function* answerEvents(
         },
       })) {
         if (signal?.aborted) return;
+        const text = grounded.push(upstreamText);
+        if (!text) continue;
         if (!visible) {
           yield {
             type: "meta",
@@ -154,6 +168,25 @@ export async function* answerEvents(
         }
         yield { type: "delta", text };
       }
+      const tail = grounded.finish();
+      if (tail) {
+        if (!visible) {
+          yield { type: "meta", mode: "model", provider: provider.name, model: provider.model };
+          visible = true;
+        }
+        yield { type: "delta", text: tail };
+      }
+      if (!visible) continue;
+      const kaijuTry = retrieval.selected.some((doc) => doc.parent === "project-kaiju-cats") &&
+        /\b(try|use|open|play|upload|screenshot|where|link)\b/i.test(retrieval.question);
+      const requiredLinks = kaijuTry
+        ? [{ label: "Try the planner", url: "/playground?build=kaiju-cats" },
+           { label: "Read the build story", url: "/writing/three-cats-fifteen-turns" }]
+        : grounded.links.size === 0 && !["identity", "contact"].includes(retrieval.intent) && !retrieval.scope
+          ? retrieval.sources.slice(0, 1) : [];
+      const missingLinks = requiredLinks.filter((source) => !grounded.links.has(source.url));
+      if (missingLinks.length)
+        yield { type: "delta", text: `\n\n${missingLinks.map((source) => `[${source.label.replace(/[\[\]]/g, "")}](${source.url})`).join(" · ")}` };
       yield { type: "sources", sources: retrieval.sources };
       yield { type: "done" };
       return;

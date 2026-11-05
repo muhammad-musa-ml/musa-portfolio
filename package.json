@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "test": "node --test scripts/prerender-portfolio.test.mjs src/portfolio/labs/pathfinding.test.mjs src/portfolio/labs/learning.test.mjs src/components/chat/markdown.test.mjs src/portfolio/command-search/search.test.mjs src/lib/ai.test.mjs server/musai/musai.test.mjs server/analytics/analytics.test.mjs src/lib/chat-fallback.test.mjs server/analytics/client.test.mjs",
+    "test": "node --test scripts/prerender-portfolio.test.mjs scripts/stage-private-release.test.mjs src/portfolio/labs/pathfinding.test.mjs src/portfolio/labs/learning.test.mjs src/components/chat/markdown.test.mjs src/portfolio/command-search/search.test.mjs src/lib/ai.test.mjs server/musai/musai.test.mjs server/analytics/analytics.test.mjs src/lib/chat-fallback.test.mjs server/analytics/client.test.mjs",
     "sync:public-knowledge": "node scripts/sync-public-knowledge.mjs",
     "verify:public-portfolio": "node scripts/verify-public-portfolio.mjs",
     "predev": "npm run sync:public-knowledge",

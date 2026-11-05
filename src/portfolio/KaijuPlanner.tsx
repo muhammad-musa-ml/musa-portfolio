@@ -3,18 +3,13 @@ import { RouteLink } from "../lib/router";
 import { trackAnalyticsControl } from "../lib/analytics";
 import "./kaiju-planner.css";
 
-function plannerUrl(): string | null {
-  const configured = import.meta.env.VITE_KAIJU_APP_URL as string | undefined;
-  if (!configured) return import.meta.env.DEV ? "http://127.0.0.1:8766/" : null;
-  try {
-    const url = new URL(configured);
-    const local = ["127.0.0.1", "localhost"].includes(url.hostname);
-    if (url.username || url.password || (url.protocol !== "https:" && !(import.meta.env.DEV && local && url.protocol === "http:"))) return null;
-    return url.href;
-  } catch { return null; }
+function plannerUrl(): string {
+  return import.meta.env.DEV
+    ? "http://127.0.0.1:8766/"
+    : new URL("/kaiju/", window.location.origin).href;
 }
 
-/** The public site embeds a separate service. No solver or recognizer is bundled here. */
+/** Production runs inside this portfolio; the private engine stays in server functions. */
 export default function KaijuPlanner({ initiallyOpen = false }: { initiallyOpen?: boolean }) {
   const [open, setOpen] = useState(initiallyOpen);
   const [ready, setReady] = useState(false);
@@ -60,7 +55,7 @@ export default function KaijuPlanner({ initiallyOpen = false }: { initiallyOpen?
       <div className="pf-kaiju-status" role="status">
         {ready ? <span>Planner ready · your search starts when you choose</span> : <span>{slow ? "The planner is taking longer to connect." : "Opening the planner…"}</span>}
         {slow && !ready && <button onClick={() => { trackAnalyticsControl("kaiju-reconnect"); setAttempt(value => value + 1); }}>Reconnect</button>}
-        <a href={url} target="_blank" rel="noreferrer">Open in its own tab ↗</a>
+        <RouteLink href="/writing/three-cats-fifteen-turns">Read the build story →</RouteLink>
       </div>
       <iframe key={attempt} ref={frame} src={url} title="Kaiju Cats screenshot-to-plan workspace"
         sandbox="allow-scripts allow-same-origin allow-forms allow-downloads" allow="clipboard-write"

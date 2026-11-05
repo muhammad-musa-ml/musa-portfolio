@@ -1,6 +1,6 @@
 # Kaiju Cats integration
 
-The portfolio adds a project, a technical article and an embedded planner. The original tool and the companion service remain outside this public repository.
+The portfolio includes a project, a technical article and an embedded planner, all served by the existing `my-portfolio` Vercel project at `iammusa.vercel.app`. Visitors use the planner inside `/playground?build=kaiju-cats` or the article. MusA.I links to these internal destinations. The original engine source remains outside this public repository.
 
 ## Local preview
 
@@ -10,24 +10,24 @@ The portfolio adds a project, a technical article and an embedded planner. The o
 
 Run the portfolio with `npm run dev -- --host 127.0.0.1 --port 5174 --strictPort`. The companion is in the owner's existing `Rob/hosted` workspace; run `npm start` there. Its README documents Node/Python requirements and deployment. The existing original Python app on port 8765 is unchanged.
 
-Development defaults to the loopback companion. Production requires the real HTTPS service root in `VITE_KAIJU_APP_URL` at build time. An unconfigured production build displays the example and connection status instead of linking visitors to their own localhost.
+Development uses the loopback companion. Production loads `/kaiju/` on the portfolio's own origin, and the embedded workspace calls `/api/kaiju/*`. No `VITE_KAIJU_APP_URL` setting is needed.
 
 ## Public/private boundary
 
 The public portfolio contains prose, a game screenshot, and the iframe wrapper. It contains no recognition, simulation or optimization implementation. The companion's browser files contain presentation and editing controls; its simulator, search workers and recognizer execute on the server and are denied by the static asset allowlist. A browser must receive its interface JavaScript, but it does not need the solver source.
 
-The iframe accepts readiness messages only from the configured service origin and its own frame window. Theme changes are sent to that exact origin. The child independently validates the portfolio origin and parent window. The origin-only cross-origin referrer allows this handshake without sharing the article path. Uploads and raw board contents are not sent to portfolio analytics.
+The iframe accepts readiness messages only from the expected origin and its own frame window. Theme changes are sent to that exact origin. The child independently validates the portfolio origin and parent window. Uploads and raw board contents are not sent to portfolio analytics.
 
-Never copy the `Rob` workspace into this repository. Never put backend credentials or deployment bypass tokens in a `VITE_` variable. A private companion repository, or a direct deployment from its local folder, can host a publicly usable app without publishing its server source.
+Never copy the private engine into this repository. Never put backend credentials or deployment bypass tokens in a `VITE_` variable. The release staging directory is outside both repositories, contains no Git history or credentials, and supplies private files only to server functions. Public build output contains the planner's interface and example data only.
 
 ## Public hosting steps
 
-1. Sign in to the owner's Vercel account. Create a separate project from the private companion folder/repository, keeping its repository private. Use its included configuration: static output `public`, Node search/replay APIs and Python recognition API. No paid upgrade is required by the implementation; check the account's actual limits before deploying.
-2. Verify the deployed service with an actual screenshot, bounded search, cancellation, replay and export. Verify private source URLs return 404. The local tests do not establish that Vercel packaged worker files or Python dependencies correctly.
-3. Set `VITE_KAIJU_APP_URL` to the verified companion HTTPS root in the portfolio's Production environment and rebuild the curated portfolio release.
-4. Check the live article and playground, both themes, embedded upload and downloads. A new host/domain also needs the companion's frame-ancestor and parent-origin allowlists updated.
+1. Run the public test suite and production build in the curated release checkout. Review and stage the intended public files with Git. The staging script uses Git's tracked-file list as its source manifest, including reviewed working-copy changes.
+2. Run `node scripts/stage-private-release.mjs --kaiju-root "<private hosted folder>" --output "<new staging folder outside both source folders>"`. The output must be a new directory. The script includes only the required private engine and public interface files, namespaces the APIs, and prepares Vercel routing and function configuration.
+3. In the staging directory, run `npx vercel link --yes --project my-portfolio --scope musa19`, then `npx vercel deploy --prod --yes --scope musa19`. Do not create another project. The existing eight server variables stay on `my-portfolio`.
+4. Verify a real embedded screenshot upload, a fresh search, cancellation, both saved replays and a downloaded plan. Verify private source URLs return 404 and no private implementation appears in static assets. Test the article, playground and MusA.I links on the production domain.
 
-At implementation time there is no deployed companion URL and the Vercel account is not authenticated in the available browser. Therefore the integration is locally usable and prepared for deployment, but is not yet available to public visitors. This account configuration is the remaining deployment dependency.
+Automatic Git deployments are disabled because the public repository intentionally lacks the private engine. Always deploy the staged package; a plain frontend deployment would remove the private server functions.
 
 ## Verification record — 2026-11-05
 

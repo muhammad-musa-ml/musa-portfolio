@@ -23,6 +23,7 @@ const SUGGESTIONS = [
   "What is WUMI Health?",
   "Walk me through your LLM safety research",
   "What’s resume-gauntlet?",
+  "Can I try your Kaiju Cats planner?",
   "What are you looking for in your next role?",
 ];
 

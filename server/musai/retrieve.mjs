@@ -110,7 +110,7 @@ const TOPICS = [
   },
   {
     pattern:
-      /\b(robotics|robot|drone|uav|aircraft|hardware|electronics|embedded|cad)\b/,
+      /\b(robotics|robot|drone|uav|aircraft|aerospace|avionics|flight control|flight controls|autopilot|hardware|electronics|embedded|cad)\b/,
     ids: ["project-uav"],
   },
   {
@@ -279,10 +279,15 @@ export function retrieve(messages) {
   const question = messages.at(-1).content;
   // A short follow-up can inherit the subject, but explicit new questions do not
   // get drowned out by an unrelated earlier conversation.
-  const followUp =
-    /\b(it|that|those|this|more|why|how|the project|the result)\b/.test(
-      normalize(question),
-    ) && terms(question).length <= 5;
+  const current = normalize(question);
+  const namesProject = knowledge.projects.some((project) =>
+    current.includes(normalize(project.name)) ||
+    (!["research", "serving", "open-source"].includes(project.id) &&
+      ` ${current} `.includes(` ${normalize(project.id)} `)));
+  const followUp = !namesProject && (
+    (/\b(it|that|those|this|these|its|the project|the result)\b/.test(current) && terms(question).length <= 16) ||
+    (/\b(more|why|how)\b/.test(current) && terms(question).length <= 5)
+  );
   const previous =
     messages
       .slice(0, -1)
@@ -488,6 +493,7 @@ export function retrieve(messages) {
 }
 
 const url = (label, href) => `[${label.replace(/[\[\]]/g, "")}](${href})`;
+
 export function portfolioAnswer(retrieval) {
   const { intent, selected } = retrieval;
   if (retrieval.scope) {

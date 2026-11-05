@@ -50,4 +50,6 @@ The build type-checks, verifies public knowledge/search/analytics indexes, prere
 
 ## Deployment
 
-Vercel builds the connected GitHub production branch. This development workspace also contains preserved study work and private historical material, so deployment uses the curated `Website-audit-output/interference-release` checkout. Copy only reviewed public changes into that checkout, run its tests and production build, then commit and push. Never publish `.env.local`, `.analytics/`, private snapshots, transcripts or credentials. The local dashboard files are tooling; they are not part of the public Vite output.
+The public GitHub repository contains the portfolio and its integration code. Kaiju's simulator, optimizer and recognizer remain private. Production uses a staged package that combines the reviewed public checkout with the private engine, then deploys everything to the existing `my-portfolio` Vercel project. Kaiju runs inside the portfolio at `/playground?build=kaiju-cats`, with its workspace at `/kaiju/` and server functions under `/api/kaiju/`.
+
+Automatic Git deployments are disabled in `vercel.json`: a public-repository-only build cannot include the private engine. Follow [the staging instructions](docs/KAIJU-INTEGRATION.md) for releases. Historical design studies remain in the development workspace. Never publish `.env.local`, `.analytics/`, private engine files, private snapshots, transcripts or credentials. The local dashboard files are tooling; they are not part of the public Vite output.

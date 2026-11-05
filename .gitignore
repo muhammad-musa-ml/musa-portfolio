@@ -10,3 +10,4 @@ public/concepts
 
 # Private analytics exports and local credentials
 .analytics/
+.vercel

@@ -1,4 +1,4 @@
-{
+export default {
   "paths": {
     "/": "Home",
     "/work": "Work",
@@ -446,4 +446,4 @@
     "education-0-coursework": "Coursework / University of Wisconsin–Madison",
     "education-1-coursework": "Coursework / Lahore University of Management Sciences"
   }
-}
+};
