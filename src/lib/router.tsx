@@ -39,7 +39,18 @@ function finishNavigation(hash: string, smooth: boolean) {
   const reveal = () => {
     const target = document.getElementById(id);
     if (!target) return false;
+    // A deep search result can live inside a collapsed experience/course entry.
+    // Reveal the destination before measuring its scroll position.
+    for (let node: HTMLElement | null = target; node; node = node.parentElement) {
+      if (node instanceof HTMLDetailsElement) node.open = true;
+    }
+    if (target.hasAttribute("data-search-target"))
+      target.querySelectorAll("details").forEach((details) => { details.open = true; });
     target.scrollIntoView({ behavior, block: "start" });
+    if (target.hasAttribute("data-search-target")) {
+      if (!target.matches("button,a,input,select,textarea,summary")) target.tabIndex = -1;
+      target.focus({ preventScroll: true });
+    }
     return true;
   };
   if (reveal()) return;
@@ -64,7 +75,10 @@ export function restoreHash() {
 }
 
 function notify() {
-  flushSync(() => listeners.forEach((listener) => listener()));
+  flushSync(() => {
+    window.dispatchEvent(new Event("portfolio:navigate"));
+    listeners.forEach((listener) => listener());
+  });
 }
 
 function waitForPage(path: string) {
@@ -162,7 +176,7 @@ function changePage(update: () => void, path: string, after: () => void) {
           "main:not([role='status'])",
         );
         main?.setAttribute("tabindex", "-1");
-        main?.focus({ preventScroll: true });
+        if (!window.location.hash) main?.focus({ preventScroll: true });
       });
       transition = current;
       // A hidden tab, rapid click, or unsupported capture can skip the animation.

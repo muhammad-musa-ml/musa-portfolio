@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import {
   createFieldTransform,
   getField,
@@ -105,6 +106,7 @@ export default function SpotlightBackground({
   cursor = true,
 }: Props) {
   const element = useRef<HTMLCanvasElement>(null);
+  const cursorElement = useRef<HTMLSpanElement>(null);
   const currentTheme = useRef(theme);
   const requestDraw = useRef<(() => void) | null>(null);
 
@@ -112,6 +114,67 @@ export default function SpotlightBackground({
     currentTheme.current = theme;
     requestDraw.current?.();
   }, [theme]);
+
+  useLayoutEffect(() => {
+    const dot = cursorElement.current;
+    if (!cursor || preview || reveal || !dot) return;
+    const finePointer = window.matchMedia(
+      "(any-hover: hover) and (any-pointer: fine)",
+    );
+    const hide = () => {
+      delete dot.dataset.visible;
+    };
+    const move = (event: PointerEvent) => {
+      const target = event.target instanceof Element ? event.target : null;
+      // Native controls in the browser's top layer can cover a body overlay.
+      // Keep their native cursor, and never replace touch or pen feedback.
+      if (
+        !finePointer.matches ||
+        event.pointerType !== "mouse" ||
+        document.hidden ||
+        !target?.closest(".pf") ||
+        target.closest("dialog[open], iframe, select") ||
+        event.clientX >= document.documentElement.clientWidth ||
+        event.clientY >= document.documentElement.clientHeight ||
+        event.clientX < 0 ||
+        event.clientY < 0
+      ) {
+        hide();
+        return;
+      }
+      dot.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`;
+      dot.dataset.visible = "true";
+    };
+    const key = (event: KeyboardEvent) => {
+      if (event.key === "Tab") hide();
+    };
+    // Capture also sees movement when an overlay stops event propagation.
+    window.addEventListener("pointermove", move, {
+      capture: true,
+      passive: true,
+    });
+    window.addEventListener("pointerdown", move, {
+      capture: true,
+      passive: true,
+    });
+    window.addEventListener("pointercancel", hide, true);
+    window.addEventListener("blur", hide);
+    window.addEventListener("keydown", key, true);
+    document.addEventListener("mouseleave", hide);
+    document.addEventListener("visibilitychange", hide);
+    finePointer.addEventListener("change", hide);
+    return () => {
+      hide();
+      window.removeEventListener("pointermove", move, true);
+      window.removeEventListener("pointerdown", move, true);
+      window.removeEventListener("pointercancel", hide, true);
+      window.removeEventListener("blur", hide);
+      window.removeEventListener("keydown", key, true);
+      document.removeEventListener("mouseleave", hide);
+      document.removeEventListener("visibilitychange", hide);
+      finePointer.removeEventListener("change", hide);
+    };
+  }, [cursor, preview, reveal]);
 
   useEffect(() => {
     const canvas = element.current;
@@ -165,7 +228,6 @@ export default function SpotlightBackground({
       clientX: width / 2,
       clientY: height / 2,
       active: false,
-      mouse: false,
     };
     const eased = {
       x: pointer.x,
@@ -338,12 +400,6 @@ export default function SpotlightBackground({
       context!.globalCompositeOperation = "source-over";
       context!.globalAlpha = 1;
 
-      if (cursor && pointer.active && pointer.mouse && !reveal) {
-        context!.fillStyle = colors[0];
-        context!.beginPath();
-        context!.arc(pointer.x, pointer.y, 2.5, 0, Math.PI * 2);
-        context!.fill();
-      }
       const moving =
         Math.abs(eased.x - targetX) + Math.abs(eased.y - targetY) > 0.15;
       const fading = Math.abs(eased.amount - (active ? 1 : 0)) > 0.002;
@@ -382,8 +438,6 @@ export default function SpotlightBackground({
       const x = event.clientX - bounds.left;
       const y = event.clientY - bounds.top;
       pointer.active = x >= 0 && x <= width && y >= 0 && y <= height;
-      pointer.mouse =
-        event.pointerType === "mouse" || event.pointerType === "pen";
       pointer.x = x;
       pointer.y = y;
       pointer.clientX = event.clientX;
@@ -468,15 +522,29 @@ export default function SpotlightBackground({
       document.removeEventListener("visibilitychange", visibility);
       reducedMotion.removeEventListener("change", schedule);
     };
-  }, [variant, preview, reveal, cursor]);
+  }, [variant, preview, reveal]);
 
   return (
-    <canvas
-      ref={element}
-      className={`portfolio-spotlight${preview ? " portfolio-spotlight--preview" : ""}`}
-      data-background={variant}
-      data-spotlight-radius="245"
-      aria-hidden="true"
-    />
+    <>
+      <canvas
+        ref={element}
+        className={`portfolio-spotlight${preview ? " portfolio-spotlight--preview" : ""}`}
+        data-background={variant}
+        data-spotlight-radius="245"
+        aria-hidden="true"
+      />
+      {cursor &&
+        !preview &&
+        !reveal &&
+        createPortal(
+          <span
+            ref={cursorElement}
+            className="portfolio-cursor"
+            data-theme={theme}
+            aria-hidden="true"
+          />,
+          document.body,
+        )}
+    </>
   );
 }

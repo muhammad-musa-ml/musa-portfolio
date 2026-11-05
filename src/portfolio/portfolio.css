@@ -1933,3 +1933,13 @@ body.portfolio-active:has(.pf[data-theme="light"]) {
     bottom: 25px;
   }
 }
+
+/* Search destinations remain recognizable after the palette closes. */
+.pf [data-search-target] {
+  scroll-margin-top: 130px;
+}
+.pf [data-search-target]:target {
+  outline: 1px solid var(--pf-accent);
+  outline-offset: 8px;
+  border-radius: 6px;
+}

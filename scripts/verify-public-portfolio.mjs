@@ -72,7 +72,7 @@ export function validatePublicContent(content) {
       seen.add(item[key])
     }
   }
-  const routes = new Set(['/', '/writing', '/playground', '/backgrounds', ...[...ids].map(id => `/work/${id}`), ...[...slugs].map(slug => `/writing/${slug}`)])
+  const routes = new Set(['/', '/writing', '/playground', '/work', '/about', ...[...ids].map(id => `/work/${id}`), ...[...slugs].map(slug => `/writing/${slug}`)])
   PROJECTS.forEach((project, index) => {
     const location = `PROJECTS[${index}]`
     objectShape(project, ['id', 'name', 'category', 'headline', 'summary', 'role', 'outcome', 'status', 'featured', 'technologies', 'sections', 'links'], ['demo'], location)

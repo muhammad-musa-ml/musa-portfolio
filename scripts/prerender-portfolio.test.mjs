@@ -67,11 +67,10 @@ test('real content produces all public routes, metadata and crawlable bodies in 
   await writeFile(path.join(directory, 'index.html'), shell)
   const content = await loadContent(path.join(ROOT, 'src/portfolio/content.ts'))
   const routes = await prerender(directory)
-  assert.equal(routes.length, 8 + content.PROJECTS.length + content.ARTICLES.length)
+  assert.equal(routes.length, 5 + content.PROJECTS.length + content.ARTICLES.length)
   assert.equal(new Set(routes).size, routes.length)
-  assert.ok(routes.includes('/playground/pathfinding'))
-  assert.ok(routes.includes('/playground/learning'))
-  for (const route of ['/work', '/about', '/playground/experiments']) assert.ok(routes.includes(route))
+  for (const route of ['/work', '/about', '/playground']) assert.ok(routes.includes(route))
+  for (const route of ['/playground/pathfinding', '/playground/learning', '/playground/experiments']) assert.ok(!routes.includes(route))
   assert.ok(!routes.some(route => route.startsWith('/samples') || route === '/backgrounds'))
   for (const route of routes) {
     const html = await readFile(path.join(directory, route === '/' ? '' : route.slice(1), 'index.html'), 'utf8')
@@ -92,11 +91,13 @@ test('real content produces all public routes, metadata and crawlable bodies in 
   await assert.rejects(prerender(directory), /Run Vite before prerendering again/)
 })
 
-test('the primary playground presents actual builds and keeps generic labs in the preserved experiments', async () => {
+test('the production playground exposes actual builds and archived labs require an explicit local-only build', async () => {
   const content = await loadContent(path.join(ROOT, 'src/portfolio/content.ts'))
   const pages = buildPages(content)
   const playground = pages.find(page => page.route === '/playground')
-  const experiments = pages.find(page => page.route === '/playground/experiments')
+  assert.ok(!pages.some(page => /^\/playground\//.test(page.route)))
+  const archivedPages = buildPages(content, {}, { includeStudies: true })
+  const experiments = archivedPages.find(page => page.route === '/playground/experiments')
   for (const build of ['kiln', 'lookup', 'serving', 'research', 'wumi']) assert.ok(playground.body.includes(`href="/playground?build=${build}"`))
   assert.match(playground.body, /Live application/)
   assert.match(playground.body, /Recorded results/)
@@ -107,7 +108,7 @@ test('the primary playground presents actual builds and keeps generic labs in th
   for (const demo of ['consent', 'defense', 'provenance']) assert.ok(experiments.body.includes(`href="/playground/experiments?demo=${demo}"`))
   for (const route of ['/playground/pathfinding', '/playground/learning']) {
     assert.ok(experiments.body.includes(`href="${route}"`))
-    const page = pages.find(item => item.route === route)
+    const page = archivedPages.find(item => item.route === route)
     const html = renderPage(shell, page)
     assert.ok(html.includes(`property="og:url" content="https://iammusa.vercel.app${route}"`))
     assert.ok(html.includes(`name="description" content="${page.description}"`))
@@ -116,11 +117,11 @@ test('the primary playground presents actual builds and keeps generic labs in th
     assert.equal(structured.isPartOf.url, 'https://iammusa.vercel.app/playground/experiments')
     assert.ok(!('datePublished' in structured))
   }
-  const pathfinding = pages.find(page => page.route === '/playground/pathfinding')
+  const pathfinding = archivedPages.find(page => page.route === '/playground/pathfinding')
   assert.match(pathfinding.body, /Manhattan distance/)
   assert.match(pathfinding.body, /When no route connects/)
   assert.match(pathfinding.body, /not timing benchmarks/)
-  const learning = pages.find(page => page.route === '/playground/learning')
+  const learning = archivedPages.find(page => page.route === '/playground/learning')
   assert.match(learning.body, /Full-batch gradient descent/)
   assert.match(learning.body, /Training accuracy is not performance on unseen examples/)
   assert.match(learning.body, /single line cannot perfectly separate the XOR classes/)
@@ -152,18 +153,32 @@ test('work and about expose the complete public catalog, evidence, original cred
   assert.ok(buildPages(content).find(page => page.route === '/about').body.includes('id="story"'))
 })
 
-test('Vercel resolves each lab to its generated HTML before the playground and SPA fallback', async () => {
-  const { rewrites } = JSON.parse(await readFile(path.join(ROOT, 'vercel.json'), 'utf8'))
-  const labIndex = rewrites.findIndex(rule => rule.source === '/playground/:slug')
-  const playgroundIndex = rewrites.findIndex(rule => rule.source === '/playground')
+test('Vercel redirects retired studies and retains direct public page delivery', async () => {
+  const { rewrites, redirects } = JSON.parse(await readFile(path.join(ROOT, 'vercel.json'), 'utf8'))
+  for (const prefix of ['backgrounds', 'motion-studio', 'samples', 'journeys'])
+    assert.ok(redirects.some(rule => rule.source === `/${prefix}/:path*` && rule.destination === '/' && rule.permanent))
+  for (const slug of ['experiments', 'pathfinding', 'learning'])
+    assert.ok(redirects.some(rule => rule.source === `/playground/${slug}/:path*` && rule.destination === '/playground'))
+  assert.ok(!rewrites.some(rule => rule.source === '/playground/:slug'))
   const fallbackIndex = rewrites.findIndex(rule => rule.destination === '/index.html')
-  assert.ok(labIndex >= 0 && labIndex < playgroundIndex && playgroundIndex < fallbackIndex)
-  for (const slug of ['pathfinding', 'learning', 'experiments']) assert.equal(rewrites[labIndex].destination.replace(':slug', slug), `/playground/${slug}/index.html`)
   assert.ok(rewrites.some(rule => rule.source === '/writing/:slug'))
   assert.ok(rewrites.some(rule => rule.source === '/work/:slug'))
-  for (const route of ['/work', '/about']) {
+  for (const route of ['/work', '/about', '/playground']) {
     const index = rewrites.findIndex(rule => rule.source === route)
     assert.ok(index >= 0 && index < fallbackIndex)
     assert.equal(rewrites[index].destination, `${route}/index.html`)
+  }
+})
+
+test('every public search result resolves to a real page and stable anchor', async () => {
+  const { buildCorpus } = await import('../src/portfolio/command-search/corpus.mjs')
+  const content = await loadContent(path.join(ROOT, 'src/portfolio/content.ts'))
+  const profile = await loadProfile(path.join(ROOT, 'src/portfolio/profile-details.ts'))
+  const pages = new Map(buildPages(content, profile).map(page => [page.route, page]))
+  for (const entry of buildCorpus(content, profile)) {
+    const url = new URL(entry.href, 'https://iammusa.vercel.app')
+    const page = pages.get(url.pathname)
+    assert.ok(page, `Missing page for ${entry.id}: ${entry.href}`)
+    if (url.hash) assert.ok(renderPage(shell, page).includes(`id="${url.hash.slice(1)}"`), `Missing anchor for ${entry.id}: ${entry.href}`)
   }
 })

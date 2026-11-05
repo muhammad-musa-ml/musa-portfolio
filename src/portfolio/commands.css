@@ -282,3 +282,36 @@
     transition: none;
   }
 }
+
+.pf-command-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 26px 4px;
+  min-height: 26px;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--pf-muted);
+}
+.pf .pf-command-status button {
+  color: var(--pf-accent);
+  text-decoration: underline;
+  padding: 5px;
+}
+.pf-command-option-copy > .pf-command-snippet {
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 7px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.pf-command-option-copy > .pf-command-destination {
+  color: var(--pf-accent);
+  font-family: var(--pf-mono, monospace);
+  font-size: 10px;
+  opacity: .8;
+  overflow-wrap: anywhere;
+  margin-top: 7px;
+}

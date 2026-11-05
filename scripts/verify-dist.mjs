@@ -12,6 +12,8 @@ const assetsDir = path.resolve(here, '..', 'dist', 'assets')
 
 const FORBIDDEN = [
   /regurates/i, // internal research codename + private repo path
+  /Explore the hidden layer/,
+  /Background studies|Motion studies|All design samples|Earlier playground experiments/,
   /217-0769/, // phone number — email is the public contact
   /1,200\+ hospitals/i, // retracted claim
 ]
@@ -19,6 +21,8 @@ const FORBIDDEN = [
 let scanned = 0
 const failures = []
 for (const entry of await readdir(assetsDir)) {
+  if (/^(?:StudioPage|LabPage|LabDirectory|SamplesApp|JourneysApp|ThreeHero)[-.]/.test(entry))
+    failures.push(`${entry} exposes a local-only design study`);
   if (!/\.(js|css|json|html)$/.test(entry)) continue
   const text = await readFile(path.join(assetsDir, entry), 'utf8')
   scanned += 1

@@ -1,0 +1,746 @@
+{
+  "model": "Xenova/all-MiniLM-L6-v2",
+  "revision": "751bff37182d3f1213fa05d7196b954e230abad9",
+  "corpusHash": "f36cc10a3f9268b7658111b30e07f802c3a7a77d99828fb762032f95aac8586c",
+  "rankHash": "f2fc4014cd29d54157214d77a8d6b0aa499692622814d3e0428e58f57f917158",
+  "casesHash": "8a91ca44d722f37440aebd58cc4d0acf9478f0a775c2c0540079e7b30bebb92c",
+  "backend": "onnxruntime-node CPU q8 (browser WASM timings are separate)",
+  "modelReadyMs": 2001,
+  "passed": 27,
+  "total": 27,
+  "results": [
+    {
+      "query": "how are you",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": null,
+      "ms": 35,
+      "results": [
+        {
+          "label": "About me",
+          "href": "/about",
+          "score": 95
+        },
+        {
+          "label": "My story",
+          "href": "/about#story",
+          "score": 83
+        }
+      ]
+    },
+    {
+      "query": "who are you",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": null,
+      "ms": 15,
+      "results": [
+        {
+          "label": "About me",
+          "href": "/about",
+          "score": 95
+        },
+        {
+          "label": "My story",
+          "href": "/about#story",
+          "score": 83
+        }
+      ]
+    },
+    {
+      "query": "I want to hire you",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": null,
+      "ms": 29,
+      "results": [
+        {
+          "label": "Experience",
+          "href": "/about#experience",
+          "score": 101.4
+        },
+        {
+          "label": "About me",
+          "href": "/about",
+          "score": 89.4
+        },
+        {
+          "label": "Get in touch",
+          "href": "/#contact",
+          "score": 77.4
+        }
+      ]
+    },
+    {
+      "query": "what are your skills",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": null,
+      "ms": 14,
+      "results": [
+        {
+          "label": "Skills & toolkit",
+          "href": "/about#toolkit",
+          "score": 111
+        }
+      ]
+    },
+    {
+      "query": "Postgres",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": null,
+      "ms": 154,
+      "results": [
+        {
+          "label": "PostgreSQL",
+          "href": "/about#toolkit-3",
+          "score": 21.56
+        },
+        {
+          "label": "WUMI Health",
+          "href": "/work/wumi#project-overview",
+          "score": 6.92
+        },
+        {
+          "label": "WUMI Health · outcome & role",
+          "href": "/work/wumi#project-outcome",
+          "score": 5.12
+        },
+        {
+          "label": "Lead Software Engineer · WUMI Health",
+          "href": "/about#experience-wumi",
+          "score": 1.6
+        },
+        {
+          "label": "Skills & toolkit",
+          "href": "/about#toolkit",
+          "score": 1.6
+        }
+      ]
+    },
+    {
+      "query": "K8s",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": null,
+      "ms": 21,
+      "results": [
+        {
+          "label": "Replicated lookup service",
+          "href": "/work/lookup#project-overview",
+          "score": 3.4
+        },
+        {
+          "label": "Replicated lookup service · outcome & role",
+          "href": "/work/lookup#project-outcome",
+          "score": 1.6
+        },
+        {
+          "label": "Skills & toolkit",
+          "href": "/about#toolkit",
+          "score": 1.6
+        },
+        {
+          "label": "Kubernetes",
+          "href": "/about#toolkit-3",
+          "score": 1.6
+        }
+      ]
+    },
+    {
+      "query": "Pythno",
+      "passed": true,
+      "rank": 2,
+      "semanticRank": null,
+      "ms": 61,
+      "results": [
+        {
+          "label": "The Complete Python 3 Course",
+          "href": "/about#credential-udemy-python",
+          "score": 8.32
+        },
+        {
+          "label": "Python",
+          "href": "/about#toolkit-0",
+          "score": 8.32
+        },
+        {
+          "label": "Social-media sentiment research",
+          "href": "/work/extremism#project-overview",
+          "score": 5.32
+        },
+        {
+          "label": "Resume Gauntlet",
+          "href": "/work/gauntlet#project-overview",
+          "score": 5.32
+        },
+        {
+          "label": "Kiln",
+          "href": "/work/kiln#project-overview",
+          "score": 5.32
+        }
+      ]
+    },
+    {
+      "query": "PyTorch",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": null,
+      "ms": 40,
+      "results": [
+        {
+          "label": "PyTorch",
+          "href": "/about#toolkit-1",
+          "score": 56.78
+        },
+        {
+          "label": "Multi-camera detection & stitching",
+          "href": "/work/mask-detection#project-overview",
+          "score": 7.71
+        },
+        {
+          "label": "RAG attack & defense",
+          "href": "/work/research#project-overview",
+          "score": 7.71
+        },
+        {
+          "label": "Satellite building footprints",
+          "href": "/work/satellite#project-overview",
+          "score": 7.71
+        },
+        {
+          "label": "Adversarial sentiment classification",
+          "href": "/work/sentiment-robustness#project-overview",
+          "score": 7.71
+        }
+      ]
+    },
+    {
+      "query": "C++",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": null,
+      "ms": 12,
+      "results": [
+        {
+          "label": "C++",
+          "href": "/about#toolkit-0",
+          "score": 58
+        },
+        {
+          "label": "Skills & toolkit",
+          "href": "/about#toolkit",
+          "score": 3.2
+        }
+      ]
+    },
+    {
+      "query": "where did you study",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": null,
+      "ms": 11,
+      "results": [
+        {
+          "label": "Education",
+          "href": "/about#education",
+          "score": 95
+        },
+        {
+          "label": "Social-media sentiment research",
+          "href": "/work/extremism#project-overview",
+          "score": 5
+        },
+        {
+          "label": "RAG attack & defense",
+          "href": "/work/research#project-overview",
+          "score": 5
+        },
+        {
+          "label": "Shahmukhi Punjabi NLP",
+          "href": "/work/shahmukhi#project-overview",
+          "score": 5
+        },
+        {
+          "label": "When a safety score hides the cost · The evaluator needs scrutiny too",
+          "href": "/writing/when-a-safety-score-hides-the-cost#section-3",
+          "score": 3.2
+        }
+      ]
+    },
+    {
+      "query": "healthcare permissions",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": 1,
+      "ms": 224,
+      "results": [
+        {
+          "label": "WUMI Health · The decision that shaped the system",
+          "href": "/work/wumi#section-1",
+          "score": 20.45
+        },
+        {
+          "label": "WUMI Health",
+          "href": "/work/wumi#project-overview",
+          "score": 17.64
+        },
+        {
+          "label": "Lead Software Engineer · WUMI Health",
+          "href": "/about#experience-wumi",
+          "score": 7.34
+        },
+        {
+          "label": "Resume Gauntlet",
+          "href": "/work/gauntlet#project-overview",
+          "score": 3.44
+        },
+        {
+          "label": "About me",
+          "href": "/about",
+          "score": 1.64
+        }
+      ]
+    },
+    {
+      "query": "hide sensitive records from someone who should not see them",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": 1,
+      "ms": 169,
+      "results": [
+        {
+          "label": "WUMI Health",
+          "href": "/work/wumi#project-overview",
+          "score": 6.99
+        }
+      ]
+    },
+    {
+      "query": "how much useful evidence gets thrown away when blocking malicious prompts",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": 1,
+      "ms": 214,
+      "results": [
+        {
+          "label": "When a safety score hides the cost · What I would carry into the next experiment",
+          "href": "/writing/when-a-safety-score-hides-the-cost#section-4",
+          "score": 10.64
+        },
+        {
+          "label": "When a safety score hides the cost · The attractive number",
+          "href": "/writing/when-a-safety-score-hides-the-cost#section-0",
+          "score": 8.38
+        },
+        {
+          "label": "REPROD",
+          "href": "/work/reprod#project-overview",
+          "score": 8.17
+        },
+        {
+          "label": "REPROD · A restrained conclusion",
+          "href": "/work/reprod#section-2",
+          "score": 7.08
+        },
+        {
+          "label": "Resume Gauntlet",
+          "href": "/work/gauntlet#project-overview",
+          "score": 6.99
+        }
+      ]
+    },
+    {
+      "query": "how did you stop agents from endlessly rewriting a document",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": 1,
+      "ms": 163,
+      "results": [
+        {
+          "label": "Resume Gauntlet",
+          "href": "/work/gauntlet#project-overview",
+          "score": 13.86
+        },
+        {
+          "label": "Dynamic workflows still need a stopping rule · A concrete version of the problem",
+          "href": "/writing/dynamic-workflows-need-a-stopping-rule#section-1",
+          "score": 13.84
+        },
+        {
+          "label": "Dynamic workflows still need a stopping rule · Check the thing that will be delivered",
+          "href": "/writing/dynamic-workflows-need-a-stopping-rule#section-3",
+          "score": 12.76
+        },
+        {
+          "label": "Resume Gauntlet · The artifact is part of the answer",
+          "href": "/work/gauntlet#section-2",
+          "score": 9.2
+        },
+        {
+          "label": "Claude Agent SDK",
+          "href": "/about#toolkit-2",
+          "score": 8.12
+        }
+      ]
+    },
+    {
+      "query": "find information I collected from scattered internet bookmarks",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": 1,
+      "ms": 129,
+      "results": [
+        {
+          "label": "A bookmark is not a research system",
+          "href": "/writing/a-bookmark-is-not-a-research-system",
+          "score": 17.17
+        },
+        {
+          "label": "A bookmark is not a research system · Saving was the easy part",
+          "href": "/writing/a-bookmark-is-not-a-research-system#section-0",
+          "score": 16.2
+        },
+        {
+          "label": "Kiln",
+          "href": "/work/kiln#project-overview",
+          "score": 12.56
+        }
+      ]
+    },
+    {
+      "query": "making a model reply faster on limited graphics memory",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": 2,
+      "ms": 159,
+      "results": [
+        {
+          "label": "Small-GPU serving bench",
+          "href": "/work/serving#project-overview",
+          "score": 10.61
+        },
+        {
+          "label": "Explore Small-GPU serving bench",
+          "href": "/playground?build=serving",
+          "score": 9.37
+        }
+      ]
+    },
+    {
+      "query": "keeping replicated answers consistent while machines fail",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": 1,
+      "ms": 166,
+      "results": [
+        {
+          "label": "Replicated lookup service · Make failure observable",
+          "href": "/work/lookup#section-2",
+          "score": 17.38
+        },
+        {
+          "label": "Replicated lookup service · outcome & role",
+          "href": "/work/lookup#project-outcome",
+          "score": 15.15
+        },
+        {
+          "label": "Dynamic workflows still need a stopping rule · A concrete version of the problem",
+          "href": "/writing/dynamic-workflows-need-a-stopping-rule#section-1",
+          "score": 8.05
+        }
+      ]
+    },
+    {
+      "query": "turning spoken requests into offline computer actions",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": 1,
+      "ms": 200,
+      "results": [
+        {
+          "label": "Voice Agent",
+          "href": "/work/voice-agent#project-overview",
+          "score": 7.43
+        },
+        {
+          "label": "Voice Agent · outcome & role",
+          "href": "/work/voice-agent#project-outcome",
+          "score": 6.94
+        }
+      ]
+    },
+    {
+      "query": "finding outlines of houses in images taken from space",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": 1,
+      "ms": 126,
+      "results": [
+        {
+          "label": "Satellite building footprints · Keep the evidence at its actual scale",
+          "href": "/work/satellite#section-1",
+          "score": 9.36
+        },
+        {
+          "label": "Satellite building footprints",
+          "href": "/work/satellite#project-overview",
+          "score": 8.72
+        },
+        {
+          "label": "Multi-camera detection & stitching · Connect detection to geometry",
+          "href": "/work/mask-detection#section-0",
+          "score": 5.65
+        },
+        {
+          "label": "Multi-camera detection & stitching",
+          "href": "/work/mask-detection#project-overview",
+          "score": 3.76
+        }
+      ]
+    },
+    {
+      "query": "recognizing text in a language without much labeled training data",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": 1,
+      "ms": 246,
+      "results": [
+        {
+          "label": "Shahmukhi Punjabi NLP",
+          "href": "/work/shahmukhi#project-overview",
+          "score": 15.37
+        },
+        {
+          "label": "Shahmukhi Punjabi NLP · My part",
+          "href": "/work/shahmukhi#section-0",
+          "score": 11.75
+        },
+        {
+          "label": "Data Science & Software Engineering Intern · SAUDCONSULT",
+          "href": "/about#experience-saudconsult",
+          "score": 10.55
+        }
+      ]
+    },
+    {
+      "query": "code contributions to other people's tools",
+      "passed": true,
+      "rank": 3,
+      "semanticRank": 11,
+      "ms": 165,
+      "results": [
+        {
+          "label": "REPROD · The team’s contribution",
+          "href": "/work/reprod#section-1",
+          "score": 15.01
+        },
+        {
+          "label": "Claude Code 101",
+          "href": "/about#credential-claude-code-101",
+          "score": 12.32
+        },
+        {
+          "label": "Small fixes, real boundaries",
+          "href": "/work/open-source#project-overview",
+          "score": 8.02
+        },
+        {
+          "label": "Explore Resume Gauntlet",
+          "href": "/playground?build=gauntlet",
+          "score": 5.67
+        },
+        {
+          "label": "A bookmark is not a research system · sources",
+          "href": "/writing/a-bookmark-is-not-a-research-system#sources",
+          "score": 5.15
+        }
+      ]
+    },
+    {
+      "query": "mentoring students learning to program",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": 1,
+      "ms": 87,
+      "results": [
+        {
+          "label": "Head Teaching Assistant · CS 331 · Lahore University of Management Sciences",
+          "href": "/about#experience-cs331",
+          "score": 12.59
+        },
+        {
+          "label": "Head Graduate Teaching Assistant · CS 320 · University of Wisconsin–Madison",
+          "href": "/about#experience-cs320",
+          "score": 12.56
+        },
+        {
+          "label": "Graduate Teaching Assistant · CS 220 · University of Wisconsin–Madison",
+          "href": "/about#experience-cs220",
+          "score": 10
+        },
+        {
+          "label": "About me",
+          "href": "/about",
+          "score": 8.08
+        },
+        {
+          "label": "My story",
+          "href": "/about#story",
+          "score": 7.81
+        }
+      ]
+    },
+    {
+      "query": "systems that keep working when a server goes down",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": 1,
+      "ms": 95,
+      "results": [
+        {
+          "label": "Replicated lookup service",
+          "href": "/work/lookup#project-overview",
+          "score": 8.81
+        },
+        {
+          "label": "Replicated lookup service · Failover has a budget",
+          "href": "/work/lookup#section-1",
+          "score": 7.17
+        }
+      ]
+    },
+    {
+      "query": "can you work with databases",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": 3,
+      "ms": 48,
+      "results": [
+        {
+          "label": "Data & cloud",
+          "href": "/about#toolkit-3",
+          "score": 7.77
+        },
+        {
+          "label": "Lead Software Engineer · WUMI Health",
+          "href": "/about#experience-wumi",
+          "score": 4.76
+        },
+        {
+          "label": "Data Science & Software Engineering Intern · SAUDCONSULT",
+          "href": "/about#experience-saudconsult",
+          "score": 4.3
+        },
+        {
+          "label": "Explore WUMI Health",
+          "href": "/playground?build=wumi",
+          "score": 3.87
+        }
+      ]
+    },
+    {
+      "query": "what makes you a good hire",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": 1,
+      "ms": 73,
+      "results": [
+        {
+          "label": "Experience",
+          "href": "/about#experience",
+          "score": 97.34
+        },
+        {
+          "label": "About me",
+          "href": "/about",
+          "score": 85.34
+        },
+        {
+          "label": "Get in touch",
+          "href": "/#contact",
+          "score": 73.34
+        },
+        {
+          "label": "Replicated lookup service · Make failure observable",
+          "href": "/work/lookup#section-2",
+          "score": 1.22
+        },
+        {
+          "label": "Satellite building footprints · Make inference work end to end",
+          "href": "/work/satellite#section-0",
+          "score": 1.22
+        }
+      ]
+    },
+    {
+      "query": "tools with less token overhead",
+      "passed": true,
+      "rank": 2,
+      "semanticRank": 3,
+      "ms": 85,
+      "results": [
+        {
+          "label": "Small-GPU serving bench",
+          "href": "/work/serving#project-overview",
+          "score": 11.11
+        },
+        {
+          "label": "Small fixes, real boundaries · A smaller tool contract",
+          "href": "/work/open-source#section-0",
+          "score": 10.4
+        },
+        {
+          "label": "Small fixes, real boundaries",
+          "href": "/work/open-source#project-overview",
+          "score": 8.24
+        },
+        {
+          "label": "Skills & toolkit",
+          "href": "/about#toolkit",
+          "score": 7.3
+        },
+        {
+          "label": "Small-GPU serving bench · The tradeoff",
+          "href": "/work/serving#section-2",
+          "score": 7
+        }
+      ]
+    },
+    {
+      "query": "helping underrepresented languages",
+      "passed": true,
+      "rank": 1,
+      "semanticRank": 1,
+      "ms": 65,
+      "results": [
+        {
+          "label": "Shahmukhi Punjabi NLP",
+          "href": "/work/shahmukhi#project-overview",
+          "score": 13.68
+        },
+        {
+          "label": "Languages",
+          "href": "/about#toolkit-0",
+          "score": 13.38
+        },
+        {
+          "label": "About me",
+          "href": "/about",
+          "score": 6.45
+        },
+        {
+          "label": "My story",
+          "href": "/about#story",
+          "score": 5.69
+        },
+        {
+          "label": "Voice Agent · Separate language from control",
+          "href": "/work/voice-agent#section-0",
+          "score": 5.45
+        }
+      ]
+    }
+  ]
+}

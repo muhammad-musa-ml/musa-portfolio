@@ -4,13 +4,70 @@
   "outputDirectory": "dist",
   "framework": "vite",
   "rewrites": [
-    { "source": "/writing", "destination": "/writing/index.html" },
-    { "source": "/writing/:slug", "destination": "/writing/:slug/index.html" },
-    { "source": "/work", "destination": "/work/index.html" },
-    { "source": "/work/:slug", "destination": "/work/:slug/index.html" },
-    { "source": "/about", "destination": "/about/index.html" },
-    { "source": "/playground/:slug", "destination": "/playground/:slug/index.html" },
-    { "source": "/playground", "destination": "/playground/index.html" },
-    { "source": "/((?!api/).*)", "destination": "/index.html" }
+    {
+      "source": "/writing",
+      "destination": "/writing/index.html"
+    },
+    {
+      "source": "/writing/:slug",
+      "destination": "/writing/:slug/index.html"
+    },
+    {
+      "source": "/work",
+      "destination": "/work/index.html"
+    },
+    {
+      "source": "/work/:slug",
+      "destination": "/work/:slug/index.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about/index.html"
+    },
+    {
+      "source": "/playground",
+      "destination": "/playground/index.html"
+    },
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/backgrounds/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/motion-studio/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/samples/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/journeys/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/playground/experiments/:path*",
+      "destination": "/playground",
+      "permanent": true
+    },
+    {
+      "source": "/playground/pathfinding/:path*",
+      "destination": "/playground",
+      "permanent": true
+    },
+    {
+      "source": "/playground/learning/:path*",
+      "destination": "/playground",
+      "permanent": true
+    }
   ]
 }

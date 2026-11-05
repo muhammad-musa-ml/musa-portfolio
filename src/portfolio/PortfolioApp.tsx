@@ -14,7 +14,6 @@ import SpotlightBackground, {
 } from "./backgrounds/SpotlightBackground";
 import { ARTICLES, BIO, PROJECTS, type PortfolioProject } from "./content";
 import ProjectDemo, { DEMOS, type DemoKind } from "./Demos";
-import LabDirectory from "./labs/LabDirectory";
 import { LABS } from "./labs/catalog";
 import { TraceRoute } from "./motion/TraceMotion";
 import PortfolioHeader from "./PortfolioHeader";
@@ -41,10 +40,17 @@ const SECTION_ROUTES: Record<string, string> = {
   "6": "/about#humanity",
   "7": "/#contact",
 };
-const StudioPage = lazy(() => import("./StudioPage"));
+const StudioPage = import.meta.env.DEV
+  ? lazy(() => import("./StudioPage"))
+  : null;
 const ArticleSearch = lazy(() => import("./ArticleSearch"));
 const ChatPanel = lazy(() => import("../components/chat/ChatPanel"));
-const LabPage = lazy(() => import("./labs/LabPage"));
+const LabPage = import.meta.env.DEV
+  ? lazy(() => import("./labs/LabPage"))
+  : null;
+const LabDirectory = import.meta.env.DEV
+  ? lazy(() => import("./labs/LabDirectory"))
+  : null;
 
 function Arrow({ down = false }: { down?: boolean }) {
   return (
@@ -118,9 +124,11 @@ function Footer({ openChat }: { openChat: () => void }) {
         <span>
           Muhammad Musa · Ctrl / ⌘ K to search · / MusA.I · 1–7 jump sections
         </span>
-        <RouteLink href="/backgrounds">
-          Explore the hidden layer <Arrow />
-        </RouteLink>
+        {import.meta.env.DEV && (
+          <RouteLink href="/backgrounds">
+            Explore the hidden layer <Arrow />
+          </RouteLink>
+        )}
       </div>
     </footer>
   );
@@ -406,7 +414,12 @@ function ProjectPage({ id }: { id: string }) {
         <p>{project.summary}</p>
         <LiveProjectLink project={project} />
       </header>
-      <div className="pf-project-facts pf-glass">
+      <section
+        className="pf-project-facts pf-glass"
+        id="project-overview"
+        data-search-target
+        aria-label="Project overview"
+      >
         <div>
           <span>My role</span>
           <p>{project.role}</p>
@@ -415,7 +428,7 @@ function ProjectPage({ id }: { id: string }) {
           <span>Where it stands</span>
           <p>{project.status}</p>
         </div>
-      </div>
+      </section>
       {project.demo && (
         <section className="pf-detail-demo">
           <ProjectDemo kind={project.demo} />
@@ -450,12 +463,12 @@ function ProjectPage({ id }: { id: string }) {
           ))}
         </aside>
         <article>
-          <section>
+          <section id="project-outcome" data-search-target>
             <h2>What changed.</h2>
             <p>{project.outcome}</p>
           </section>
-          {project.sections.map((section) => (
-            <section key={section.title}>
+          {project.sections.map((section, index) => (
+            <section key={section.title} id={`section-${index}`} data-search-target>
               <h2>{section.title}</h2>
               <p>{section.body}</p>
             </section>
@@ -568,7 +581,7 @@ function ArticlePage({ slug }: { slug: string }) {
         </aside>
         <article className="pf-prose">
           {article.sections.map((section, i) => (
-            <section key={section.heading} id={`section-${i}`}>
+            <section key={section.heading} id={`section-${i}`} data-search-target>
               <h2>{section.heading}</h2>
               {section.paragraphs.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
@@ -580,7 +593,7 @@ function ArticlePage({ slug }: { slug: string }) {
               )}
             </section>
           ))}
-          <section id="sources">
+          <section id="sources" data-search-target>
             <h2>Sources & further reading</h2>
             <ul>
               {article.references.map((reference) => (
@@ -629,7 +642,11 @@ function InterfaceExperiments() {
           experiments in search, learning, and the systems I build.
         </p>
       </header>
-      <LabDirectory />
+      {LabDirectory && (
+        <Suspense fallback={<p>Opening the local experiments…</p>}>
+          <LabDirectory />
+        </Suspense>
+      )}
       <div className="pf-project-experiments-heading">
         <h2>Inside the projects.</h2>
         <p>Three smaller experiments with the decisions behind my work.</p>
@@ -666,16 +683,18 @@ function InterfaceExperiments() {
           )}
         </section>
       </div>
-      <aside className="pf-playground-note">
-        <h2>One more thing to explore.</h2>
-        <p>
-          The hidden background is an experiment too. Seven different
-          structures, revealed by the same spotlight.
-        </p>
-        <RouteLink className="pf-action" href="/backgrounds">
-          Open the background studio <Arrow />
-        </RouteLink>
-      </aside>
+      {import.meta.env.DEV && (
+        <aside className="pf-playground-note">
+          <h2>One more thing to explore.</h2>
+          <p>
+            The hidden background is an experiment too. Seven different
+            structures, revealed by the same spotlight.
+          </p>
+          <RouteLink className="pf-action" href="/backgrounds">
+            Open the background studio <Arrow />
+          </RouteLink>
+        </aside>
+      )}
     </main>
   );
 }
@@ -784,11 +803,14 @@ function savedValue(key: string) {
 
 export default function PortfolioApp() {
   const path = usePath();
-  const lab = LABS.find((item) => path === `/playground/${item.id}`);
+  const lab = import.meta.env.DEV
+    ? LABS.find((item) => path === `/playground/${item.id}`)
+    : undefined;
   const [theme, setTheme] = useState<BackgroundTheme>(() =>
     savedValue("musa-theme") === "light" ? "light" : "dark",
   );
   const [variant, setVariant] = useState<BackgroundVariant>(() => {
+    if (!import.meta.env.DEV) return "latent";
     const saved = savedValue("musa-background-studio");
     return BACKGROUND_OPTIONS.some((option) => option.id === saved)
       ? (saved as BackgroundVariant)
@@ -811,7 +833,8 @@ export default function PortfolioApp() {
     setCommandsOpen(true);
   }, []);
   const previousPath = useRef(path);
-  const isLab = path === "/backgrounds";
+  const isLab = import.meta.env.DEV && path === "/backgrounds";
+  const isMotionStudio = import.meta.env.DEV && path === "/motion-studio";
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (
@@ -856,7 +879,8 @@ export default function PortfolioApp() {
   useEffect(() => {
     try {
       localStorage.setItem("musa-theme", theme);
-      localStorage.setItem("musa-background-studio", variant);
+      if (import.meta.env.DEV)
+        localStorage.setItem("musa-background-studio", variant);
       localStorage.setItem("musa-spotlight-dot", String(spotlightDot));
     } catch {
       /* The selected appearance still works without storage. */
@@ -877,11 +901,15 @@ export default function PortfolioApp() {
         {
           "/work": "Work",
           "/about": "About",
-          "/playground/experiments": "Interface experiments",
           "/writing": "Writing",
           "/playground": "Playground",
-          "/backgrounds": "Background studio",
-          "/motion-studio": "Motion studio",
+          ...(import.meta.env.DEV
+            ? {
+                "/playground/experiments": "Interface experiments",
+                "/backgrounds": "Background studio",
+                "/motion-studio": "Motion studio",
+              }
+            : {}),
         } as Record<string, string>
       )[path];
     document.title = label
@@ -896,10 +924,14 @@ export default function PortfolioApp() {
         "Things I’ve built, ideas I’ve tested, and the decisions I’d make differently. The technical details, with the reasons behind them.",
       "/playground":
         "Explore the products and systems I built, their public interfaces, original benchmark results, code and project walkthroughs.",
-      "/backgrounds":
-        "Seven hidden background studies, revealed by a spotlight and transformed by scrolling.",
-      "/motion-studio":
-        "Compare three interactive 3D and 4D hero studies, plus three page transitions.",
+      ...(import.meta.env.DEV
+        ? {
+            "/backgrounds":
+              "Seven hidden background studies, revealed by a spotlight and transformed by scrolling.",
+            "/motion-studio":
+              "Compare three interactive 3D and 4D hero studies, plus three page transitions.",
+          }
+        : {}),
     };
     const description =
       article?.dek ||
@@ -985,7 +1017,7 @@ export default function PortfolioApp() {
       <a className="pf-skip" href="#main">
         Skip to content
       </a>
-      {path !== "/motion-studio" && (
+      {!isMotionStudio && (
         <SpotlightBackground
           variant={isLab ? variant : "latent"}
           theme={theme}
@@ -1002,7 +1034,7 @@ export default function PortfolioApp() {
             setTheme((value) => (value === "dark" ? "light" : "dark"))
           }
         />
-        <TraceRoute route={path} enabled={!isLab && path !== "/motion-studio"}>
+        <TraceRoute route={path} enabled={!isLab && !isMotionStudio}>
           {isLab ? (
             <BackgroundLab
               {...{ variant, setVariant, theme, reveal, setReveal }}
@@ -1010,7 +1042,7 @@ export default function PortfolioApp() {
                 setTheme((value) => (value === "dark" ? "light" : "dark"))
               }
             />
-          ) : path === "/motion-studio" ? (
+          ) : isMotionStudio && StudioPage ? (
             <Suspense fallback={<p>Loading the visual studies…</p>}>
               <StudioPage
                 theme={theme}
@@ -1047,7 +1079,7 @@ export default function PortfolioApp() {
             <ArticlePage slug={path.slice(9)} />
           ) : path.startsWith("/work/") ? (
             <ProjectPage id={path.slice(6)} />
-          ) : lab ? (
+          ) : lab && LabPage ? (
             <Suspense
               fallback={
                 <main id="main" className="pf-lab-preparing" role="status">
@@ -1067,7 +1099,7 @@ export default function PortfolioApp() {
             >
               <BuildsPlayground />
             </Suspense>
-          ) : path === "/playground/experiments" ? (
+          ) : import.meta.env.DEV && path === "/playground/experiments" ? (
             <InterfaceExperiments />
           ) : (
             <NotFound />

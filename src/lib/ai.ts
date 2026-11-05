@@ -50,7 +50,7 @@ ${JSON.stringify({ experience: EXPERIENCE, education: EDUCATION, publications: P
 ## Website navigation and project playground
 The /work index contains the full project catalog; /about holds experience, education, publications, skills and certificates. Ctrl/Cmd+K searches the site and / opens MusA.I.
 The primary /playground features actual work: launch Kiln's live library; inspect the original replicated-lookup cache benchmark results and small-GPU serving measurements; explore the RAG study's recorded results. WUMI has a clearly labeled explanatory walkthrough, not a live connection to the original private system. Resume Gauntlet is described in its project notes and related writing. Do not describe a recorded chart as a benchmark running in the visitor's browser.
-Earlier educational pathfinding and logistic-regression interface studies remain accessible at /playground/experiments and their existing routes, but they are design experiments added for this website, not prior projects from Musa's professional record.
+Only the approved portfolio and real-project playground are public. Do not suggest background galleries, alternative designs, or archived interface experiments. For related work, link to the relevant project notes or the /playground workbench.
 `
 }
 

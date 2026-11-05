@@ -12,6 +12,22 @@ import {
 import { ProfileNumbers } from "./profile-summary";
 import "./profile-sections.css";
 
+function useSearchDestination(prefix: string, reset: () => void) {
+  const latest = useRef(reset);
+  latest.current = reset;
+  useEffect(() => {
+    const reveal = () => {
+      if (window.location.hash.startsWith(prefix)) latest.current();
+    };
+    window.addEventListener("portfolio:navigate", reveal);
+    window.addEventListener("hashchange", reveal);
+    return () => {
+      window.removeEventListener("portfolio:navigate", reveal);
+      window.removeEventListener("hashchange", reveal);
+    };
+  }, [prefix]);
+}
+
 function SectionHeading({
   title,
   description,
@@ -36,7 +52,7 @@ export function ExperienceSection() {
       />
       <div className="pf-experience-list">
         {EXPERIENCE.map((entry) => (
-          <details key={entry.id} className="pf-experience-entry">
+          <details key={entry.id} id={`experience-${entry.id}`} data-search-target className="pf-experience-entry">
             <summary>
               <span className="pf-experience-date">{entry.date}</span>
               <span className="pf-experience-title">
@@ -127,9 +143,11 @@ function matches(haystack: string, terms: string[]) {
 
 export function ToolkitSection() {
   const [query, setQuery] = useState("");
+  useSearchDestination("#toolkit-", () => setQuery(""));
   const groups = useMemo(() => {
     const terms = termsFor(query);
-    return TOOLKIT.map((group) => ({
+    return TOOLKIT.map((group, index) => ({
+      anchor: `toolkit-${index}`,
       ...group,
       shown: group.tools.filter((tool) =>
         matches(`${tool} ${group.name} ${group.tags}`, terms),
@@ -159,7 +177,7 @@ export function ToolkitSection() {
       </div>
       <div className="pf-tool-groups">
         {groups.map((group) => (
-          <div className="pf-tool-group" key={group.name}>
+          <div className="pf-tool-group" key={group.name} id={group.anchor} data-search-target>
             <div>
               <h3>{group.name}</h3>
               <p>{group.why}</p>
@@ -256,6 +274,10 @@ export function CertificatesSection() {
   const [query, setQuery] = useState("");
   const [group, setGroup] = useState("All certificates");
   const [selected, setSelected] = useState<Credential | null>(null);
+  useSearchDestination("#credential-", () => {
+    setQuery("");
+    setGroup("All certificates");
+  });
   const groups = [
     "All certificates",
     ...new Set(CREDENTIALS.map((item) => item.group)),
@@ -306,6 +328,8 @@ export function CertificatesSection() {
         {shown.map((item) => (
           <button
             key={item.id}
+            id={`credential-${item.id}`}
+            data-search-target
             className="pf-credential-card"
             onClick={() => setSelected(item)}
             aria-label={`View certificate: ${item.name}`}
@@ -360,8 +384,8 @@ export function PublicationsSection() {
         description="Two contributions, with their format and my role made explicit."
       />
       <div className="pf-publications">
-        {PUBLICATIONS.map((paper) => (
-          <article key={paper.href}>
+        {PUBLICATIONS.map((paper, index) => (
+          <article key={paper.href} id={`publication-${index}`} data-search-target>
             <div>
               <span>{paper.venue}</span>
               <span>{paper.format}</span>
@@ -496,8 +520,8 @@ export function ProfileDetailsPage() {
           description="Two universities. A continuing education in how systems behave."
         />
         <div className="pf-education-list">
-          {EDUCATION.map((entry) => (
-            <article key={entry.school}>
+          {EDUCATION.map((entry, index) => (
+            <article key={entry.school} id={`education-${index}`} data-search-target>
               <span>{entry.date}</span>
               <h3>{entry.school}</h3>
               <strong>{entry.degree}</strong>

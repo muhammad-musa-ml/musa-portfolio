@@ -12,3 +12,41 @@
 .portfolio-spotlight--preview {
   position: absolute;
 }
+
+/* This lives above the page, outside its clipping and stacking contexts. */
+.portfolio-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 6px;
+  height: 6px;
+  margin: -3px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 2147483647;
+  opacity: 0;
+  background: #ffb454;
+  box-shadow: 0 0 0 1px #0b0c1066;
+  transition:
+    background-color 520ms ease,
+    box-shadow 520ms ease;
+}
+.portfolio-cursor[data-theme="light"] {
+  background: #aa5b12;
+  box-shadow: 0 0 0 1px #f0ede680;
+}
+.portfolio-cursor[data-visible="true"] {
+  opacity: 1;
+}
+@media (any-hover: hover) and (any-pointer: fine) {
+  /* Removing or hiding the replacement automatically restores every native cursor. */
+  html:has(body > .portfolio-cursor[data-visible="true"]),
+  html:has(body > .portfolio-cursor[data-visible="true"]) * {
+    cursor: none !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-cursor {
+    transition: none;
+  }
+}

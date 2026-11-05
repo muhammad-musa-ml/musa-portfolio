@@ -6,7 +6,7 @@ import {
   useState,
   type KeyboardEvent,
 } from "react";
-import { ARTICLES, PROJECTS } from "./content";
+import { SEARCH_ENTRIES, rankSearch, searchMeaning, retryMeaningSearch, type SearchEntry, type MeaningUpdate } from "./command-search";
 import "./commands.css";
 
 export type PortfolioCommandSection = {
@@ -28,19 +28,8 @@ type Props = {
   onToggleSpotlightDot?: () => void;
 };
 
-type Command = {
-  id: string;
-  label: string;
-  detail: string;
-  group:
-    | "Go somewhere"
-    | "Sections"
-    | "Projects"
-    | "Writing"
-    | "Connect"
-    | "Appearance"
-    | "MusA.I";
-  keywords: string;
+type Command = Omit<SearchEntry, "href" | "group"> & {
+  group: SearchEntry["group"] | "Connect" | "Appearance" | "MusA.I" | "Local studies";
   shortcut?: string;
   href?: string;
   action?: "ask" | "theme" | "pointer" | "download";
@@ -168,7 +157,16 @@ export default function PortfolioCommands({
   onToggleSpotlightDot,
 }: Props) {
   const [query, setQuery] = useState("");
-  const [active, setActive] = useState(0);
+  const [activeId, setActiveId] = useState<string | null>(null);
+  const [meaning, setMeaning] = useState<MeaningUpdate>({ status: "idle", query: "", matches: [] });
+  const [retry, setRetry] = useState(0);
+  const searchQuery = query.trim().slice(0, 300);
+  const latestQuery = useRef(searchQuery);
+  latestQuery.current = searchQuery;
+
+  useEffect(() => searchMeaning(searchQuery, (update) => {
+    if (update.query === latestQuery.current) setMeaning(update);
+  }), [searchQuery, retry]);
   const input = useRef<HTMLInputElement>(null);
   const dialog = useRef<HTMLDivElement>(null);
   const list = useRef<HTMLDivElement>(null);
@@ -178,50 +176,7 @@ export default function PortfolioCommands({
   const listId = `${id}-results`;
 
   const commands = useMemo<Command[]>(() => {
-    const pages: Command[] = [
-      {
-        id: "home",
-        label: "Home",
-        detail: "An introduction to my work",
-        href: "/",
-        keywords: "top intro overview musa",
-        group: "Go somewhere",
-      },
-      {
-        id: "all-work",
-        label: "All work",
-        detail: "Projects, research and the decisions behind them",
-        href: "/work",
-        keywords:
-          "projects portfolio journeys evidence research machine learning building teaching",
-        group: "Go somewhere",
-      },
-      {
-        id: "writing",
-        label: "Writing",
-        detail: "Technical notes and things I have learned",
-        href: "/writing",
-        keywords: "blogs articles notes reading",
-        group: "Go somewhere",
-      },
-      {
-        id: "playground",
-        label: "Playground",
-        detail: "Explore things I have built",
-        href: "/playground",
-        keywords: "try demo experiment interactive build",
-        group: "Go somewhere",
-      },
-      {
-        id: "about",
-        label: "About me",
-        detail: "Experience, skills and the person behind the work",
-        href: "/about",
-        keywords:
-          "biography story education experience toolkit certificates humanity hire",
-        group: "Go somewhere",
-      },
-    ];
+    const pages = SEARCH_ENTRIES.filter(entry => entry.kind === "page");
     const result: Command[] = [
       ...pages,
       ...sections.map(
@@ -235,26 +190,7 @@ export default function PortfolioCommands({
           group: "Sections",
         }),
       ),
-      ...PROJECTS.map(
-        (project): Command => ({
-          id: `project-${project.id}`,
-          label: project.name,
-          detail: project.category,
-          href: `/work/${project.id}`,
-          keywords: `${project.headline} ${project.summary} ${project.technologies.join(" ")}`,
-          group: "Projects",
-        }),
-      ),
-      ...ARTICLES.map(
-        (article): Command => ({
-          id: `article-${article.slug}`,
-          label: article.title,
-          detail: `${article.minutes} min · ${article.topics[0]}`,
-          href: `/writing/${article.slug}`,
-          keywords: `${article.dek} ${article.topics.join(" ")}`,
-          group: "Writing",
-        }),
-      ),
+      ...SEARCH_ENTRIES.filter(entry => entry.kind === "project" || entry.kind === "article"),
       {
         id: "resume",
         label: "Download my résumé",
@@ -292,7 +228,7 @@ export default function PortfolioCommands({
         label: spotlightDot
           ? "Hide the spotlight dot"
           : "Show the spotlight dot",
-        detail: "Keep the spotlight; change its pointer marker",
+        detail: spotlightDot ? "Use the system cursor; keep the spotlight" : "Replace the system cursor with the spotlight dot",
         action: "pointer",
         keywords: "cursor mouse pointer dot system appearance",
         group: "Appearance",
@@ -305,7 +241,7 @@ export default function PortfolioCommands({
           detail: "Compare the preserved spotlight options",
           href: "/backgrounds",
           keywords: "design background spotlight alternatives",
-          group: "Appearance",
+          group: "Local studies",
         },
         {
           id: "motion",
@@ -313,7 +249,7 @@ export default function PortfolioCommands({
           detail: "Compare 3D forms and transitions",
           href: "/motion-studio",
           keywords: "design animation three 3d four 4d trace",
-          group: "Appearance",
+          group: "Local studies",
         },
         {
           id: "samples",
@@ -321,7 +257,7 @@ export default function PortfolioCommands({
           detail: "The earlier website studies",
           href: "/samples",
           keywords: "archive preserved design interference curio reading room",
-          group: "Appearance",
+          group: "Local studies",
         },
         {
           id: "interface-experiments",
@@ -329,41 +265,40 @@ export default function PortfolioCommands({
           detail: "The preserved demos, pathfinding and learning labs",
           href: "/playground/experiments",
           keywords: "archive experiment lab pathfinding learning demos",
-          group: "Appearance",
+          group: "Local studies",
         },
       );
-    return result;
+    return [...result.filter(command => command.group === "Appearance"), ...result.filter(command => command.group !== "Appearance")];
   }, [sections, theme, onToggleTheme, spotlightDot, onToggleSpotlightDot]);
 
-  const rows = useMemo(() => {
-    const text = normalize(query);
-    const found = text
-      ? commands
-          .map((command, index) => ({
-            command,
-            index,
-            score: relevance(command, text),
-          }))
-          .filter((row) => row.score > 0)
-          .sort((a, b) => b.score - a.score || a.index - b.index)
-          .map((row) => row.command)
-      : commands;
-    if (query.trim().length >= 3)
-      return [
-        ...found,
-        {
-          id: "question",
-          label: `Ask MusA.I: “${query.trim()}”`,
-          detail: "Send this as a question about my work",
-          group: "MusA.I",
-          keywords: "",
-          action: "ask",
-          question: query.trim(),
-        } satisfies Command,
-      ];
+  const rows = useMemo<Command[]>(() => {
+    if (!searchQuery) return commands;
+    const matches = meaning.query === searchQuery && meaning.status === "ready" ? meaning.matches : [];
+    const destinations = rankSearch(searchQuery, matches);
+    const actions = commands.filter(command => command.action || command.group === "Connect" || command.group === "Local studies")
+      .map(command => ({ ...command, score: relevance(command, normalize(searchQuery)) * 8 }))
+      .filter(command => command.score > 0);
+    const found: Command[] = [...destinations, ...actions].sort((a, b) => b.score - a.score).slice(0, 15);
+    if (searchQuery.length >= 3) found.push({
+      id: "question",
+      label: `Ask MusA.I: “${searchQuery}”`,
+      detail: "Have a conversation about my work",
+      group: "MusA.I",
+      keywords: "",
+      action: "ask",
+      question: searchQuery,
+    });
     return found;
-  }, [commands, query]);
-  const selected = Math.min(active, Math.max(0, rows.length - 1));
+  }, [commands, searchQuery, meaning]);
+  // Preserve the destination a visitor selects while semantic results arrive.
+  const selected = Math.max(0, activeId ? rows.findIndex(row => row.id === activeId) : 0);
+  const searchStatus = meaning.query === searchQuery ? meaning.status : "idle";
+  const statusText = searchStatus === "loading"
+    ? "Preparing meaning search for the first time. Quick matches are ready."
+    : searchStatus === "searching" ? "Finding related work… Quick matches are ready."
+    : searchStatus === "ready" ? "Matched by meaning and text. Your searches stay on this device."
+    : searchStatus === "error" ? "Meaning search is unavailable. Text matching still works."
+    : "Try a question, a skill, or something you want to explore.";
 
   useEffect(() => {
     const opener = document.activeElement as HTMLElement | null;
@@ -430,10 +365,7 @@ export default function PortfolioCommands({
     if (event.key === "ArrowDown" || event.key === "ArrowUp") {
       event.preventDefault();
       if (rows.length)
-        setActive(
-          (selected + (event.key === "ArrowDown" ? 1 : -1) + rows.length) %
-            rows.length,
-        );
+        setActiveId(rows[(selected + (event.key === "ArrowDown" ? 1 : -1) + rows.length) % rows.length].id);
     } else if (event.key === "Enter" && rows[selected]) {
       event.preventDefault();
       run(rows[selected]);
@@ -486,7 +418,7 @@ export default function PortfolioCommands({
         <header className="pf-command-header">
           <div>
             <h2 id={`${id}-title`}>Find your way.</h2>
-            <p>A page, a project, or a question for MusA.I.</p>
+            <p>Ask a question. Find the work behind the answer.</p>
           </div>
           <button
             className="pf-command-close"
@@ -512,11 +444,12 @@ export default function PortfolioCommands({
             value={query}
             onChange={(event) => {
               setQuery(event.target.value);
-              setActive(0);
+              setActiveId(null);
             }}
             onKeyDown={onInputKey}
-            placeholder="Search the portfolio…"
-            aria-label="Search pages, projects, and writing"
+            placeholder="What are you curious about?"
+            maxLength={300}
+            aria-label="Search questions, skills, projects, and writing"
             role="combobox"
             aria-autocomplete="list"
             aria-expanded="true"
@@ -528,6 +461,10 @@ export default function PortfolioCommands({
             spellCheck={false}
           />
         </div>
+        {searchQuery && <div className="pf-command-status">
+          <span role="status" aria-live="polite">{statusText}</span>
+          {searchStatus === "error" && <button onClick={() => { retryMeaningSearch(); setRetry(value => value + 1); }}>Retry</button>}
+        </div>}
         <div
           ref={list}
           id={listId}
@@ -537,9 +474,9 @@ export default function PortfolioCommands({
         >
           {rows.map((command, index) => (
             <div role="presentation" key={command.id}>
-              {(index === 0 || rows[index - 1].group !== command.group) && (
+              {(searchQuery ? index === 0 || command.id === "question" : index === 0 || rows[index - 1].group !== command.group) && (
                 <div className="pf-command-group" aria-hidden="true">
-                  {command.group}
+                  {searchQuery ? command.id === "question" ? "Keep exploring" : "Best matches" : command.group}
                 </div>
               )}
               <button
@@ -553,14 +490,16 @@ export default function PortfolioCommands({
                 onPointerMove={(event) => {
                   // Scrolling a keyboard-selected result under a stationary
                   // pointer should not change the selection again.
-                  if (event.movementX || event.movementY) setActive(index);
+                  if (event.movementX || event.movementY) setActiveId(command.id);
                 }}
                 onMouseDown={(event) => event.preventDefault()}
                 onClick={() => run(command)}
               >
                 <span className="pf-command-option-copy">
                   <strong>{command.label}</strong>
-                  <span>{command.detail}</span>
+                  <span>{searchQuery && command.snippet ? command.group : command.detail}</span>
+                  {searchQuery && command.snippet && <span className="pf-command-snippet">{command.snippet}</span>}
+                  {searchQuery && command.href?.startsWith("/") && !command.action && <span className="pf-command-destination">{command.href}</span>}
                 </span>
                 {command.shortcut ? (
                   <kbd>{command.shortcut}</kbd>
