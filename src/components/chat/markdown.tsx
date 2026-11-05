@@ -12,9 +12,9 @@ function renderInline(text: string, keyBase: string): ReactNode[] {
   let k = 0
   while ((m = re.exec(text)) !== null) {
     if (m.index > last) out.push(text.slice(last, m.index))
-    if (m[2]) out.push(<strong key={`${keyBase}-${k++}`}>{m[2]}</strong>)
-    else if (m[4]) out.push(<em key={`${keyBase}-${k++}`}>{m[4]}</em>)
-    else if (m[6]) out.push(<em key={`${keyBase}-${k++}`}>{m[6]}</em>)
+    if (m[2]) out.push(<strong key={`${keyBase}-${k++}`}>{renderInline(m[2], `${keyBase}-${k}-strong`)}</strong>)
+    else if (m[4]) out.push(<em key={`${keyBase}-${k++}`}>{renderInline(m[4], `${keyBase}-${k}-em`)}</em>)
+    else if (m[6]) out.push(<em key={`${keyBase}-${k++}`}>{renderInline(m[6], `${keyBase}-${k}-em`)}</em>)
     else if (m[8]) out.push(<code key={`${keyBase}-${k++}`}>{m[8]}</code>)
     else if (m[10] && m[11])
       out.push(
