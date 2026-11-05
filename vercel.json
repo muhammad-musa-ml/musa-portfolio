@@ -2,5 +2,15 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "framework": "vite"
+  "framework": "vite",
+  "rewrites": [
+    { "source": "/writing", "destination": "/writing/index.html" },
+    { "source": "/writing/:slug", "destination": "/writing/:slug/index.html" },
+    { "source": "/work", "destination": "/work/index.html" },
+    { "source": "/work/:slug", "destination": "/work/:slug/index.html" },
+    { "source": "/about", "destination": "/about/index.html" },
+    { "source": "/playground/:slug", "destination": "/playground/:slug/index.html" },
+    { "source": "/playground", "destination": "/playground/index.html" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ]
 }

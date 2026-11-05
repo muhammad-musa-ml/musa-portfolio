@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  scroll-behavior: auto;
+}
+body {
+  min-width: 320px;
+  background: #0b0c10;
+  -webkit-font-smoothing: antialiased;
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+img,
+svg,
+canvas {
+  max-width: 100%;
+}
+::selection {
+  background: #ffb454;
+  color: #0b0c10;
+}

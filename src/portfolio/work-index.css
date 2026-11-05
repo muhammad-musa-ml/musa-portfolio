@@ -1,0 +1,119 @@
+.pf-work-browser {
+  margin: 0 5vw 100px;
+}
+.pf-work-filters {
+  padding: 14px;
+  border-radius: 18px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+.pf-work-filters label {
+  display: flex;
+  flex-direction: column;
+  font-size: 11px;
+  gap: 6px;
+  color: var(--pf-muted);
+  min-width: 220px;
+}
+.pf-work-filters input {
+  padding: 9px 0;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--pf-line);
+  outline-offset: 4px;
+  width: 100%;
+  font-size: 13px;
+}
+.pf-work-count {
+  margin: 25px 0;
+  font-size: 13px;
+  color: var(--pf-muted);
+}
+.pf-work-index-row {
+  display: grid;
+  grid-template-columns: 1fr 2.7fr 32px;
+  gap: 24px;
+  border-top: 1px solid var(--pf-line);
+  padding: 32px 0;
+}
+.pf-work-index-row > span {
+  color: var(--pf-muted);
+  font-size: 12px;
+  padding-top: 10px;
+}
+.pf-work-index-row > span:last-child {
+  font-size: 24px;
+}
+.pf-work-index-row h2 {
+  font-size: clamp(27px, 3.2vw, 45px);
+}
+.pf-work-index-row p {
+  margin: 15px 0;
+  color: var(--pf-muted);
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 67ch;
+}
+.pf-work-index-row ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  padding: 0;
+  list-style: none;
+  font-size: 11px;
+  color: var(--pf-muted);
+}
+.pf-work-index-row:hover h2 {
+  color: var(--pf-accent);
+}
+.pf-work-empty {
+  padding: 50px 0;
+}
+.pf-work-empty button {
+  margin-top: 20px;
+  text-decoration: underline;
+}
+.pf-work-teaching {
+  padding: 30px;
+  margin: 20px 0;
+  border-left: 2px solid var(--pf-teal);
+  background: var(--pf-panel);
+}
+.pf-work-teaching h2 {
+  font-size: 30px;
+  margin-bottom: 14px;
+}
+.pf-work-teaching p {
+  color: var(--pf-muted);
+  margin-bottom: 16px;
+}
+@media (max-width: 1100px) {
+  .pf-work-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .pf-work-filters .pf-fluid-tabs {
+    flex-wrap: wrap;
+  }
+  .pf-work-filters label {
+    padding: 0 12px 4px;
+  }
+}
+@media (max-width: 600px) {
+  .pf-work-index-row {
+    grid-template-columns: 1fr 20px;
+    gap: 12px;
+  }
+  .pf-work-index-row > span:first-child {
+    grid-column: 1 / -1;
+  }
+  .pf-work-filters .pf-fluid-tabs > button {
+    padding: 10px;
+    font-size: 12px;
+  }
+  .pf-work-index-row p {
+    font-size: 14px;
+  }
+}

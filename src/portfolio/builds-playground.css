@@ -1,0 +1,523 @@
+.pf-builds-intro {
+  padding-bottom: 60px;
+}
+.pf-builds-desk {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.72fr) minmax(0, 2fr);
+  gap: 30px;
+  padding-top: 0;
+  align-items: start;
+}
+.pf-builds-picker {
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 112px;
+  gap: 3px;
+}
+.pf-builds-picker button {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 20px;
+  text-align: left;
+  border-radius: 14px;
+  min-width: 0;
+}
+.pf-build-selected {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  z-index: -1;
+  background: var(--pf-panel);
+  border: 1px solid var(--pf-line);
+}
+.pf-build-choice {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.pf-build-choice > span {
+  font-size: 10px;
+  color: var(--pf-muted);
+}
+.pf-build-choice strong {
+  font-family: "Syne", sans-serif;
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+}
+.pf-build-choice small {
+  font-size: 10px;
+  color: var(--pf-muted);
+  margin-top: 4px;
+}
+.pf-build-choice-arrow {
+  opacity: 0;
+  color: var(--pf-accent);
+  transition: opacity 180ms;
+}
+.pf-builds-picker [aria-pressed="true"] .pf-build-choice-arrow,
+.pf-builds-picker button:hover .pf-build-choice-arrow {
+  opacity: 1;
+}
+.pf-build-workbench {
+  border-radius: 20px;
+  min-width: 0;
+  overflow: hidden;
+}
+.pf-build-workbench-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 19px 30px;
+  border-bottom: 1px solid var(--pf-line);
+  font-size: 11px;
+}
+.pf-build-workbench-header > span {
+  color: var(--pf-muted);
+}
+.pf-build-workbench-header a {
+  display: inline-flex;
+  gap: 20px;
+  align-items: center;
+  min-height: 30px;
+}
+.pf-build-workbench-header a:hover {
+  color: var(--pf-accent);
+}
+.pf-build-workbench-body {
+  padding: 30px;
+}
+.pf-build-workbench-intro {
+  margin-bottom: 28px;
+}
+.pf-build-workbench-intro h2 {
+  font-size: clamp(30px, 3vw, 44px);
+  max-width: 16ch;
+}
+.pf-build-workbench-intro > p {
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--pf-muted);
+  margin-top: 17px;
+  max-width: 66ch;
+}
+.pf-build-kiln {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 25px;
+  padding: 30px 0 0;
+  border-top: 1px solid var(--pf-line);
+}
+.pf-build-library-mark {
+  height: 140px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.pf-build-library-mark > span {
+  font-family: "Syne", sans-serif;
+  font-size: 100px;
+  line-height: 1;
+  font-weight: 600;
+  color: var(--pf-accent);
+  z-index: 1;
+}
+.pf-build-library-mark i {
+  position: absolute;
+  inset: 22px 3px;
+  border: 1px solid var(--pf-line);
+  transform: rotate(-12deg);
+}
+.pf-build-library-mark i:nth-of-type(2) {
+  transform: rotate(0);
+}
+.pf-build-library-mark i:nth-of-type(3) {
+  transform: rotate(12deg);
+}
+.pf-build-live {
+  font-size: 10px;
+  color: var(--pf-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pf-build-live i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--pf-teal);
+}
+.pf-build-library-copy h3 {
+  font-size: 32px;
+  margin: 17px 0;
+}
+.pf-build-library-copy > p {
+  color: var(--pf-muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+.pf-build-search {
+  margin-top: 26px;
+}
+.pf-build-search label {
+  font-size: 11px;
+  display: block;
+  margin-bottom: 10px;
+}
+.pf-build-search > div {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+.pf-build-search input {
+  min-width: 140px;
+  flex: 1;
+  border: 1px solid var(--pf-line);
+  background: var(--pf-bg);
+  border-radius: 9px;
+  padding: 13px 12px;
+  font-size: 12px;
+}
+.pf .pf-build-search button {
+  padding: 12px 16px;
+  border-radius: 9px;
+  background: var(--pf-accent);
+  color: var(--pf-bg);
+  font-size: 12px;
+  min-height: 44px;
+}
+.pf-build-quicklinks {
+  display: flex;
+  gap: 18px;
+  margin: 16px 0 25px;
+  font-size: 11px;
+}
+.pf-build-library-copy > small {
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--pf-muted);
+  display: block;
+}
+.pf-build-instrument {
+  border-top: 1px solid var(--pf-line);
+}
+.pf-build-instrument-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 21px 0;
+  font-size: 11px;
+}
+.pf-build-instrument-top > span:last-child {
+  color: var(--pf-muted);
+}
+.pf-build-slider {
+  margin: 14px 0 30px;
+}
+.pf-build-slider label {
+  font-size: 12px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+}
+.pf-build-slider label strong {
+  font-size: 24px;
+  font-weight: 500;
+  font-family: "Syne", sans-serif;
+  color: var(--pf-accent);
+}
+.pf-build-slider input {
+  width: 100%;
+  accent-color: var(--pf-accent);
+  min-height: 44px;
+  cursor: ew-resize;
+}
+.pf-build-slider > div {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--pf-muted);
+}
+.pf-build-bars {
+  display: grid;
+  gap: 22px;
+  padding: 12px 0 8px;
+}
+.pf-build-bar > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 12px;
+}
+.pf-build-bar strong {
+  font-family: "Syne", sans-serif;
+  font-size: 26px;
+  font-weight: 500;
+}
+.pf-build-bar strong small {
+  color: var(--pf-muted);
+  font-family: "Instrument Sans", sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+}
+.pf-build-bar-track {
+  display: block;
+  height: 8px;
+  background: var(--pf-line);
+  margin-top: 9px;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.pf-build-bar-track > i {
+  display: block;
+  height: 100%;
+  width: var(--bar-width);
+  background: var(--bar-color);
+  border-radius: 3px;
+  transition: width 350ms cubic-bezier(0.2, 0.65, 0.2, 1);
+}
+.pf .pf-build-insight {
+  font-size: 14px;
+  line-height: 1.8;
+  padding-top: 26px;
+}
+.pf .pf-build-scope {
+  font-size: 11px;
+  line-height: 1.8;
+  color: var(--pf-muted);
+  margin-top: 22px;
+}
+.pf-build-source {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 25px;
+  margin: 15px 0 0;
+  font-size: 11px;
+}
+.pf-build-source a {
+  padding: 7px 0;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.pf-build-reproduce {
+  border-top: 1px solid var(--pf-line);
+  margin-top: 22px;
+  padding-top: 8px;
+}
+.pf-build-reproduce summary {
+  cursor: pointer;
+  font-size: 13px;
+  padding: 12px 0;
+}
+.pf-build-reproduce p {
+  font-size: 12px;
+  color: var(--pf-muted);
+  line-height: 1.8;
+}
+.pf-build-reproduce > a {
+  font-size: 11px;
+  display: inline-block;
+  padding: 12px 0;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.pf-build-command {
+  position: relative;
+  margin-top: 15px;
+}
+.pf-build-command pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  padding: 15px;
+  border: 1px solid var(--pf-line);
+  background: var(--pf-bg);
+  border-radius: 10px;
+  font-size: 11px;
+  line-height: 1.9;
+}
+.pf-build-command > button {
+  min-height: 42px;
+  font-size: 11px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.pf-build-command > span {
+  display: block;
+  font-size: 10px;
+  color: var(--pf-muted);
+}
+.pf-build-metrics {
+  display: flex;
+  gap: 5px;
+  background: var(--pf-bg);
+  padding: 4px;
+  border-radius: 10px;
+  margin-bottom: 22px;
+}
+.pf-build-metrics button {
+  flex: 1;
+  font-size: 11px;
+  padding: 12px;
+  border-radius: 7px;
+  min-height: 44px;
+}
+.pf-build-metrics button[aria-pressed="true"] {
+  background: var(--pf-panel);
+  color: var(--pf-accent);
+}
+.pf-build-quality {
+  border-left: 2px solid var(--pf-teal);
+  padding-left: 17px;
+  margin-top: 22px;
+}
+.pf-build-quality > span {
+  font-size: 10px;
+  color: var(--pf-muted);
+}
+.pf-build-quality p {
+  font-size: 12px;
+  line-height: 1.8;
+  margin-top: 7px;
+}
+.pf-build-quality b {
+  font-weight: 500;
+}
+.pf-build-walkthrough > .pf-demo {
+  box-shadow: none;
+  border-radius: 12px;
+  background: var(--pf-bg);
+}
+.pf-builds-more {
+  padding-top: 0;
+}
+.pf-builds-more-links {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 35px;
+}
+.pf-builds-more-links > a {
+  padding: 24px 0;
+  border-top: 1px solid var(--pf-line);
+}
+.pf-builds-more-links span {
+  font-size: 11px;
+  color: var(--pf-muted);
+}
+.pf-builds-more-links strong {
+  font-family: "Syne", sans-serif;
+  font-size: 25px;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+  display: block;
+  margin: 14px 0;
+  line-height: 1.2;
+}
+.pf-builds-more-links p {
+  color: var(--pf-muted);
+  font-size: 13px;
+}
+.pf-builds-more-links > a:hover strong {
+  color: var(--pf-accent);
+}
+@media (max-width: 1000px) {
+  .pf-builds-desk {
+    grid-template-columns: 200px minmax(0, 1fr);
+    gap: 20px;
+  }
+  .pf-build-workbench-body {
+    padding: 24px;
+  }
+  .pf-build-kiln {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .pf-build-library-mark {
+    display: none;
+  }
+}
+@media (max-width: 760px) {
+  .pf-builds-intro {
+    padding-bottom: 35px;
+  }
+  .pf-builds-desk {
+    display: block;
+  }
+  .pf-builds-picker {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px;
+    margin-bottom: 24px;
+  }
+  .pf-builds-picker button {
+    padding: 15px 12px;
+  }
+  .pf-build-choice strong {
+    font-size: 18px;
+  }
+  .pf-build-choice > span {
+    font-size: 9px;
+  }
+  .pf-build-choice small {
+    font-size: 9px;
+  }
+  .pf-build-choice-arrow {
+    display: none;
+  }
+  .pf-build-workbench-header {
+    padding: 14px 18px;
+    font-size: 10px;
+  }
+  .pf-build-workbench-body {
+    padding: 22px 18px;
+  }
+  .pf-build-workbench-intro h2 {
+    font-size: 32px;
+  }
+  .pf-build-library-copy h3 {
+    font-size: 29px;
+  }
+  .pf-build-search > div {
+    flex-direction: column;
+  }
+  .pf-build-bars {
+    gap: 20px;
+  }
+  .pf-build-bar strong {
+    font-size: 23px;
+  }
+  .pf-build-bar > div {
+    font-size: 11px;
+  }
+  .pf-build-slider label strong {
+    font-size: 21px;
+  }
+  .pf-builds-more-links {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pf-build-bar-track > i,
+  .pf-build-choice-arrow {
+    transition: none;
+  }
+}
+
+.pf-build-destinations {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 22px;
+  justify-content: flex-end;
+}

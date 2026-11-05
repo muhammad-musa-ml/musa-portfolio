@@ -4,11 +4,18 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "test": "node --test scripts/prerender-portfolio.test.mjs src/portfolio/labs/pathfinding.test.mjs src/portfolio/labs/learning.test.mjs",
+    "sync:public-knowledge": "node scripts/sync-public-knowledge.mjs",
+    "verify:public-portfolio": "node scripts/verify-public-portfolio.mjs",
+    "predev": "npm run sync:public-knowledge",
     "dev": "vite",
+    "prebuild": "npm run sync:public-knowledge && npm run verify:public-portfolio",
     "build": "tsc -b && vite build",
+    "postbuild": "node scripts/prerender-portfolio.mjs && node scripts/verify-dist.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@huggingface/transformers": "^4.3.2",
     "@react-three/drei": "^9.117.3",
     "@react-three/fiber": "^8.17.10",
     "lenis": "^1.1.18",

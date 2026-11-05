@@ -12,7 +12,7 @@ export const config = { runtime: 'edge' }
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions'
 const GROQ_MODEL = process.env.GROQ_MODEL || 'llama-3.3-70b-versatile'
 const POLLINATIONS_URL = 'https://text.pollinations.ai/openai'
-const KB_MARKER = 'MUSA_TWIN_KB_V1'
+const KB_MARKER = 'MUSA_TWIN_KB_V2'
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',

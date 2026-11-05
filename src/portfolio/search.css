@@ -1,0 +1,163 @@
+.pf-article-search {
+  margin: 38px 5vw 32px;
+}
+.pf-article-search > label {
+  display: block;
+  font-family: "Syne", sans-serif;
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  margin-bottom: 20px;
+  color: var(--pf-text);
+}
+.pf-search-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  padding: 8px 18px;
+  border: 1px solid var(--pf-line);
+  background: var(--pf-panel);
+  border-radius: 15px;
+  min-width: 0;
+}
+.pf-search-input-wrap:focus-within {
+  border-color: var(--pf-accent);
+  box-shadow: 0 0 0 1px var(--pf-accent);
+}
+.pf-search-input-wrap > svg {
+  width: 21px;
+  height: 21px;
+  flex-shrink: 0;
+  stroke: var(--pf-muted);
+  stroke-width: 1.5;
+  fill: none;
+}
+.pf-search-input-wrap input {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  height: 50px;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--pf-text);
+  font: inherit;
+  font-size: 16px;
+  padding: 0;
+}
+.pf-search-input-wrap input::placeholder {
+  color: var(--pf-muted);
+  opacity: 1;
+}
+.pf-search-input-wrap input::-webkit-search-cancel-button {
+  display: none;
+}
+.pf-article-search button {
+  font: inherit;
+  cursor: pointer;
+  color: var(--pf-text);
+}
+.pf-search-clear {
+  background: transparent;
+  border: 0;
+  min-height: 44px;
+  font-size: 12px !important;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.pf-search-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0 22px;
+}
+.pf .pf-search-topics .pf-fluid-tabs {
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+.pf-article-search .pf-search-topic-select {
+  font: inherit;
+  font-size: 12px;
+  color: var(--pf-text);
+  border: 1px solid var(--pf-line);
+  border-radius: 9px;
+  padding: 9px 28px 9px 13px;
+  background: var(--pf-panel);
+  min-height: 44px;
+  max-width: 220px;
+  cursor: pointer;
+}
+.pf-search-topic-select option {
+  color: var(--pf-text);
+  background: var(--pf-bg);
+}
+.pf-search-topic-select:focus-visible {
+  outline: 2px solid var(--pf-accent);
+  outline-offset: 4px;
+}
+.pf-meaning-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+}
+.pf-meaning-control p {
+  color: var(--pf-muted);
+  font-size: 12px;
+  line-height: 1.7;
+  max-width: 70ch;
+  margin: 0;
+}
+.pf-article-search .pf-meaning-button {
+  flex-shrink: 0;
+  border: 1px solid var(--pf-line);
+  border-radius: 9px;
+  padding: 10px 15px;
+  background: var(--pf-panel);
+  font-size: 12px !important;
+  min-height: 44px;
+}
+.pf-meaning-button:hover {
+  border-color: var(--pf-accent);
+}
+.pf-search-progress progress {
+  display: block;
+  width: min(300px, 100%);
+  height: 4px;
+  margin: 12px 0 8px;
+  accent-color: var(--pf-accent);
+  border: 0;
+}
+.pf-search-progress small {
+  color: var(--pf-muted);
+  font-size: 11px;
+}
+.pf-search-count {
+  margin: 25px 0 0;
+  color: var(--pf-muted);
+  font-size: 12px;
+  min-height: 20px;
+}
+.pf-article-search button:focus-visible {
+  outline: 2px solid var(--pf-accent);
+  outline-offset: 4px;
+}
+@media (max-width: 600px) {
+  .pf-meaning-control {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .pf-search-input-wrap {
+    gap: 10px;
+    padding: 6px 12px;
+  }
+  .pf-search-input-wrap input {
+    font-size: 16px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pf-search-topics button {
+    transition: none;
+  }
+}

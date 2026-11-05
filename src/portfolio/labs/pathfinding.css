@@ -1,0 +1,547 @@
+.pf-route-lab {
+  color: var(--pf-text, #f2ebdd);
+  background: var(--pf-panel, #1d2226b5);
+  border: 1px solid var(--pf-line, #f2ebdd25);
+  border-radius: 24px;
+  padding: clamp(16px, 2.8vw, 32px);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 24px 80px var(--pf-shadow, #0003);
+}
+.pf-route-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 254px;
+  gap: 32px;
+  align-items: start;
+}
+.pf-route-stage {
+  min-width: 0;
+}
+.pf-route-stage-bar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 15px;
+  margin: 0 0 19px;
+}
+.pf-route-stage-bar h2 {
+  font-family: "Syne", sans-serif;
+  font-size: 22px !important;
+  letter-spacing: -0.04em;
+  line-height: 1.2;
+  margin: 0;
+}
+.pf-route-stage-bar > span {
+  color: var(--pf-muted, #b3b0a7);
+  font-size: 11px;
+  white-space: nowrap;
+}
+.pf-route-board {
+  background: color-mix(in srgb, var(--pf-bg, #0b0c10) 92%, transparent);
+  border: 1px solid var(--pf-line, #f2ebdd25);
+  border-radius: 14px;
+  padding: 13px;
+  overflow: hidden;
+}
+.pf-route-grid {
+  display: grid;
+  gap: 3px;
+  position: relative;
+  isolation: isolate;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.pf-route-row {
+  display: grid;
+  gap: 3px;
+}
+.pf-route-lab .pf-route-cell {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid
+    color-mix(in srgb, var(--pf-line, #f2ebdd25) 60%, transparent);
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--pf-text, #f2ebdd) 2%, transparent);
+  color: var(--pf-text, #f2ebdd);
+  font:
+    600 11px "Instrument Sans",
+    sans-serif;
+  cursor: crosshair;
+  line-height: 1;
+  outline-offset: -2px;
+}
+.pf-route-lab .pf-route-cell:hover {
+  border-color: var(--pf-muted, #b3b0a7);
+}
+.pf-route-lab .pf-route-cell.is-wall,
+.pf-route-legend i.is-wall {
+  background: color-mix(
+    in srgb,
+    var(--pf-text, #f2ebdd) 22%,
+    var(--pf-bg, #0b0c10)
+  );
+  border-color: color-mix(in srgb, var(--pf-text, #f2ebdd) 27%, transparent);
+  box-shadow: inset 0 1px 0
+    color-mix(in srgb, var(--pf-text, #f2ebdd) 12%, transparent);
+}
+.pf-route-lab .pf-route-cell.is-visited,
+.pf-route-legend i.is-visited {
+  background: color-mix(in srgb, var(--pf-teal, #63e2c6) 14%, transparent);
+  border-color: color-mix(in srgb, var(--pf-teal, #63e2c6) 23%, transparent);
+}
+.pf-route-lab .pf-route-cell.is-frontier,
+.pf-route-legend i.is-frontier {
+  background: color-mix(in srgb, var(--pf-teal, #63e2c6) 44%, transparent);
+  border-color: color-mix(in srgb, var(--pf-teal, #63e2c6) 60%, transparent);
+}
+.pf-route-lab .pf-route-cell.is-path,
+.pf-route-legend i.is-path {
+  background: color-mix(in srgb, var(--pf-accent, #ffb454) 22%, transparent);
+  border-color: color-mix(in srgb, var(--pf-accent, #ffb454) 40%, transparent);
+}
+.pf-route-lab .pf-route-cell.is-current {
+  outline: 2px solid var(--pf-teal, #63e2c6);
+  outline-offset: -2px;
+}
+.pf-route-lab .pf-route-cell.is-start {
+  color: var(--pf-bg, #0b0c10);
+  background: var(--pf-teal, #63e2c6);
+  border-color: var(--pf-teal, #63e2c6);
+}
+.pf-route-lab .pf-route-cell.is-goal {
+  color: var(--pf-bg, #0b0c10);
+  background: var(--pf-accent, #ffb454);
+  border-color: var(--pf-accent, #ffb454);
+}
+.pf-route-lab .pf-route-cell:focus-visible {
+  z-index: 4;
+  outline: 2px solid var(--pf-text, #f2ebdd);
+  outline-offset: 1px;
+}
+.pf-route-lab .pf-route-path {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+.pf-route-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+  color: var(--pf-muted, #b3b0a7);
+  font-size: 11px;
+  margin: 17px 0 23px;
+}
+.pf-route-legend > span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.pf-route-legend i,
+.pf-route-legend b {
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
+  border: 1px solid var(--pf-line, #f2ebdd25);
+  display: inline-grid;
+  place-items: center;
+  font-style: normal;
+}
+.pf-route-legend b {
+  border: 0;
+  color: var(--pf-text, #f2ebdd);
+  font-size: 10px;
+}
+.pf-route-result {
+  display: flex;
+  gap: 12px;
+  align-items: start;
+  min-height: 77px;
+}
+.pf-route-status-dot {
+  width: 6px;
+  height: 6px;
+  margin-top: 8px;
+  border-radius: 50%;
+  background: var(--pf-teal, #63e2c6);
+  flex-shrink: 0;
+}
+.pf-route-result.is-blocked .pf-route-status-dot {
+  background: var(--pf-coral, #ff7a6b);
+}
+.pf-route-result strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+}
+.pf-route-result p {
+  color: var(--pf-muted, #b3b0a7);
+  font-size: 12px;
+  line-height: 1.65;
+  margin: 7px 0 0;
+  max-width: 66ch;
+}
+.pf-route-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+.pf-route-label {
+  display: block;
+  font-size: 11px;
+  color: var(--pf-muted, #b3b0a7);
+  margin: 0 0 8px;
+}
+.pf-route-algorithms {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--pf-line, #f2ebdd25);
+  border-radius: 11px;
+  background: color-mix(in srgb, var(--pf-bg, #0b0c10) 60%, transparent);
+}
+.pf-route-lab .pf-route-algorithms button {
+  font:
+    500 13px "Instrument Sans",
+    sans-serif;
+  padding: 10px 6px;
+  border: 0;
+  min-height: 40px;
+  border-radius: 7px;
+  color: var(--pf-muted, #b3b0a7);
+  background: transparent;
+  cursor: pointer;
+}
+.pf-route-lab .pf-route-algorithms button[aria-pressed="true"] {
+  background: var(--pf-text, #f2ebdd);
+  color: var(--pf-bg, #0b0c10);
+}
+.pf-route-lab .pf-route-select {
+  width: 100%;
+  min-height: 44px;
+  font:
+    13px "Instrument Sans",
+    sans-serif;
+  padding: 10px 12px;
+  color: var(--pf-text, #f2ebdd);
+  background: var(--pf-solid, #181d21);
+  border: 1px solid var(--pf-line, #f2ebdd25);
+  border-radius: 9px;
+}
+.pf-route-seed {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--pf-muted, #b3b0a7);
+}
+.pf-route-lab .pf-route-seed button {
+  padding: 5px 0;
+  min-height: 36px;
+  border: 0;
+  background: transparent;
+  color: var(--pf-accent, #ffb454);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.pf-route-tools {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+.pf-route-lab .pf-route-tools button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 3px;
+  min-height: 58px;
+  border: 1px solid var(--pf-line, #f2ebdd25);
+  border-radius: 9px;
+  background: transparent;
+  color: var(--pf-muted, #b3b0a7);
+  cursor: pointer;
+  font:
+    11px "Instrument Sans",
+    sans-serif;
+}
+.pf-route-tools button > span {
+  height: 17px;
+  line-height: 17px;
+  color: var(--pf-text, #f2ebdd);
+  font-size: 15px;
+  font-weight: 600;
+}
+.pf-route-lab .pf-route-tools button[aria-pressed="true"] {
+  background: color-mix(in srgb, var(--pf-teal, #63e2c6) 11%, transparent);
+  border-color: var(--pf-teal, #63e2c6);
+  color: var(--pf-text, #f2ebdd);
+}
+.pf-route-transport {
+  padding-top: 1px;
+}
+.pf-route-lab .pf-route-run {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 46px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--pf-accent, #ffb454);
+  color: var(--pf-bg, #0b0c10);
+  padding: 10px 15px;
+  font:
+    600 13px "Instrument Sans",
+    sans-serif;
+  cursor: pointer;
+}
+.pf-route-run > span {
+  font-size: 18px;
+  line-height: 1;
+}
+.pf-route-transport > div {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+.pf-route-lab .pf-route-transport > div > button {
+  border: 1px solid var(--pf-line, #f2ebdd25);
+  border-radius: 8px;
+  min-height: 42px;
+  padding: 7px;
+  color: var(--pf-text, #f2ebdd);
+  background: transparent;
+  cursor: pointer;
+  font:
+    12px "Instrument Sans",
+    sans-serif;
+}
+.pf-route-speed > label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--pf-muted, #b3b0a7);
+  font-size: 11px;
+}
+.pf-route-lab .pf-route-speed input {
+  width: 100%;
+  height: 28px;
+  margin: 3px 0 0;
+  accent-color: var(--pf-accent, #ffb454);
+  cursor: pointer;
+}
+.pf-route-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  border-top: 1px solid var(--pf-line, #f2ebdd25);
+  padding-top: 16px;
+  margin: 0;
+}
+.pf-route-metrics dt {
+  color: var(--pf-muted, #b3b0a7);
+  font-size: 10px;
+}
+.pf-route-metrics dd {
+  font-family: "Syne", sans-serif;
+  font-size: 29px;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  margin: 9px 0 0;
+  font-variant-numeric: tabular-nums;
+}
+.pf-route-lab .pf-route-clear {
+  border: 0;
+  background: transparent;
+  color: var(--pf-muted, #b3b0a7);
+  font:
+    11px "Instrument Sans",
+    sans-serif;
+  min-height: 36px;
+  padding: 3px;
+  width: fit-content;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+.pf-route-lab button:disabled,
+.pf-route-lab input:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.pf-route-lab button:focus-visible,
+.pf-route-lab input:focus-visible,
+.pf-route-lab select:focus-visible,
+.pf-route-lab summary:focus-visible {
+  outline: 2px solid var(--pf-accent, #ffb454);
+  outline-offset: 4px;
+}
+.pf-route-understanding {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 40px;
+  border-top: 1px solid var(--pf-line, #f2ebdd25);
+  padding-top: 24px;
+  margin-top: 20px;
+}
+.pf-route-understanding h3 {
+  font-family: "Syne", sans-serif;
+  font-size: 18px !important;
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+  margin: 0 0 10px;
+}
+.pf-route-understanding p {
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--pf-muted, #b3b0a7);
+  max-width: 75ch;
+  margin: 0 0 10px;
+}
+.pf-route-formula {
+  display: block;
+  font-size: 10px;
+  color: var(--pf-teal, #63e2c6);
+  line-height: 1.7;
+  margin-top: 12px;
+}
+.pf-route-understanding summary {
+  font-size: 12px;
+  padding: 1px 0 12px;
+  cursor: pointer;
+  color: var(--pf-text, #f2ebdd);
+}
+@media (max-width: 1000px) {
+  .pf-route-layout {
+    grid-template-columns: minmax(0, 1fr) 220px;
+    gap: 22px;
+  }
+  .pf-route-board {
+    padding: 10px;
+  }
+  .pf-route-grid,
+  .pf-route-row {
+    gap: 2px;
+  }
+}
+@media (max-width: 760px) {
+  .pf-route-layout {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  .pf-route-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 16px;
+    align-items: start;
+  }
+  .pf-route-controls > .pf-route-control-group:nth-child(3),
+  .pf-route-transport {
+    grid-row: 2;
+  }
+  .pf-route-metrics {
+    grid-column: 2;
+  }
+  .pf-route-clear {
+    grid-column: 1/-1;
+  }
+  .pf-route-understanding {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 22px;
+  }
+  .pf-route-result {
+    min-height: 62px;
+  }
+  .pf-route-stage-bar h2 {
+    font-size: 20px !important;
+  }
+}
+@media (max-width: 430px) {
+  .pf-route-lab {
+    border-radius: 17px;
+    padding: 14px;
+  }
+  .pf-route-board {
+    padding: 7px;
+    border-radius: 10px;
+  }
+  .pf-route-grid,
+  .pf-route-row {
+    gap: 2px;
+  }
+  .pf-route-lab .pf-route-cell {
+    border-radius: 2px;
+    font-size: 8px;
+  }
+  .pf-route-stage-bar {
+    gap: 8px;
+    margin-bottom: 13px;
+  }
+  .pf-route-stage-bar > span {
+    font-size: 9px;
+  }
+  .pf-route-stage-bar h2 {
+    font-size: 18px !important;
+  }
+  .pf-route-legend {
+    gap: 8px 12px;
+    font-size: 10px;
+    margin: 13px 0 18px;
+  }
+  .pf-route-controls {
+    gap: 17px 12px;
+  }
+  .pf-route-tools {
+    grid-template-columns: 1fr 1fr;
+  }
+  .pf-route-lab .pf-route-tools button {
+    flex-direction: row;
+    min-height: 42px;
+    padding: 8px 4px;
+  }
+  .pf-route-lab .pf-route-transport > div > button {
+    font-size: 10px;
+  }
+  .pf-route-lab .pf-route-select {
+    font-size: 12px;
+    padding-left: 9px;
+  }
+  .pf-route-speed > label {
+    align-items: start;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .pf-route-result p {
+    font-size: 11px;
+  }
+  .pf-route-metrics {
+    gap: 6px;
+  }
+  .pf-route-metrics dd {
+    font-size: 25px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pf-route-lab * {
+    scroll-behavior: auto;
+  }
+}

@@ -1,15 +1,16 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { installResizeObserverFallback } from './lib/resizeObserverFix'
-import App from './App'
-import './styles/global.css'
-import './styles/sections.css'
+import { StrictMode, lazy, Suspense } from "react";
+import { createRoot } from "react-dom/client";
+import { installResizeObserverFallback } from "./lib/resizeObserverFix";
+import "./styles/base.css";
 
-// must run before React/R3F mount so the 3D canvas always gets a size
-installResizeObserverFallback()
-
-createRoot(document.getElementById('root')!).render(
+const PortfolioApp = lazy(() => import("./portfolio/PortfolioApp"));
+installResizeObserverFallback();
+const root = import.meta.hot?.data.root ?? createRoot(document.getElementById("root")!);
+if (import.meta.hot) import.meta.hot.data.root = root;
+root.render(
   <StrictMode>
-    <App />
-  </StrictMode>
-)
+    <Suspense fallback={<div style={{ minHeight: "100vh", background: "#0b0c10" }} aria-label="Loading portfolio" />}>
+      <PortfolioApp />
+    </Suspense>
+  </StrictMode>,
+);

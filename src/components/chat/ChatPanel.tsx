@@ -1,185 +1,337 @@
-import { useEffect, useRef, useState } from 'react'
-import { motion, AnimatePresence } from 'motion/react'
-import { askTwin, type ChatMessage } from '../../lib/ai'
-import { firstName } from '../../lib/profile'
-import { renderMarkdown } from './markdown'
-import '../../styles/chat.css'
+import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import { askTwin, type ChatMessage } from "../../lib/ai";
+import { renderMarkdown } from "./markdown";
+import { TRACE_TIMING } from "../../portfolio/motion/timing";
+import "../../styles/chat.css";
 
-type Msg = { role: 'user' | 'assistant'; content: string; error?: boolean }
+type Msg = { role: "user" | "assistant"; content: string; error?: boolean };
 
 const SUGGESTIONS = [
-  'What is WUMI Health?',
-  'Walk me through your LLM safety research',
-  'What’s resume-gauntlet?',
-  'Why does “AI for humanity” matter to you?',
-  'Can you work on quantum physics?',
-  'What are you looking for in your next role?',
-]
+  "What is WUMI Health?",
+  "Walk me through your LLM safety research",
+  "What’s resume-gauntlet?",
+  "What are you looking for in your next role?",
+];
 
-const GREETING = `**Salaam — I'm ${firstName}'s AI twin.** I'm trained on his real resume and research record, and I run on an honesty-first policy: I'll tell you what he's done, and I'll tell you plainly what he hasn't. Ask me anything — his work, his skills, whether he's a fit for your team.`
+const GREETING = `**Hi, I’m MusA.I.** I’m an AI twin grounded in this portfolio, answering in Musa’s voice. Ask about my projects, the decisions behind them, or the skills I could bring to your team. I’ll say when the evidence runs out.`;
 
 export default function ChatPanel({
   onClose,
   initialQuestion,
+  transitionStyle,
 }: {
-  onClose: () => void
-  initialQuestion?: string
+  onClose: () => void;
+  initialQuestion?: string;
+  transitionStyle?: "trace";
 }) {
-  const [msgs, setMsgs] = useState<Msg[]>([{ role: 'assistant', content: GREETING }])
-  const [input, setInput] = useState('')
-  const [busy, setBusy] = useState(false)
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const inputRef = useRef<HTMLInputElement>(null)
-  const autoSent = useRef(false)
+  const [msgs, setMsgs] = useState<Msg[]>([
+    { role: "assistant", content: GREETING },
+  ]);
+  const [input, setInput] = useState("");
+  const [busy, setBusy] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const followReply = useRef(true);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const autoSent = useRef(false);
+  const windowRef = useRef<HTMLElement>(null);
+  const closeRef = useRef(onClose);
+  closeRef.current = onClose;
+  const reduceMotion = useReducedMotion();
+  const portfolioChat = transitionStyle === "trace";
 
   useEffect(() => {
-    inputRef.current?.focus()
-  }, [])
+    const opener = document.activeElement as HTMLElement | null;
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeRef.current();
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const controls = Array.from(
+        windowRef.current?.querySelectorAll<HTMLElement>(
+          'a[href],button:not([disabled]),input:not([disabled]),[tabindex="0"]',
+        ) ?? [],
+      );
+      const first = controls[0];
+      const last = controls[controls.length - 1];
+      if (
+        event.shiftKey &&
+        (document.activeElement === first ||
+          !windowRef.current?.contains(document.activeElement))
+      ) {
+        event.preventDefault();
+        last?.focus();
+      } else if (
+        !event.shiftKey &&
+        (document.activeElement === last ||
+          !windowRef.current?.contains(document.activeElement))
+      ) {
+        event.preventDefault();
+        first?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    inputRef.current?.focus();
+    return () => {
+      document.body.style.overflow = overflow;
+      document.removeEventListener("keydown", onKey);
+      if (opener?.isConnected) opener.focus({ preventScroll: true });
+    };
+  }, []);
 
   useEffect(() => {
-    const el = scrollRef.current
-    if (el) el.scrollTop = el.scrollHeight
-  }, [msgs])
+    const el = scrollRef.current;
+    if (el && followReply.current) el.scrollTop = el.scrollHeight;
+  }, [msgs]);
 
   const send = async (text: string) => {
-    const q = text.trim()
-    if (!q || busy) return
-    setInput('')
-    setBusy(true)
+    const q = text.trim();
+    if (!q || busy) return;
+    followReply.current = true;
+    setInput("");
+    setBusy(true);
     const history: ChatMessage[] = [
       ...msgs.map((m) => ({ role: m.role, content: m.content }) as ChatMessage),
-      { role: 'user', content: q },
-    ]
-    setMsgs((m) => [...m, { role: 'user', content: q }, { role: 'assistant', content: '' }])
+      { role: "user", content: q },
+    ];
+    setMsgs((m) => [
+      ...m,
+      { role: "user", content: q },
+      { role: "assistant", content: "" },
+    ]);
     try {
-      const { stream } = await askTwin(history.filter((m) => m.content !== GREETING))
-      let acc = ''
+      const { stream } = await askTwin(
+        history.filter((m) => m.content !== GREETING),
+      );
+      let acc = "";
       for await (const chunk of stream) {
-        acc += chunk
+        acc += chunk;
         setMsgs((m) => {
-          const copy = [...m]
-          copy[copy.length - 1] = { role: 'assistant', content: acc }
-          return copy
-        })
+          const copy = [...m];
+          copy[copy.length - 1] = { role: "assistant", content: acc };
+          return copy;
+        });
       }
-      if (!acc.trim()) throw new Error('empty')
+      if (!acc.trim()) throw new Error("empty");
     } catch (err) {
       const msg =
-        err instanceof Error && err.message === 'rate_limited'
-          ? '_The free AI lane is catching its breath — give it ~15 seconds and ask again._'
-          : `_Hmm, my circuits hiccuped. Try again in a moment — or just email the real ${firstName}._`
+        err instanceof Error && err.message === "rate_limited"
+          ? "_MusA.I is receiving too many requests. Please try again shortly._"
+          : `_I couldn’t reach the response service. Try again in a moment, or contact me by email._`;
       setMsgs((m) => {
-        const copy = [...m]
-        copy[copy.length - 1] = { role: 'assistant', content: msg, error: true }
-        return copy
-      })
+        const copy = [...m];
+        copy[copy.length - 1] = {
+          role: "assistant",
+          content: msg,
+          error: true,
+        };
+        return copy;
+      });
     } finally {
-      setBusy(false)
-      inputRef.current?.focus()
+      setBusy(false);
+      inputRef.current?.focus();
     }
-  }
+  };
 
   // auto-ask a question handed in from the ⌘K palette
   useEffect(() => {
     if (initialQuestion && initialQuestion.trim() && !autoSent.current) {
-      autoSent.current = true
-      send(initialQuestion)
+      autoSent.current = true;
+      send(initialQuestion);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialQuestion])
+  }, [initialQuestion]);
+
+  const suggestions = msgs.length <= 1 && (
+    <div className="chat__suggestions" aria-label="Suggested questions">
+      {portfolioChat && (
+        <p className="chat__suggestions-label">A place to start</p>
+      )}
+      {SUGGESTIONS.map((suggestion) => (
+        <button
+          key={suggestion}
+          className="chat__chip"
+          onClick={() => send(suggestion)}
+          data-cursor="hover"
+        >
+          {suggestion}
+          {portfolioChat && <span aria-hidden="true">↗</span>}
+        </button>
+      ))}
+    </div>
+  );
 
   return (
     <AnimatePresence>
       <motion.div
         className="chat__backdrop"
-        initial={{ opacity: 0 }}
+        initial={reduceMotion ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
+        transition={
+          reduceMotion
+            ? { duration: 0 }
+            : transitionStyle === "trace"
+              ? TRACE_TIMING
+              : undefined
+        }
         onClick={onClose}
       >
         <motion.aside
-          className="chat__window"
+          ref={windowRef}
+          className={`chat__window${transitionStyle === "trace" ? " chat__window--trace" : ""}`}
           role="dialog"
           aria-modal="true"
-          aria-label="AI twin chat"
-          initial={{ opacity: 0.4, x: 64 }}
+          aria-label="MusA.I chat"
+          initial={
+            reduceMotion
+              ? false
+              : transitionStyle === "trace"
+                ? { opacity: 0.86, x: 0 }
+                : { opacity: 0.4, x: 64 }
+          }
           animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: 64 }}
-          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          exit={{ opacity: 0, x: transitionStyle === "trace" ? 0 : 64 }}
+          transition={{
+            duration: reduceMotion
+              ? 0
+              : transitionStyle === "trace"
+                ? TRACE_TIMING.duration
+                : 0.45,
+            ease:
+              transitionStyle === "trace"
+                ? TRACE_TIMING.ease
+                : [0.16, 1, 0.3, 1],
+          }}
           onClick={(e) => e.stopPropagation()}
         >
           <header className="chat__bar">
-            <div className="chat__dots" aria-hidden>
-              <span /> <span /> <span />
-            </div>
-            <span className="chat__title mono-label">
-              {firstName.toLowerCase()}.twin — honesty-first digital stand-in
-            </span>
-            <button className="chat__close" onClick={onClose} aria-label="Close chat" data-cursor="hover">
-              esc ✕
+            {portfolioChat ? (
+              <>
+                <span className="chat__terminal-mark" aria-hidden="true">
+                  &gt;_
+                </span>
+                <div className="chat__identity">
+                  <h2 className="chat__title">MusA.I</h2>
+                  <span className="chat__subtitle">
+                    A conversation about my work
+                  </span>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="chat__dots" aria-hidden>
+                  <span /> <span /> <span />
+                </div>
+                <span className="chat__title">MusA.I</span>
+              </>
+            )}
+            <button
+              className="chat__close"
+              onClick={onClose}
+              aria-label="Close MusA.I"
+              data-cursor="hover"
+            >
+              <span className="chat__escape">esc</span>{" "}
+              <span aria-hidden="true">×</span>
             </button>
           </header>
 
-          <div className="chat__scroll" ref={scrollRef} data-lenis-prevent>
-            {msgs.map((m, i) => (
-              <div key={i} className={`chat__msg chat__msg--${m.role} ${m.error ? 'chat__msg--error' : ''}`}>
-                <span className="chat__who mono-label">
-                  {m.role === 'user' ? 'you' : `${firstName.toLowerCase()}.twin`}
-                </span>
-                <div className="chat__bubble">
-                  {m.content ? (
-                    renderMarkdown(m.content)
-                  ) : (
-                    <span className="chat__thinking">
-                      <span />
-                      <span />
-                      <span />
-                    </span>
-                  )}
+          <div
+            className="chat__scroll"
+            ref={scrollRef}
+            data-lenis-prevent
+            onScroll={(event) => {
+              const element = event.currentTarget;
+              followReply.current =
+                element.scrollHeight -
+                  element.scrollTop -
+                  element.clientHeight <
+                80;
+            }}
+          >
+            <div
+              className="chat__messages"
+              role="log"
+              aria-label="Conversation with MusA.I"
+              aria-live="polite"
+              aria-busy={busy}
+            >
+              {msgs.map((m, i) => (
+                <div
+                  key={i}
+                  className={`chat__msg chat__msg--${m.role} ${m.error ? "chat__msg--error" : ""}`}
+                >
+                  <span className="chat__who">
+                    {portfolioChat && (
+                      <span aria-hidden="true">
+                        {m.role === "user" ? "$" : ">"}{" "}
+                      </span>
+                    )}
+                    {m.role === "user" ? "You" : "MusA.I"}
+                  </span>
+                  <div className="chat__bubble">
+                    {m.content ? (
+                      renderMarkdown(m.content)
+                    ) : (
+                      <span
+                        className="chat__thinking"
+                        role="status"
+                        aria-label="MusA.I is thinking"
+                      >
+                        <span />
+                        <span />
+                        <span />
+                      </span>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-
-          {msgs.length <= 1 && (
-            <div className="chat__suggestions">
-              {SUGGESTIONS.map((s) => (
-                <button key={s} className="chat__chip" onClick={() => send(s)} data-cursor="hover">
-                  {s}
-                </button>
               ))}
             </div>
-          )}
+            {portfolioChat && suggestions}
+          </div>
+
+          {!portfolioChat && suggestions}
 
           <form
             className="chat__inputrow"
             onSubmit={(e) => {
-              e.preventDefault()
-              send(input)
+              e.preventDefault();
+              send(input);
             }}
           >
             <span className="chat__prompt" aria-hidden>
-              ❯
+              {portfolioChat ? ">" : "❯"}
             </span>
             <input
               ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={busy ? 'thinking…' : `ask ${firstName}’s twin anything…`}
+              placeholder={busy ? "Thinking…" : "Ask MusA.I…"}
               disabled={busy}
               aria-label="Your question"
+              enterKeyHint="send"
             />
-            <button type="submit" disabled={busy || !input.trim()} data-cursor="hover">
-              send
+            <button
+              type="submit"
+              disabled={busy || !input.trim()}
+              data-cursor="hover"
+              aria-label="Send question"
+            >
+              Send <span aria-hidden="true">↵</span>
             </button>
           </form>
 
           <p className="chat__disclaimer">
-            AI stand-in grounded in my real résumé — it admits what I haven’t done.
-            For anything serious, email the human: <a href="mailto:mmusa2@wisc.edu">mmusa2@wisc.edu</a>
+            MusA.I answers from my portfolio. For a conversation with me, reach
+            me directly at <a href="mailto:mmusa2@wisc.edu">mmusa2@wisc.edu</a>.
           </p>
         </motion.aside>
       </motion.div>
     </AnimatePresence>
-  )
+  );
 }

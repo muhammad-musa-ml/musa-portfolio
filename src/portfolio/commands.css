@@ -1,0 +1,284 @@
+.pf-command-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(24px, 10vh, 100px) 20px 24px;
+  background: #05090ca6;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.pf[data-theme="light"] .pf-command-backdrop {
+  background: #28353266;
+}
+.pf-command-window {
+  width: min(720px, 100%);
+  max-height: calc(100dvh - 48px - clamp(24px, 10vh, 100px));
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  background: var(--pf-solid);
+  border: 1px solid var(--pf-line);
+  border-radius: 22px;
+  box-shadow:
+    0 30px 100px #0005,
+    inset 0 1px #ffffff0c;
+  animation: pf-command-arrive var(--pf-motion-reveal, 420ms)
+    var(--pf-motion-ease, ease-out) both;
+}
+.pf-command-window::before {
+  content: "";
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  top: 0;
+  height: 1px;
+  background: var(--pf-accent);
+  transform-origin: left;
+  pointer-events: none;
+  animation: pf-command-trace var(--pf-motion-rule, 620ms)
+    var(--pf-motion-ease, ease-out) both;
+}
+.pf-command-header {
+  padding: 25px 26px 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: flex-start;
+}
+.pf .pf-command-header h2 {
+  font-size: 29px;
+  letter-spacing: -0.045em;
+  margin: 0;
+}
+.pf-command-header p {
+  color: var(--pf-muted);
+  font-size: 12px;
+  margin: 9px 0 0;
+}
+.pf .pf-command-close {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 62px;
+  min-height: 38px;
+  border: 1px solid var(--pf-line);
+  border-radius: 10px;
+  color: var(--pf-muted);
+  font-size: 11px;
+}
+.pf-command-close > span {
+  font-size: 19px;
+  line-height: 1;
+}
+.pf .pf-command-close:hover {
+  color: var(--pf-text);
+  background: var(--pf-line);
+}
+.pf-command-search {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin: 0 20px 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--pf-line);
+  border-radius: 12px;
+  background: var(--pf-bg);
+  color: var(--pf-muted);
+}
+.pf-command-search:focus-within {
+  border-color: var(--pf-accent);
+}
+.pf .pf-command-search svg {
+  width: 19px;
+  height: 19px;
+}
+.pf-command-search input {
+  min-width: 0;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--pf-text);
+  font-size: 16px;
+  line-height: 1.5;
+  outline: none;
+}
+.pf .pf-command-search input:focus-visible {
+  outline: none;
+}
+.pf-command-search input::placeholder {
+  color: var(--pf-muted);
+  opacity: 0.8;
+}
+.pf-command-list {
+  min-height: 100px;
+  max-height: 48vh;
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pf-line) transparent;
+  padding: 0 13px 14px;
+}
+.pf-command-group {
+  padding: 15px 13px 7px;
+  color: var(--pf-muted);
+  font-size: 11px;
+}
+.pf .pf-command-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 20px;
+  text-align: left;
+  min-height: 62px;
+  padding: 12px 13px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: var(--pf-text);
+  transition:
+    background-color var(--pf-motion-fast, 180ms),
+    border-color var(--pf-motion-fast, 180ms);
+}
+.pf .pf-command-option[aria-selected="true"] {
+  background: var(--pf-line);
+  border-color: var(--pf-line);
+}
+.pf-command-option-copy {
+  display: block;
+  min-width: 0;
+}
+.pf-command-option-copy strong {
+  display: block;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+.pf-command-option-copy > span {
+  display: block;
+  color: var(--pf-muted);
+  font-size: 11px;
+  line-height: 1.5;
+  margin-top: 3px;
+}
+.pf-command-arrow {
+  flex-shrink: 0;
+  color: var(--pf-muted);
+  font-size: 17px;
+  opacity: 0.55;
+}
+.pf-command-option[aria-selected="true"] .pf-command-arrow {
+  opacity: 1;
+  color: var(--pf-accent);
+}
+.pf-command-window kbd {
+  min-width: 23px;
+  padding: 2px 5px;
+  display: inline-block;
+  border: 1px solid var(--pf-line);
+  border-radius: 5px;
+  font: inherit;
+  font-size: 10px;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--pf-muted);
+  flex-shrink: 0;
+}
+.pf-command-footer {
+  padding: 14px 26px;
+  border-top: 1px solid var(--pf-line);
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--pf-muted);
+  font-size: 10px;
+  flex-wrap: wrap;
+}
+.pf-command-footer > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+.pf-command-empty {
+  margin: 20px 13px;
+  color: var(--pf-muted);
+  font-size: 13px;
+}
+@keyframes pf-command-arrive {
+  from {
+    opacity: 0.8;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes pf-command-trace {
+  0% {
+    transform: scaleX(0);
+    opacity: 0.9;
+  }
+  72% {
+    transform: scaleX(1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 0;
+  }
+}
+@media (max-width: 600px) {
+  .pf-command-backdrop {
+    padding: 16px 10px;
+  }
+  .pf-command-window {
+    border-radius: 17px;
+    max-height: calc(100dvh - 32px);
+  }
+  .pf-command-header {
+    padding: 20px 18px 17px;
+    gap: 12px;
+  }
+  .pf .pf-command-header h2 {
+    font-size: 26px;
+  }
+  .pf-command-header p {
+    font-size: 11px;
+    max-width: 25ch;
+  }
+  .pf-command-search {
+    margin: 0 12px 8px;
+    padding: 12px;
+  }
+  .pf-command-list {
+    max-height: 58dvh;
+    padding: 0 6px 10px;
+  }
+  .pf-command-footer {
+    padding: 12px 18px;
+    gap: 8px 14px;
+    justify-content: flex-start;
+  }
+  .pf-command-footer > span:nth-child(3) {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pf-command-window,
+  .pf-command-window::before {
+    animation: none;
+  }
+  .pf-command-window::before {
+    display: none;
+  }
+  .pf .pf-command-option {
+    transition: none;
+  }
+}

@@ -1,0 +1,234 @@
+.pf {
+  --pf-motion-ease: cubic-bezier(0.2, 0.65, 0.2, 1);
+  --pf-motion-fast: 180ms;
+  --pf-motion-reveal: 420ms;
+  --pf-motion-rule: 620ms;
+}
+
+.pf-trace-route {
+  position: relative;
+  /* No clip, opacity gate, or loading curtain over the page: links and text
+     remain usable while the decorative line draws. */
+}
+.pf-trace-rule {
+  position: absolute;
+  top: 0;
+  left: 5vw;
+  right: 5vw;
+  height: 1px;
+  z-index: 2;
+  pointer-events: none;
+  background: var(--pf-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  opacity: 0;
+}
+.pf-trace-route[data-trace-ready="true"] > .pf-trace-rule {
+  animation: pf-trace-sweep var(--pf-motion-rule) var(--pf-motion-ease) both;
+}
+.pf-trace-route[data-trace-ready="true"]:not([data-trace-snapshot]) > main {
+  animation: pf-trace-page-fallback 420ms var(--pf-motion-ease) both;
+}
+
+/* Capture only the page. Navigation and the moving background remain live;
+   different page heights never stretch or scale the captured text. */
+html[data-portfolio-transition] {
+  view-transition-name: none;
+}
+html[data-portfolio-transition] .pf-trace-route {
+  view-transition-name: portfolio-page;
+}
+html[data-portfolio-transition]::view-transition {
+  pointer-events: none;
+}
+html[data-portfolio-transition]::view-transition-group(portfolio-page) {
+  animation: none;
+}
+html[data-portfolio-transition]::view-transition-image-pair(portfolio-page) {
+  isolation: isolate;
+}
+html[data-portfolio-transition]::view-transition-old(portfolio-page),
+html[data-portfolio-transition]::view-transition-new(portfolio-page) {
+  height: auto;
+  object-fit: none;
+  object-position: left top;
+  mix-blend-mode: normal;
+}
+html[data-portfolio-transition]::view-transition-old(portfolio-page) {
+  animation: pf-trace-page-out 180ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+html[data-portfolio-transition]::view-transition-new(portfolio-page) {
+  animation: pf-trace-page-in 380ms cubic-bezier(0.2, 0.65, 0.2, 1) both;
+}
+
+.pf-trace-divider {
+  position: relative;
+}
+.pf-trace-divider::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -14px;
+  width: 72px;
+  height: 1px;
+  pointer-events: none;
+  background: var(--pf-accent);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+.pf-trace-divider.pf-trace-seen::after {
+  animation: pf-trace-draw var(--pf-motion-rule) var(--pf-motion-ease) both;
+}
+
+/* Opt in only containers replaced by a deliberate selection. Do not attach
+   this to streaming chat messages, live metrics, or filtered search rows. */
+.pf .pf-trace-panel {
+  position: relative;
+  animation: pf-trace-arrive var(--pf-motion-reveal) var(--pf-motion-ease) both;
+}
+.pf .pf-trace-panel::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  z-index: 1;
+  pointer-events: none;
+  background: var(--pf-accent);
+  transform-origin: left;
+  animation: pf-trace-sweep var(--pf-motion-rule) var(--pf-motion-ease) both;
+}
+
+.pf
+  :is(
+    .pf-nav a,
+    .pf-theme,
+    .pf-musai-trigger,
+    .pf-menu,
+    .pf-playground-tabs button,
+    .pf-action,
+    .pf-other-row h3,
+    .pf-note-card h3,
+    .pf-text-button,
+    .pf-solid-button
+  ) {
+  transition-duration: var(--pf-motion-fast);
+  transition-timing-function: var(--pf-motion-ease);
+  transition-property: color, background-color, border-color;
+}
+.pf .pf-trace-route details[open] > :not(summary) {
+  animation: pf-trace-arrive var(--pf-motion-reveal) var(--pf-motion-ease) both;
+}
+.pf .chat__window--trace .chat__bar {
+  position: relative;
+}
+.pf .chat__window--trace .chat__bar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--pf-accent);
+  transform-origin: left;
+  pointer-events: none;
+  animation: pf-trace-sweep var(--pf-motion-rule) var(--pf-motion-ease) both;
+}
+
+@keyframes pf-trace-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes pf-trace-sweep {
+  0% {
+    transform: scaleX(0);
+    opacity: 0.9;
+  }
+  72% {
+    transform: scaleX(1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 0;
+  }
+}
+@keyframes pf-trace-arrive {
+  from {
+    opacity: 0.86;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes pf-trace-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Direct-load anchors use real layout boxes; only snapshots translate. */
+@keyframes pf-trace-page-fallback {
+  from { opacity: 0.45; }
+  to { opacity: 1; }
+}
+@keyframes pf-trace-page-out {
+  from {
+    opacity: 1;
+    transform: translateY(var(--pf-route-old-offset, 0px));
+  }
+  to {
+    opacity: 0;
+    transform: translateY(calc(var(--pf-route-old-offset, 0px) - 4px));
+  }
+}
+
+@media (max-width: 760px) {
+  .pf .pf-nav.is-open {
+    animation: pf-trace-arrive var(--pf-motion-reveal) var(--pf-motion-ease)
+      both;
+  }
+  .pf .pf-nav.is-open::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 18px;
+    right: 18px;
+    height: 1px;
+    background: var(--pf-accent);
+    transform-origin: left;
+    pointer-events: none;
+    animation: pf-trace-sweep var(--pf-motion-rule) var(--pf-motion-ease) both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-portfolio-transition]::view-transition-old(portfolio-page),
+  html[data-portfolio-transition]::view-transition-new(portfolio-page) {
+    animation: none;
+  }
+  .pf .pf-trace-route,
+  .pf .pf-trace-route *,
+  .pf .pf-trace-route *::before,
+  .pf .pf-trace-route *::after,
+  .pf .pf-nav.is-open,
+  .pf .pf-nav.is-open::after,
+  .pf .chat__window--trace .chat__bar::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .pf-trace-rule,
+  .pf-trace-divider::after,
+  .pf .pf-trace-panel::before {
+    display: none;
+  }
+}

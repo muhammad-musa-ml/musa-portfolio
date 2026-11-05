@@ -1,0 +1,118 @@
+/* Animate the shared palette once; descendants keep their own interaction transitions. */
+@property --pf-bg {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #0b0c10;
+}
+@property --pf-text {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #f2ebdd;
+}
+@property --pf-muted {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #b3b0a7;
+}
+@property --pf-accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ffb454;
+}
+@property --pf-teal {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #63e2c6;
+}
+@property --pf-coral {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ff7a6b;
+}
+@property --pf-line {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #f2ebdd25;
+}
+@property --pf-panel {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #1d2226b5;
+}
+@property --pf-solid {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #181d21;
+}
+@property --pf-shadow {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #0005;
+}
+
+.pf {
+  --pf-theme-duration: 520ms;
+  --pf-theme-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-property:
+    --pf-bg, --pf-text, --pf-muted, --pf-accent, --pf-teal, --pf-coral,
+    --pf-line, --pf-panel, --pf-solid, --pf-shadow;
+  transition-duration: var(--pf-theme-duration);
+  transition-timing-function: var(--pf-theme-ease);
+}
+body.portfolio-active {
+  transition: background-color 520ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.pf .pf-theme {
+  background: var(--pf-panel);
+  border: 1px solid var(--pf-line);
+  color: var(--pf-accent);
+  transition:
+    transform 220ms var(--pf-theme-ease),
+    background-color 220ms ease;
+}
+.pf .pf-theme:hover {
+  background: var(--pf-line);
+}
+.pf .pf-theme:active {
+  transform: scale(0.92);
+}
+.pf .pf-theme-glyph {
+  overflow: visible;
+}
+.pf .pf-theme-disc,
+.pf .pf-theme-rays {
+  transform-origin: 12px 12px;
+}
+.pf .pf-theme-disc,
+.pf .pf-theme-rays,
+.pf .pf-theme-cutout {
+  transition:
+    transform var(--pf-theme-duration) var(--pf-theme-ease),
+    opacity var(--pf-theme-duration) var(--pf-theme-ease);
+}
+.pf .pf-theme-cutout {
+  transform: translate(10px, -10px);
+}
+.pf .pf-theme-glyph[data-theme="light"] .pf-theme-disc {
+  transform: scale(1.5);
+}
+.pf .pf-theme-glyph[data-theme="light"] .pf-theme-cutout {
+  transform: translate(0, 0);
+}
+.pf .pf-theme-glyph[data-theme="light"] .pf-theme-rays {
+  transform: rotate(45deg) scale(0.6);
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  body.portfolio-active,
+  .pf,
+  .pf .pf-theme,
+  .pf .pf-theme-disc,
+  .pf .pf-theme-rays,
+  .pf .pf-theme-cutout {
+    transition: none;
+  }
+  .pf .pf-theme:active {
+    transform: none;
+  }
+}

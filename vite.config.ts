@@ -61,12 +61,5 @@ export default defineConfig({
   base: process.env.VITE_BASE || '/',
   build: {
     chunkSizeWarningLimit: 1200,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          three: ['three', '@react-three/fiber', '@react-three/drei'],
-        },
-      },
-    },
   },
 })

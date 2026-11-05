@@ -1,0 +1,35 @@
+.visual-study {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  isolation: isolate;
+  touch-action: pan-y;
+}
+.visual-study canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  outline: none;
+}
+.visual-study .vs-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #ffb454;
+}
+.visual-study[data-theme="light"] .vs-fallback {
+  color: #a75b18;
+}
+.visual-study .vs-fallback svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 660px;
+}
+@media (max-width: 600px) {
+  .visual-study {
+    min-height: 260px;
+  }
+}
