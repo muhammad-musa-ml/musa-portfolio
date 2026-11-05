@@ -19,6 +19,7 @@ import { TraceRoute } from "./motion/TraceMotion";
 import PortfolioHeader from "./PortfolioHeader";
 import ThemeIcon from "./ThemeIcon";
 import { ProfileNumbers, ProfileSummary } from "./profile-summary";
+import { trackAnalyticsAction } from "../lib/analytics";
 import "./portfolio.css";
 import "./home-refresh.css";
 import "./theme-motion.css";
@@ -824,14 +825,25 @@ export default function PortfolioApp() {
     () => savedValue("musa-spotlight-dot") !== "false",
   );
   const openChat = useCallback((question?: string) => {
+    trackAnalyticsAction("chat-open");
     setCommandsOpen(false);
     setChatPrefill(question);
     setChatOpen(true);
   }, []);
   const openCommands = useCallback(() => {
+    trackAnalyticsAction("search-open");
     setChatOpen(false);
     setCommandsOpen(true);
   }, []);
+  const toggleTheme = () => {
+    const next = theme === "dark" ? "light" : "dark";
+    trackAnalyticsAction(next === "dark" ? "theme-dark" : "theme-light");
+    setTheme(next);
+  };
+  const toggleSpotlightDot = () => {
+    trackAnalyticsAction(spotlightDot ? "cursor-dot-off" : "cursor-dot-on");
+    setSpotlightDot(!spotlightDot);
+  };
   const previousPath = useRef(path);
   const isLab = import.meta.env.DEV && path === "/backgrounds";
   const isMotionStudio = import.meta.env.DEV && path === "/motion-studio";
@@ -1030,9 +1042,7 @@ export default function PortfolioApp() {
           theme={theme}
           openChat={() => openChat()}
           openCommands={openCommands}
-          toggle={() =>
-            setTheme((value) => (value === "dark" ? "light" : "dark"))
-          }
+          toggle={toggleTheme}
         />
         <TraceRoute route={path} enabled={!isLab && !isMotionStudio}>
           {isLab ? (
@@ -1120,11 +1130,9 @@ export default function PortfolioApp() {
             onAskMusai={openChat}
             navigateTo={navigate}
             theme={theme}
-            onToggleTheme={() =>
-              setTheme((value) => (value === "dark" ? "light" : "dark"))
-            }
+            onToggleTheme={toggleTheme}
             spotlightDot={spotlightDot}
-            onToggleSpotlightDot={() => setSpotlightDot((value) => !value)}
+            onToggleSpotlightDot={toggleSpotlightDot}
           />
         </Suspense>
       )}

@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Musa — Private analytics</title>
+    <link rel="stylesheet" href="/dashboard.css" />
+    <script src="/dashboard.js" type="module"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to analytics</a>
+    <header class="masthead">
+      <a class="wordmark" href="/">Muhammad Musa<span>.</span></a>
+      <span class="private-label"
+        >Private analytics <span>127.0.0.1 only</span></span
+      >
+      <div class="connection" id="connection" role="status">
+        <i></i><span>Checking connection</span>
+      </div>
+    </header>
+    <main id="main">
+      <section class="intro">
+        <div>
+          <p class="source" id="source">Portfolio activity</p>
+          <h1>How the work<br />is found.</h1>
+          <p>Visits, decisions, and the paths between them.</p>
+        </div>
+        <form id="range" class="range">
+          <div class="date-fields">
+            <label>From <input type="date" id="from" required /></label
+            ><span aria-hidden="true">—</span
+            ><label>Through <input type="date" id="to" required /></label>
+          </div>
+          <div class="range-actions">
+            <button type="button" data-days="7">7 days</button
+            ><button type="button" data-days="30">30 days</button
+            ><button type="submit" class="primary" id="refresh">Refresh</button>
+          </div>
+          <p>UTC dates. Up to 30 days retained.</p>
+        </form>
+      </section>
+      <div id="notice" class="notice" role="status" hidden></div>
+      <section class="metrics" aria-label="Traffic overview">
+        <div>
+          <span>Anonymous sessions</span><strong id="sessions-total">—</strong
+          ><small>A new session after each reload</small>
+        </div>
+        <div>
+          <span>Page views</span><strong id="views-total">—</strong
+          ><small>Section changes listed in journeys</small>
+        </div>
+        <div>
+          <span>Tracked clicks</span><strong id="clicks-total">—</strong
+          ><small>Approved links and controls</small>
+        </div>
+        <div>
+          <span>Active time / session</span><strong id="active-total">—</strong
+          ><small>Focused; pauses after 60s idle</small>
+        </div>
+      </section>
+      <section class="traffic panel" aria-labelledby="traffic-title">
+        <div class="section-head">
+          <div>
+            <h2 id="traffic-title">The arrival pattern.</h2>
+            <p id="range-label">Waiting for a selected range</p>
+          </div>
+          <div class="legend">
+            <span><i class="amber"></i>Page views</span
+            ><span><i class="teal"></i>Sessions</span>
+          </div>
+        </div>
+        <div id="chart" class="chart" aria-live="polite"></div>
+        <details class="chart-table">
+          <summary>View daily numbers</summary>
+          <div id="daily-table"></div>
+        </details>
+      </section>
+      <div class="split wide-left">
+        <section class="panel" aria-labelledby="pages-title">
+          <div class="section-head">
+            <div>
+              <h2 id="pages-title">Where attention goes.</h2>
+              <p>Page views, active time, and visits reaching the bottom.</p>
+            </div>
+          </div>
+          <div id="pages-table" class="table-scroll"></div>
+        </section>
+        <section class="panel" aria-labelledby="clicks-title">
+          <div class="section-head">
+            <div>
+              <h2 id="clicks-title">What gets a click.</h2>
+              <p>Exact approved destinations and controls.</p>
+            </div>
+          </div>
+          <div id="click-list"></div>
+        </section>
+      </div>
+      <section class="panel journeys" aria-labelledby="journeys-title">
+        <div class="section-head">
+          <div>
+            <h2 id="journeys-title">Follow a visit.</h2>
+            <p>
+              Anonymous sessions, never named people. Expand a row to see its
+              recorded events.
+            </p>
+          </div>
+          <span id="journey-count" class="muted"></span>
+        </div>
+        <div id="session-list"></div>
+      </section>
+      <div class="split thirds">
+        <section class="panel">
+          <div class="section-head">
+            <div>
+              <h2>Approximate locations.</h2>
+              <p>
+                Network-derived city, region and country. VPNs and mobile
+                networks can change these.
+              </p>
+            </div>
+          </div>
+          <div id="location-list"></div>
+        </section>
+        <section class="panel">
+          <div class="section-head">
+            <div>
+              <h2>Devices.</h2>
+              <p>Coarse layout classes, not device identities.</p>
+            </div>
+          </div>
+          <div id="device-list"></div>
+        </section>
+        <section class="panel">
+          <div class="section-head">
+            <div>
+              <h2>Where visits came from.</h2>
+              <p>Referrer host only. No referring page or search query.</p>
+            </div>
+          </div>
+          <div id="referrer-list"></div>
+        </section>
+      </div>
+      <footer class="footer">
+        <div>
+          <strong>A small record. Clear limits.</strong>
+          <p>
+            No cookies, persistent identifiers, IP storage, search terms, chat
+            text, forms, or session replay. DNT and Global Privacy Control are
+            respected. Counts include only measured events; blockers, privacy
+            choices and automated traffic affect coverage.
+          </p>
+          <small id="updated">No report loaded.</small>
+        </div>
+        <a id="export" class="export" aria-disabled="true"
+          >Export recorded events <span aria-hidden="true">↓</span></a
+        >
+      </footer>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,411 @@
+{
+  "paths": {
+    "/": "Home",
+    "/work": "Work",
+    "/writing": "Writing",
+    "/about": "About",
+    "/playground": "Playground",
+    "/work/wumi": "WUMI Health",
+    "/work/research": "RAG attack & defense",
+    "/work/gauntlet": "Resume Gauntlet",
+    "/work/kiln": "Kiln",
+    "/work/open-source": "Small fixes, real boundaries",
+    "/work/shahmukhi": "Shahmukhi Punjabi NLP",
+    "/work/reprod": "REPROD",
+    "/work/serving": "Small-GPU serving bench",
+    "/work/lookup": "Replicated lookup service",
+    "/work/tap": "TAP red-teaming experiments",
+    "/work/voice-agent": "Voice Agent",
+    "/work/satellite": "Satellite building footprints",
+    "/work/extremism": "Social-media sentiment research",
+    "/work/sentiment-robustness": "Adversarial sentiment classification",
+    "/work/mask-detection": "Multi-camera detection & stitching",
+    "/work/uav": "TEKNOFEST fixed-wing UAV",
+    "/writing/dynamic-workflows-need-a-stopping-rule": "Dynamic workflows still need a stopping rule",
+    "/writing/only-send-the-schema-a-tool-needs": "Only send the schema a tool needs",
+    "/writing/when-a-safety-score-hides-the-cost": "When a safety score hides the cost",
+    "/writing/a-bookmark-is-not-a-research-system": "A bookmark is not a research system",
+    "/writing/a-spotlight-without-the-rings": "A spotlight without the rings"
+  },
+  "hashes": {
+    "/": [
+      "intro",
+      "top",
+      "main",
+      "work",
+      "about",
+      "contact"
+    ],
+    "/about": [
+      "story",
+      "experience",
+      "education",
+      "publications",
+      "toolkit",
+      "certificates",
+      "humanity",
+      "experience-wumi",
+      "experience-cs320",
+      "experience-saudconsult",
+      "experience-cs220",
+      "experience-cs331",
+      "experience-kasb",
+      "education-0",
+      "education-1",
+      "toolkit-0",
+      "toolkit-1",
+      "toolkit-2",
+      "toolkit-3",
+      "toolkit-4",
+      "credential-claude-101",
+      "credential-claude-code-101",
+      "credential-kaggle-intro-ml",
+      "credential-udemy-python",
+      "credential-bulandi-achievement",
+      "credential-bulandi-training",
+      "credential-codinguru-ieee",
+      "credential-coursera-prob-r",
+      "credential-coursera-android",
+      "publication-0",
+      "publication-1"
+    ],
+    "/work/wumi": [
+      "project-overview",
+      "project-outcome",
+      "section-0",
+      "section-1",
+      "section-2",
+      "section-3",
+      "section-4"
+    ],
+    "/work/research": [
+      "project-overview",
+      "project-outcome",
+      "section-0",
+      "section-1",
+      "section-2",
+      "section-3",
+      "section-4"
+    ],
+    "/work/gauntlet": [
+      "project-overview",
+      "project-outcome",
+      "section-0",
+      "section-1",
+      "section-2",
+      "section-3"
+    ],
+    "/work/kiln": [
+      "project-overview",
+      "project-outcome",
+      "section-0",
+      "section-1",
+      "section-2",
+      "section-3"
+    ],
+    "/work/open-source": [
+      "project-overview",
+      "project-outcome",
+      "section-0",
+      "section-1",
+      "section-2"
+    ],
+    "/work/shahmukhi": [
+      "project-overview",
+      "project-outcome",
+      "section-0",
+      "section-1",
+      "section-2"
+    ],
+    "/work/reprod": [
+      "project-overview",
+      "project-outcome",
+      "section-0",
+      "section-1",
+      "section-2"
+    ],
+    "/work/serving": [
+      "project-overview",
+      "project-outcome",
+      "section-0",
+      "section-1",
+      "section-2"
+    ],
+    "/work/lookup": [
+      "project-overview",
+      "project-outcome",
+      "section-0",
+      "section-1",
+      "section-2"
+    ],
+    "/work/tap": [
+      "project-overview",
+      "project-outcome",
+      "section-0",
+      "section-1"
+    ],
+    "/work/voice-agent": [
+      "project-overview",
+      "project-outcome",
+      "section-0",
+      "section-1",
+      "section-2"
+    ],
+    "/work/satellite": [
+      "project-overview",
+      "project-outcome",
+      "section-0",
+      "section-1"
+    ],
+    "/work/extremism": [
+      "project-overview",
+      "project-outcome",
+      "section-0",
+      "section-1"
+    ],
+    "/work/sentiment-robustness": [
+      "project-overview",
+      "project-outcome",
+      "section-0",
+      "section-1"
+    ],
+    "/work/mask-detection": [
+      "project-overview",
+      "project-outcome",
+      "section-0",
+      "section-1"
+    ],
+    "/work/uav": [
+      "project-overview",
+      "project-outcome",
+      "section-0",
+      "section-1"
+    ],
+    "/writing/dynamic-workflows-need-a-stopping-rule": [
+      "sources",
+      "section-0",
+      "section-1",
+      "section-2",
+      "section-3",
+      "section-4"
+    ],
+    "/writing/only-send-the-schema-a-tool-needs": [
+      "sources",
+      "section-0",
+      "section-1",
+      "section-2",
+      "section-3",
+      "section-4"
+    ],
+    "/writing/when-a-safety-score-hides-the-cost": [
+      "sources",
+      "section-0",
+      "section-1",
+      "section-2",
+      "section-3",
+      "section-4"
+    ],
+    "/writing/a-bookmark-is-not-a-research-system": [
+      "sources",
+      "section-0",
+      "section-1",
+      "section-2",
+      "section-3",
+      "section-4"
+    ],
+    "/writing/a-spotlight-without-the-rings": [
+      "sources",
+      "section-0",
+      "section-1",
+      "section-2",
+      "section-3",
+      "section-4"
+    ]
+  },
+  "builds": [
+    "kiln",
+    "lookup",
+    "serving",
+    "research",
+    "wumi"
+  ],
+  "outbound": {
+    "https://github.com/muhammad-musa-ml": {
+      "id": "social:github",
+      "label": "GitHub profile"
+    },
+    "https://www.linkedin.com/in/mmusa2": {
+      "id": "social:linkedin",
+      "label": "LinkedIn"
+    },
+    "https://orcid.org/0009-0009-5542-8040": {
+      "id": "social:orcid",
+      "label": "ORCID"
+    },
+    "https://wumihealth.com": {
+      "id": "work:wumi:0",
+      "label": "WUMI Health / Visit website"
+    },
+    "https://github.com/muhammad-musa-ml/IPI-763": {
+      "id": "work:research:0",
+      "label": "RAG attack & defense / Read the research code"
+    },
+    "https://github.com/muhammad-musa-ml/IPI-763/blob/main/docs/phase5_honest_fpr.md": {
+      "id": "work:research:1",
+      "label": "RAG attack & defense / Read the utility analysis"
+    },
+    "https://kiln-by-m.vercel.app": {
+      "id": "work:kiln:0",
+      "label": "Kiln / Visit website"
+    },
+    "https://github.com/muhammad-musa-ml/kiln": {
+      "id": "work:kiln:1",
+      "label": "Kiln / Read the code"
+    },
+    "https://github.com/makenotion/notion-mcp-server/pull/377": {
+      "id": "work:open-source:0",
+      "label": "Small fixes, real boundaries / Notion MCP schema pruning · PR #377"
+    },
+    "https://github.com/palantir/palantir-oauth-client/pull/21": {
+      "id": "work:open-source:1",
+      "label": "Small fixes, real boundaries / OAuth environment cleanup · PR #21"
+    },
+    "https://github.com/typeorm/typeorm/pull/13037": {
+      "id": "work:open-source:2",
+      "label": "Small fixes, real boundaries / TypeORM view metadata · PR #13037"
+    },
+    "https://doi.org/10.1145/3607505.3607510": {
+      "id": "work:reprod:0",
+      "label": "REPROD / Read the paper"
+    },
+    "https://doi.org/10.5281/zenodo.8123115": {
+      "id": "work:reprod:1",
+      "label": "REPROD / Browse the dataset"
+    },
+    "https://github.com/muhammad-musa-ml/reprod": {
+      "id": "work:reprod:2",
+      "label": "REPROD / Read the code"
+    },
+    "https://github.com/muhammad-musa-ml/vllm-serving-bench": {
+      "id": "work:serving:0",
+      "label": "Small-GPU serving bench / Read the measurements"
+    },
+    "https://github.com/muhammad-musa-ml/replicated-lookup-service": {
+      "id": "work:lookup:0",
+      "label": "Replicated lookup service / Read the code and experiments"
+    },
+    "https://doi.org/10.1109/ASONAM55673.2022.10068622": {
+      "id": "work:extremism:0",
+      "label": "Social-media sentiment research / Read the poster"
+    }
+  },
+  "controls": {
+    "wumi-view-patient": "WUMI / View as patient",
+    "wumi-view-clinic": "WUMI / View as clinic",
+    "wumi-view-lab": "WUMI / View as lab",
+    "wumi-clinic-grant": "WUMI / Grant clinic access",
+    "wumi-clinic-revoke": "WUMI / Revoke clinic access",
+    "wumi-lab-grant": "WUMI / Grant lab access",
+    "wumi-lab-revoke": "WUMI / Revoke lab access",
+    "defense-baseline": "RAG experiment / No defense",
+    "defense-prompt": "RAG experiment / Prompt defense",
+    "defense-fused": "RAG experiment / Fused defense",
+    "kiln-note-search": "Source demo / Search note",
+    "kiln-note-interaction": "Source demo / Interaction note",
+    "kiln-note-retrieval": "Source demo / Retrieval note",
+    "kiln-source-show": "Source demo / Follow the source",
+    "kiln-source-hide": "Source demo / Return to the note",
+    "kiln-search-open": "Kiln / Open library search",
+    "lookup-copy-command": "Lookup / Copy reproduction command",
+    "serving-throughput": "Serving benchmark / Output throughput",
+    "serving-latency": "Serving benchmark / First-token latency",
+    "work-reset": "Work / Reset filters",
+    "writing-topic-all": "Writing / All topics",
+    "project-filter-all": "Work filter / Everything",
+    "project-filter-research": "Work filter / Research",
+    "project-filter-ml": "Work filter / Machine learning",
+    "project-filter-build": "Work filter / Building systems",
+    "project-filter-teach": "Work filter / Teaching & leading",
+    "playground-build-kiln": "Playground / Kiln",
+    "playground-build-lookup": "Playground / Replicated lookup service",
+    "playground-build-serving": "Playground / Small-GPU serving bench",
+    "playground-build-research": "Playground / RAG attack & defense",
+    "playground-build-wumi": "Playground / WUMI Health",
+    "lookup-cache-0": "Lookup benchmark / 10 cache entries",
+    "lookup-cache-1": "Lookup benchmark / 100 cache entries",
+    "lookup-cache-2": "Lookup benchmark / 1,000 cache entries",
+    "lookup-cache-3": "Lookup benchmark / 3,000 cache entries",
+    "lookup-cache-4": "Lookup benchmark / 10,000 cache entries",
+    "serving-workers-0": "Serving benchmark / 1 concurrent workers",
+    "serving-workers-1": "Serving benchmark / 2 concurrent workers",
+    "serving-workers-2": "Serving benchmark / 4 concurrent workers",
+    "serving-workers-3": "Serving benchmark / 8 concurrent workers",
+    "serving-workers-4": "Serving benchmark / 16 concurrent workers",
+    "writing-topic-reading-notes": "Writing topic / Reading notes",
+    "writing-topic-anthropic": "Writing topic / Anthropic",
+    "writing-topic-dynamic-workflows": "Writing topic / Dynamic workflows",
+    "writing-topic-agents": "Writing topic / Agents",
+    "writing-topic-evaluation": "Writing topic / Evaluation",
+    "writing-topic-orchestration": "Writing topic / Orchestration",
+    "writing-topic-open-source": "Writing topic / Open source",
+    "writing-topic-mcp": "Writing topic / MCP",
+    "writing-topic-typescript": "Writing topic / TypeScript",
+    "writing-topic-performance": "Writing topic / Performance",
+    "writing-topic-testing": "Writing topic / Testing",
+    "writing-topic-ai-safety": "Writing topic / AI safety",
+    "writing-topic-rag": "Writing topic / RAG",
+    "writing-topic-false-positives": "Writing topic / False positives",
+    "writing-topic-research": "Writing topic / Research",
+    "writing-topic-knowledge-systems": "Writing topic / Knowledge systems",
+    "writing-topic-search": "Writing topic / Search",
+    "writing-topic-provenance": "Writing topic / Provenance",
+    "writing-topic-product-engineering": "Writing topic / Product engineering",
+    "writing-topic-publishing": "Writing topic / Publishing",
+    "writing-topic-graphics": "Writing topic / Graphics",
+    "writing-topic-three-js": "Writing topic / Three.js",
+    "writing-topic-shaders": "Writing topic / Shaders",
+    "writing-topic-interaction-design": "Writing topic / Interaction design",
+    "writing-topic-debugging": "Writing topic / Debugging"
+  },
+  "topicControls": {
+    "": "writing-topic-all",
+    "Reading notes": "writing-topic-reading-notes",
+    "Anthropic": "writing-topic-anthropic",
+    "Dynamic workflows": "writing-topic-dynamic-workflows",
+    "Agents": "writing-topic-agents",
+    "Evaluation": "writing-topic-evaluation",
+    "Orchestration": "writing-topic-orchestration",
+    "Open source": "writing-topic-open-source",
+    "MCP": "writing-topic-mcp",
+    "TypeScript": "writing-topic-typescript",
+    "Performance": "writing-topic-performance",
+    "Testing": "writing-topic-testing",
+    "AI safety": "writing-topic-ai-safety",
+    "RAG": "writing-topic-rag",
+    "False positives": "writing-topic-false-positives",
+    "Research": "writing-topic-research",
+    "Knowledge systems": "writing-topic-knowledge-systems",
+    "Search": "writing-topic-search",
+    "Provenance": "writing-topic-provenance",
+    "Product engineering": "writing-topic-product-engineering",
+    "Publishing": "writing-topic-publishing",
+    "Graphics": "writing-topic-graphics",
+    "Three.js": "writing-topic-three-js",
+    "Shaders": "writing-topic-shaders",
+    "Interaction design": "writing-topic-interaction-design",
+    "Debugging": "writing-topic-debugging"
+  },
+  "details": {
+    "wumi-access-history": "WUMI / Synthetic access history",
+    "lookup-reproduction": "Lookup / Run the actual service",
+    "education-recognition": "About / Recognition",
+    "experience-wumi": "Experience / WUMI Health — Lead Software Engineer",
+    "experience-cs320": "Experience / University of Wisconsin–Madison — Head Graduate Teaching Assistant · CS 320",
+    "experience-saudconsult": "Experience / SAUDCONSULT — Data Science & Software Engineering Intern",
+    "experience-cs220": "Experience / University of Wisconsin–Madison — Graduate Teaching Assistant · CS 220",
+    "experience-cs331": "Experience / Lahore University of Management Sciences — Head Teaching Assistant · CS 331",
+    "experience-kasb": "Experience / KASB Securities & TransformX — Blockchain & Web Developer Intern",
+    "education-0-coursework": "Coursework / University of Wisconsin–Madison",
+    "education-1-coursework": "Coursework / Lahore University of Management Sciences"
+  }
+}

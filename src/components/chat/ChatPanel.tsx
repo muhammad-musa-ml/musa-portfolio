@@ -1,11 +1,23 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
-import { askTwin, type ChatMessage } from "../../lib/ai";
-import { renderMarkdown } from "./markdown";
+import { askTwin, ChatRequestError, type ChatMessage, type ChatSource } from "../../lib/ai";
+import { navigate } from "../../lib/router";
+import { ChatLink, renderMarkdown, safeHref } from "./markdown";
 import { TRACE_TIMING } from "../../portfolio/motion/timing";
 import "../../styles/chat.css";
 
-type Msg = { role: "user" | "assistant"; content: string; error?: boolean };
+type Msg = {
+  id: number;
+  role: "user" | "assistant";
+  content: string;
+  status?: "streaming" | "complete" | "stopped" | "error";
+  issue?: string;
+  retryable?: boolean;
+  request?: ChatMessage[];
+  mode?: "model" | "portfolio";
+  localFallback?: boolean;
+  sources?: ChatSource[];
+};
 
 const SUGGESTIONS = [
   "What is WUMI Health?",
@@ -14,7 +26,7 @@ const SUGGESTIONS = [
   "What are you looking for in your next role?",
 ];
 
-const GREETING = `**Hi, I’m MusA.I.** I’m an AI twin grounded in this portfolio, answering in Musa’s voice. Ask about my projects, the decisions behind them, or the skills I could bring to your team. I’ll say when the evidence runs out.`;
+const GREETING = "**Hi, I’m MusA.I.** Musa’s AI twin. Ask me about his work, technical decisions, or experience.";
 
 export default function ChatPanel({
   onClose,
@@ -26,7 +38,7 @@ export default function ChatPanel({
   transitionStyle?: "trace";
 }) {
   const [msgs, setMsgs] = useState<Msg[]>([
-    { role: "assistant", content: GREETING },
+    { id: 0, role: "assistant", content: GREETING },
   ]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
@@ -34,6 +46,9 @@ export default function ChatPanel({
   const followReply = useRef(true);
   const inputRef = useRef<HTMLInputElement>(null);
   const autoSent = useRef(false);
+  const nextId = useRef(1);
+  const mounted = useRef(true);
+  const active = useRef<{ id: number; controller: AbortController; cancelFrame: () => void } | null>(null);
   const windowRef = useRef<HTMLElement>(null);
   const closeRef = useRef(onClose);
   closeRef.current = onClose;
@@ -41,6 +56,7 @@ export default function ChatPanel({
   const portfolioChat = transitionStyle === "trace";
 
   useEffect(() => {
+    mounted.current = true;
     const opener = document.activeElement as HTMLElement | null;
     const overflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -55,7 +71,7 @@ export default function ChatPanel({
         windowRef.current?.querySelectorAll<HTMLElement>(
           'a[href],button:not([disabled]),input:not([disabled]),[tabindex="0"]',
         ) ?? [],
-      );
+      ).filter((control) => control.getClientRects().length > 0);
       const first = controls[0];
       const last = controls[controls.length - 1];
       if (
@@ -77,6 +93,9 @@ export default function ChatPanel({
     document.addEventListener("keydown", onKey);
     inputRef.current?.focus();
     return () => {
+      mounted.current = false;
+      active.current?.controller.abort();
+      active.current?.cancelFrame();
       document.body.style.overflow = overflow;
       document.removeEventListener("keydown", onKey);
       if (opener?.isConnected) opener.focus({ preventScroll: true });
@@ -88,60 +107,117 @@ export default function ChatPanel({
     if (el && followReply.current) el.scrollTop = el.scrollHeight;
   }, [msgs]);
 
-  const send = async (text: string) => {
-    const q = text.trim();
-    if (!q || busy) return;
+  const runRequest = async (history: ChatMessage[], id: number) => {
+    const controller = new AbortController();
+    let content = "";
+    let mode: Msg["mode"];
+    let localFallback = false;
+    let sources: ChatSource[] = [];
+    let frame: number | undefined;
+    let timer: number | undefined;
+    const cancelFrame = () => {
+      if (frame !== undefined) cancelAnimationFrame(frame);
+      if (timer !== undefined) clearTimeout(timer);
+      frame = timer = undefined;
+    };
+    const flush = () => {
+      cancelFrame();
+      if (!mounted.current || active.current?.id !== id) return;
+      setMsgs((messages) => messages.map((message) => message.id === id
+        ? { ...message, content, mode, sources, localFallback }
+        : message));
+    };
+    const schedule = () => {
+      if (frame !== undefined) return;
+      frame = requestAnimationFrame(flush);
+      // Browsers pause animation frames in hidden tabs. Do not hold replies there.
+      timer = window.setTimeout(flush, 80);
+    };
+    active.current = { id, controller, cancelFrame };
     followReply.current = true;
-    setInput("");
     setBusy(true);
-    const history: ChatMessage[] = [
-      ...msgs.map((m) => ({ role: m.role, content: m.content }) as ChatMessage),
-      { role: "user", content: q },
-    ];
-    setMsgs((m) => [
-      ...m,
-      { role: "user", content: q },
-      { role: "assistant", content: "" },
-    ]);
     try {
-      const { stream } = await askTwin(
-        history.filter((m) => m.content !== GREETING),
-      );
-      let acc = "";
-      for await (const chunk of stream) {
-        acc += chunk;
-        setMsgs((m) => {
-          const copy = [...m];
-          copy[copy.length - 1] = { role: "assistant", content: acc };
-          return copy;
-        });
+      for await (const event of askTwin(history, { signal: controller.signal })) {
+        if (controller.signal.aborted) break;
+        if (event.type === "delta") content += event.text;
+        else if (event.type === "meta") {
+          mode = event.mode;
+          localFallback = event.reason === "unavailable";
+        }
+        else if (event.type === "sources") {
+          sources = event.sources.filter((source, index, all) =>
+            safeHref(source.url) && all.findIndex((item) => item.url === source.url) === index);
+        }
+        schedule();
       }
-      if (!acc.trim()) throw new Error("empty");
+      if (controller.signal.aborted) throw new DOMException("Response stopped", "AbortError");
+      if (!content.trim()) throw new ChatRequestError("empty", "No response arrived. Try again.");
+      flush();
+      if (mounted.current) setMsgs((messages) => messages.map((message) =>
+        message.id === id ? { ...message, status: "complete" } : message));
     } catch (err) {
-      const msg =
-        err instanceof Error && err.message === "rate_limited"
-          ? "_MusA.I is receiving too many requests. Please try again shortly._"
-          : `_I couldn’t reach the response service. Try again in a moment, or contact me by email._`;
-      setMsgs((m) => {
-        const copy = [...m];
-        copy[copy.length - 1] = {
-          role: "assistant",
-          content: msg,
-          error: true,
-        };
-        return copy;
-      });
+      flush();
+      const stopped = controller.signal.aborted;
+      const issue = stopped ? "Response stopped." :
+        err instanceof ChatRequestError ? err.message :
+          content ? "Connection interrupted." : "Couldn’t connect. Try again.";
+      if (mounted.current) setMsgs((messages) => messages.map((message) =>
+        message.id === id ? {
+          ...message, status: stopped ? "stopped" : "error", issue,
+          retryable: !(err instanceof ChatRequestError) || err.retryable,
+        } : message));
     } finally {
-      setBusy(false);
-      inputRef.current?.focus();
+      cancelFrame();
+      if (active.current?.id === id) active.current = null;
+      if (mounted.current) {
+        setBusy(false);
+        inputRef.current?.focus();
+      }
     }
+  };
+
+  const send = (text: string) => {
+    const question = text.trim().slice(0, 4000);
+    if (!question || active.current) return;
+    setInput("");
+    const history: ChatMessage[] = [
+      ...msgs.filter((message) => message.id !== 0 && message.content.trim())
+        .map(({ role, content }) => ({ role, content })),
+      { role: "user", content: question },
+    ];
+    const userId = nextId.current++;
+    const replyId = nextId.current++;
+    setMsgs((messages) => [
+      ...messages,
+      { id: userId, role: "user", content: question },
+      { id: replyId, role: "assistant", content: "", status: "streaming", request: history },
+    ]);
+    void runRequest(history, replyId);
+  };
+
+  const retry = (message: Msg) => {
+    if (active.current || !message.request) return;
+    const id = message.content ? nextId.current++ : message.id;
+    const reply: Msg = { id, role: "assistant", content: "", status: "streaming", request: message.request };
+    // Keep every partial answer visible. An empty failed attempt can be reused.
+    setMsgs((messages) => message.content ? [...messages, reply] :
+      messages.map((item) => item.id === message.id ? reply : item));
+    void runRequest(message.request, id);
+  };
+
+  const openLink = (href: string) => {
+    onClose();
+    navigate(href);
   };
 
   // auto-ask a question handed in from the ⌘K palette
   useEffect(() => {
     if (initialQuestion && initialQuestion.trim() && !autoSent.current) {
-      autoSent.current = true;
-      send(initialQuestion);
+      const timer = window.setTimeout(() => {
+        autoSent.current = true;
+        send(initialQuestion);
+      }, 0);
+      return () => clearTimeout(timer);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialQuestion]);
@@ -263,8 +339,8 @@ export default function ChatPanel({
             >
               {msgs.map((m, i) => (
                 <div
-                  key={i}
-                  className={`chat__msg chat__msg--${m.role} ${m.error ? "chat__msg--error" : ""}`}
+                  key={m.id}
+                  className={`chat__msg chat__msg--${m.role}`}
                 >
                   <span className="chat__who">
                     {portfolioChat && (
@@ -274,9 +350,14 @@ export default function ChatPanel({
                     )}
                     {m.role === "user" ? "You" : "MusA.I"}
                   </span>
-                  <div className="chat__bubble">
+                  {(m.content || m.status === "streaming") && <div className="chat__bubble">
+                    {m.mode === "portfolio" && (
+                      <span className="chat__reply-context">
+                        Matching portfolio notes{m.localFallback ? " · live answers unavailable" : ""}
+                      </span>
+                    )}
                     {m.content ? (
-                      renderMarkdown(m.content)
+                      renderMarkdown(m.content, { onNavigate: openLink })
                     ) : (
                       <span
                         className="chat__thinking"
@@ -288,7 +369,26 @@ export default function ChatPanel({
                         <span />
                       </span>
                     )}
-                  </div>
+                    {!!m.sources?.length && (
+                      <div className="chat__sources" aria-label="Sources">
+                        {m.sources.map((source) => (
+                          <ChatLink key={source.url} href={source.url} onNavigate={openLink}>
+                            {source.label}<span aria-hidden="true"> ↗</span>
+                          </ChatLink>
+                        ))}
+                      </div>
+                    )}
+                  </div>}
+                  {m.issue && (
+                    <div className="chat__reply-status" role="status">
+                      <span>{m.issue}</span>
+                      {m.retryable && i === msgs.length - 1 && (
+                        <button type="button" disabled={busy} onClick={() => retry(m)}>
+                          Retry
+                        </button>
+                      )}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -311,24 +411,31 @@ export default function ChatPanel({
               ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={busy ? "Thinking…" : "Ask MusA.I…"}
-              disabled={busy}
+              placeholder="Ask MusA.I…"
+              maxLength={4000}
               aria-label="Your question"
               enterKeyHint="send"
             />
-            <button
+            {busy ? <button
+              type="button"
+              className="chat__stop"
+              onClick={() => active.current?.controller.abort()}
+              aria-label="Stop response"
+              data-cursor="hover"
+            >
+              <span aria-hidden="true">■</span> Stop
+            </button> : <button
               type="submit"
-              disabled={busy || !input.trim()}
+              disabled={!input.trim()}
               data-cursor="hover"
               aria-label="Send question"
             >
               Send <span aria-hidden="true">↵</span>
-            </button>
+            </button>}
           </form>
 
           <p className="chat__disclaimer">
-            MusA.I answers from my portfolio. For a conversation with me, reach
-            me directly at <a href="mailto:mmusa2@wisc.edu">mmusa2@wisc.edu</a>.
+            Reach Musa at <a href="mailto:mmusa2@wisc.edu">mmusa2@wisc.edu</a>.
           </p>
         </motion.aside>
       </motion.div>

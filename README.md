@@ -1,72 +1,53 @@
-# musa.dev — a living portfolio
+# Muhammad Musa's portfolio
 
-A 3D, scroll-driven portfolio for **Muhammad Musa** (CS grad researcher, UW–Madison)
-with an honesty-first **AI twin** that answers questions about his work.
+The approved Interference design at [iammusa.vercel.app](https://iammusa.vercel.app): work, technical writing, interactive project explanations, experience and MusA.I. Historical design studies remain in the development workspace; production has no study navigation or alternate-design routes.
 
-**Concept:** *human warmth × machine precision* — a neural constellation rendered in
-Three.js, warm Fraunces serif against terminal mono, ink/amber/teal palette. The
-visual argument is the thesis: AI for humanity.
+## Run locally
 
-## Features
-
-- **Neural constellation background** — 2,400 GPU-shaded particles with connective
-  links and travelling signal pulses; reacts to mouse and scroll (camera dives
-  deeper as you read the story).
-- **The Journey** — scroll-drawn timeline from Lahore to Madison, alternating
-  milestone cards against ghost-outline years.
-- **Experience / Projects** — expandable role cards and 3D-tilt project cards with
-  a cursor-tracking glow.
-- **AI for Humanity** — themes and receipts, pulled from real work (WUMI Health,
-  LLM safety research, Shahmukhi NLP, ACM CSET '23).
-- **The AI twin** (press `/` anywhere) — a chat stand-in grounded in
-  `content/knowledge-base.md`. Its system prompt enforces an honesty policy: it
-  answers what Musa has done with specifics, admits plainly what he hasn't, and
-  only bridges via genuinely transferable experience.
-- Custom cursor, film grain, smooth scroll (Lenis), reduced-motion support.
-
-## Stack
-
-Vite · React 18 · TypeScript · Three.js (@react-three/fiber) · motion · Lenis —
-plus one Vercel edge function (`api/chat.ts`) for the AI.
-
-## AI architecture ($0)
-
-```
-browser ──▶ /api/chat (Vercel edge)
-               │  GROQ_API_KEY set? ──▶ Groq llama-3.3-70b (free tier, streams)
-               │  no key?           ──▶ Pollinations.AI keyless relay
-               ▼
-        knowledge-base.md baked into the system prompt at build time
-```
-
-- **Zero-config default:** Pollinations.AI's anonymous tier (no key, ~1 req/15s).
-- **Recommended upgrade (still free):** create a key at https://console.groq.com,
-  add `GROQ_API_KEY` in Vercel → Project → Settings → Environment Variables,
-  redeploy. You get llama-3.3-70b at 1,000 req/day with sub-second streaming.
-- The endpoint refuses requests that don't carry the site's own system prompt,
-  so it can't be farmed as a generic LLM relay.
-
-## Develop
-
-```bash
+```sh
 npm install
-npm run dev        # http://localhost:5173 — /api/chat is emulated by a dev middleware
-npm run build      # type-check + production build to dist/
+npm run dev -- --host 127.0.0.1 --port 5174
 ```
 
-## Deploy (free)
+Vite runs the same streaming chat handler as production. Copy `.env.example` settings into the ignored `.env.local` to connect services. Never put credentials in variables prefixed `VITE_`.
 
-1. Push this repo to GitHub (already done if you're reading this there).
-2. Sign in at https://vercel.com with GitHub → **Add New → Project** → import
-   this repo → **Deploy**. Framework auto-detects as Vite; no settings needed.
-3. Optional: add `GROQ_API_KEY` env var for the better free model.
-4. Your site is live at `https://<project>.vercel.app` — put it on the résumé.
+## MusA.I
 
-## Updating content
+The browser sends a bounded conversation to `/api/chat`. The server supplies the instructions and retrieves evidence from the curated public portfolio: all 16 projects, five articles, experience, education, skills, credentials and publications. Answers stream as they arrive, with clickable source links. The client supports Stop, Retry and long conversations; raw model reasoning is never displayed.
 
-- `content/profile.json` — everything the site renders (journey, roles, projects,
-  skills, humanity section).
-- `content/knowledge-base.md` — everything the AI twin knows.
-- `public/Muhammad-Musa-Resume.pdf` — the downloadable résumé.
+The default model is Groq's `openai/gpt-oss-120b`, with `openai/gpt-oss-20b` as its secondary model. Add `GROQ_API_KEY` in Vercel's project environment variables and redeploy. An independent Gemini fallback is opt-in; verify its account is on the intended free tier before enabling it. Free services have changing quotas and cannot guarantee uninterrupted generation.
 
-Edit, commit, push — Vercel redeploys automatically.
+If no provider can answer, MusA.I returns clearly labeled public portfolio notes and links immediately. If the API itself is unreachable, the browser can retrieve public notes locally. It does not fabricate an answer, send requests to an anonymous relay or replace an interrupted partial answer with another model's text.
+
+Implementation, provider references, request limits and tests: [MusA.I server guide](server/musai/README.md).
+
+## Private analytics dashboard
+
+```sh
+npm run analytics
+```
+
+Open [the live-data dashboard](http://127.0.0.1:5180). It runs only on your computer. It shows page visits, approved links and controls clicked, section navigation, active time, scroll depth, approximate location and anonymous visit journeys. It does not collect identities, chat messages, search terms, raw IP addresses or session recordings. Reloads start a new anonymous session; session counts are not unique people.
+
+Production collection requires a free Upstash Redis database and a private export token. Put the same `ANALYTICS_ADMIN_TOKEN` in Vercel and `.env.local`; Redis credentials belong only on the server. The dashboard explicitly shows **Not connected** until configuration is complete. See [setup and operation](docs/ANALYTICS.md).
+
+For isolated browser testing, enable the three local-test flags in `.env.example`, run `npm run analytics:local`, and open [the local test dashboard](http://127.0.0.1:5181). Its events are stored in the ignored `.analytics/` directory and never enter production reports.
+
+## Content and checks
+
+Public content lives in `src/portfolio/content.ts` and `src/portfolio/profile-details.ts`. After changing it:
+
+```sh
+npm run sync:public-knowledge
+npm run search:build
+npm run musai:build
+node server/analytics/build-catalog.mjs
+npm test
+npm run build
+```
+
+The build type-checks, verifies public knowledge/search/analytics indexes, prerenders public routes and checks production assets. The original `sync:knowledge` command belongs to historical studies; it is not the production data pipeline.
+
+## Deployment
+
+Vercel builds the connected GitHub production branch. This development workspace also contains preserved study work and private historical material, so deployment uses the curated `Website-audit-output/interference-release` checkout. Copy only reviewed public changes into that checkout, run its tests and production build, then commit and push. Never publish `.env.local`, `.analytics/`, private snapshots, transcripts or credentials. The local dashboard files are tooling; they are not part of the public Vite output.

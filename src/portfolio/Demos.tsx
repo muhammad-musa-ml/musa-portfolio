@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { trackAnalyticsControl } from "../lib/analytics";
 
 export type DemoKind = "consent" | "defense" | "provenance";
 export const DEMOS: { id: DemoKind; name: string; description: string }[] = [
@@ -17,7 +18,6 @@ export const DEMOS: { id: DemoKind; name: string; description: string }[] = [
     name: "Follow the source",
     description: "Move from an idea to the evidence that supports it.",
   },
-
 ];
 
 function Consent() {
@@ -28,6 +28,9 @@ function Consent() {
   ]);
   const allowed = viewer === "Patient" || access[viewer as keyof typeof access];
   function toggle(team: keyof typeof access) {
+    trackAnalyticsControl(
+      "wumi-" + team.toLowerCase() + "-" + (access[team] ? "revoke" : "grant"),
+    );
     setAccess((current) => ({ ...current, [team]: !current[team] }));
     setEvents((current) =>
       [
@@ -47,7 +50,11 @@ function Consent() {
           <button
             key={role}
             aria-pressed={viewer === role}
-            onClick={() => setViewer(role)}
+            onClick={() => {
+              if (viewer !== role)
+                trackAnalyticsControl("wumi-view-" + role.toLowerCase());
+              setViewer(role);
+            }}
           >
             {role}
           </button>
@@ -99,7 +106,10 @@ function Consent() {
           </button>
         ))}
       </div>
-      <details className="pf-demo-audit">
+      <details
+        className="pf-demo-audit"
+        data-analytics-detail="wumi-access-history"
+      >
         <summary>Access history</summary>
         <ol aria-live="polite">
           {events.map((event, i) => (
@@ -152,7 +162,13 @@ function Defense() {
           <button
             key={item.name}
             aria-pressed={mode === i}
-            onClick={() => setMode(i)}
+            onClick={() => {
+              if (mode !== i)
+                trackAnalyticsControl(
+                  ["defense-baseline", "defense-prompt", "defense-fused"][i],
+                );
+              setMode(i);
+            }}
           >
             {item.name}
           </button>
@@ -232,6 +248,14 @@ function Provenance() {
             aria-pressed={selected === i}
             onClick={() => {
               setSelected(i);
+              if (selected !== i)
+                trackAnalyticsControl(
+                  [
+                    "kiln-note-search",
+                    "kiln-note-interaction",
+                    "kiln-note-retrieval",
+                  ][i],
+                );
               setStep(false);
             }}
           >
@@ -253,7 +277,13 @@ function Provenance() {
           </a>
         )}
       </div>
-      <button className="pf-text-button" onClick={() => setStep(!step)}>
+      <button
+        className="pf-text-button"
+        onClick={() => {
+          trackAnalyticsControl(step ? "kiln-source-hide" : "kiln-source-show");
+          setStep(!step);
+        }}
+      >
         {step ? "Return to the note" : "Follow the source"}{" "}
         <span aria-hidden="true">→</span>
       </button>

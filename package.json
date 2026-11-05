@@ -4,18 +4,23 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "test": "node --test scripts/prerender-portfolio.test.mjs src/portfolio/labs/pathfinding.test.mjs src/portfolio/labs/learning.test.mjs src/components/chat/markdown.test.mjs src/portfolio/command-search/search.test.mjs",
+    "test": "node --test scripts/prerender-portfolio.test.mjs src/portfolio/labs/pathfinding.test.mjs src/portfolio/labs/learning.test.mjs src/components/chat/markdown.test.mjs src/portfolio/command-search/search.test.mjs src/lib/ai.test.mjs server/musai/musai.test.mjs server/analytics/analytics.test.mjs src/lib/chat-fallback.test.mjs server/analytics/client.test.mjs",
     "sync:public-knowledge": "node scripts/sync-public-knowledge.mjs",
     "verify:public-portfolio": "node scripts/verify-public-portfolio.mjs",
     "predev": "npm run sync:public-knowledge",
     "dev": "vite",
-    "prebuild": "npm run sync:public-knowledge && npm run verify:public-portfolio && npm run search:check",
+    "prebuild": "npm run sync:public-knowledge && npm run verify:public-portfolio && npm run search:check && npm run musai:check && npm run analytics:check",
     "build": "tsc -b && vite build",
     "postbuild": "node scripts/prerender-portfolio.mjs && node scripts/verify-dist.mjs",
     "preview": "vite preview",
     "search:build": "node scripts/build-command-search.mjs",
     "search:check": "node scripts/build-command-search.mjs --check",
-    "search:eval": "node src/portfolio/command-search/evaluate.mjs"
+    "search:eval": "node src/portfolio/command-search/evaluate.mjs",
+    "musai:build": "node scripts/build-musai-knowledge.mjs",
+    "musai:check": "node scripts/build-musai-knowledge.mjs --check",
+    "analytics:check": "node server/analytics/build-catalog.mjs --check",
+    "analytics": "node scripts/analytics-dashboard.mjs",
+    "analytics:local": "node scripts/analytics-dashboard.mjs --mode=local --port=5181"
   },
   "dependencies": {
     "@huggingface/transformers": "^4.3.2",

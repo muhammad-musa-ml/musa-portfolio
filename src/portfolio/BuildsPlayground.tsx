@@ -1,12 +1,14 @@
 import {
   useEffect,
   useId,
+  useRef,
   useState,
   type CSSProperties,
   type FormEvent,
 } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { RouteLink } from "../lib/router";
+import { trackAnalyticsControl } from "../lib/analytics";
 import ProjectDemo from "./Demos";
 import { PROJECTS } from "./content";
 import {
@@ -39,6 +41,7 @@ function KilnLaunch() {
   const searchId = useId();
   function search(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    trackAnalyticsControl("kiln-search-open");
     window.open(
       `https://kiln-by-m.vercel.app/${query.trim() ? `?q=${encodeURIComponent(query.trim())}` : ""}`,
       "_blank",
@@ -145,6 +148,7 @@ function ResultBars({
 function CopyCommand({ command }: { command: string }) {
   const [state, setState] = useState<"idle" | "copied" | "manual">("idle");
   async function copy() {
+    trackAnalyticsControl("lookup-copy-command");
     try {
       await navigator.clipboard.writeText(command);
       setState("copied");
@@ -171,8 +175,23 @@ function CopyCommand({ command }: { command: string }) {
   );
 }
 
+// Only committed public slider positions are recorded, never drag/pointer samples.
+function useCommittedMetric(
+  prefix: "lookup-cache-" | "serving-workers-",
+  initial: number,
+) {
+  const previous = useRef(initial);
+  return (position: number) => {
+    if (position !== previous.current) {
+      trackAnalyticsControl(prefix + position);
+      previous.current = position;
+    }
+  };
+}
+
 function CacheResults() {
   const [position, setPosition] = useState(2);
+  const commit = useCommittedMetric("lookup-cache-", 2);
   const row = CACHE_RESULTS[position];
   const id = useId();
   return (
@@ -194,6 +213,9 @@ function CacheResults() {
           value={position}
           aria-valuetext={`${row.size} cache entries`}
           onChange={(event) => setPosition(Number(event.target.value))}
+          onPointerUp={(event) => commit(Number(event.currentTarget.value))}
+          onKeyUp={(event) => commit(Number(event.currentTarget.value))}
+          onBlur={(event) => commit(Number(event.currentTarget.value))}
         />
         <div aria-hidden="true">
           <span>10</span>
@@ -242,7 +264,10 @@ function CacheResults() {
           Raw CSV
         </ExternalLink>
       </div>
-      <details className="pf-build-reproduce">
+      <details
+        className="pf-build-reproduce"
+        data-analytics-detail="lookup-reproduction"
+      >
         <summary>Run the actual service</summary>
         <p>
           The repository includes the three implementations, conformance checks
@@ -264,6 +289,7 @@ function CacheResults() {
 
 function ServingResults() {
   const [position, setPosition] = useState(0);
+  const commit = useCommittedMetric("serving-workers-", 0);
   const [metric, setMetric] = useState<0 | 1>(0);
   const row = SERVING_RESULTS[position];
   const id = useId();
@@ -274,10 +300,22 @@ function ServingResults() {
         <span>Recorded · 5 repetitions</span>
       </div>
       <div className="pf-build-metrics" aria-label="Choose serving measurement">
-        <button aria-pressed={metric === 0} onClick={() => setMetric(0)}>
+        <button
+          aria-pressed={metric === 0}
+          onClick={() => {
+            if (metric !== 0) trackAnalyticsControl("serving-throughput");
+            setMetric(0);
+          }}
+        >
           Output throughput
         </button>
-        <button aria-pressed={metric === 1} onClick={() => setMetric(1)}>
+        <button
+          aria-pressed={metric === 1}
+          onClick={() => {
+            if (metric !== 1) trackAnalyticsControl("serving-latency");
+            setMetric(1);
+          }}
+        >
           Time to first token
         </button>
       </div>
@@ -294,6 +332,9 @@ function ServingResults() {
           value={position}
           aria-valuetext={`${row.workers} concurrent workers`}
           onChange={(event) => setPosition(Number(event.target.value))}
+          onPointerUp={(event) => commit(Number(event.currentTarget.value))}
+          onKeyUp={(event) => commit(Number(event.currentTarget.value))}
+          onBlur={(event) => commit(Number(event.currentTarget.value))}
         />
         <div aria-hidden="true">
           <span>1</span>
@@ -398,6 +439,7 @@ export default function BuildsPlayground() {
     return () => window.removeEventListener("popstate", restore);
   }, []);
   function setSelected(id: BuildId) {
+    if (id !== selected) trackAnalyticsControl("playground-build-" + id);
     selectBuild(id);
     window.history.replaceState({}, "", `/playground?build=${id}`);
   }

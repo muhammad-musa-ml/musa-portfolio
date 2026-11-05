@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { RouteLink } from "../lib/router";
+import { trackAnalyticsControl } from "../lib/analytics";
 import { PROJECTS } from "./content";
 import FluidTabs from "./FluidTabs";
 import "./work-index.css";
@@ -76,7 +77,11 @@ export default function WorkIndex() {
           <FluidTabs
             items={GROUPS}
             value={category}
-            onChange={setCategory}
+            onChange={(value) => {
+              if (value !== category)
+                trackAnalyticsControl("project-filter-" + value);
+              setCategory(value);
+            }}
             label="Filter projects by area"
           />
           <label>
@@ -132,6 +137,7 @@ export default function WorkIndex() {
             <p>No projects match these filters.</p>
             <button
               onClick={() => {
+                trackAnalyticsControl("work-reset");
                 setQuery("");
                 setCategory("all");
               }}

@@ -1,4 +1,5 @@
 import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { trackAnalyticsTopic } from "../lib/analytics";
 import type { Article } from "./content";
 import FluidTabs from "./FluidTabs";
 import type {
@@ -303,7 +304,11 @@ export default function ArticleSearch({ articles, onResults }: Props) {
             ...primaryTopics.map((item) => ({ id: item, label: item })),
           ]}
           value={topic}
-          onChange={(value) => setTopic(topic === value ? "" : value)}
+          onChange={(value) => {
+            const next = topic === value ? "" : value;
+            if (next !== topic) trackAnalyticsTopic(next);
+            setTopic(next);
+          }}
           label="Article topics"
         />
         {topics.length > primaryTopics.length && (
@@ -311,7 +316,11 @@ export default function ArticleSearch({ articles, onResults }: Props) {
             className="pf-search-topic-select"
             aria-label="Browse all topics"
             value={topic}
-            onChange={(event) => setTopic(event.target.value)}
+            onChange={(event) => {
+              if (event.target.value !== topic)
+                trackAnalyticsTopic(event.target.value);
+              setTopic(event.target.value);
+            }}
           >
             <option value="">More topics</option>
             {topics.map((item) => (

@@ -7,3 +7,6 @@ public/concepts
 .env.*
 !.env.example
 .DS_Store
+
+# Private analytics exports and local credentials
+.analytics/

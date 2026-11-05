@@ -52,7 +52,13 @@ export function ExperienceSection() {
       />
       <div className="pf-experience-list">
         {EXPERIENCE.map((entry) => (
-          <details key={entry.id} id={`experience-${entry.id}`} data-search-target className="pf-experience-entry">
+          <details
+            key={entry.id}
+            id={`experience-${entry.id}`}
+            data-analytics-detail={`experience-${entry.id}`}
+            data-search-target
+            className="pf-experience-entry"
+          >
             <summary>
               <span className="pf-experience-date">{entry.date}</span>
               <span className="pf-experience-title">
@@ -177,7 +183,12 @@ export function ToolkitSection() {
       </div>
       <div className="pf-tool-groups">
         {groups.map((group) => (
-          <div className="pf-tool-group" key={group.name} id={group.anchor} data-search-target>
+          <div
+            className="pf-tool-group"
+            key={group.name}
+            id={group.anchor}
+            data-search-target
+          >
             <div>
               <h3>{group.name}</h3>
               <p>{group.why}</p>
@@ -256,8 +267,7 @@ function CredentialViewer({
         </div>
         <footer>
           <a href={credential.file} target="_blank" rel="noreferrer">
-            Open original {credential.file.endsWith(".pdf") ? "PDF" : "image"}{" "}
-            ↗
+            Open original {credential.file.endsWith(".pdf") ? "PDF" : "image"} ↗
           </a>
           {credential.verify && (
             <a href={credential.verify} target="_blank" rel="noreferrer">
@@ -385,7 +395,11 @@ export function PublicationsSection() {
       />
       <div className="pf-publications">
         {PUBLICATIONS.map((paper, index) => (
-          <article key={paper.href} id={`publication-${index}`} data-search-target>
+          <article
+            key={paper.href}
+            id={`publication-${index}`}
+            data-search-target
+          >
             <div>
               <span>{paper.venue}</span>
               <span>{paper.format}</span>
@@ -521,13 +535,17 @@ export function ProfileDetailsPage() {
         />
         <div className="pf-education-list">
           {EDUCATION.map((entry, index) => (
-            <article key={entry.school} id={`education-${index}`} data-search-target>
+            <article
+              key={entry.school}
+              id={`education-${index}`}
+              data-search-target
+            >
               <span>{entry.date}</span>
               <h3>{entry.school}</h3>
               <strong>{entry.degree}</strong>
               <p>{entry.detail}</p>
               <p className="pf-education-result">{entry.result}</p>
-              <details>
+              <details data-analytics-detail={`education-${index}-coursework`}>
                 <summary>Selected coursework</summary>
                 <ul>
                   {entry.courses.map((course) => (
@@ -538,7 +556,10 @@ export function ProfileDetailsPage() {
             </article>
           ))}
         </div>
-        <details className="pf-recognition">
+        <details
+          className="pf-recognition"
+          data-analytics-detail="education-recognition"
+        >
           <summary>Recognition along the way</summary>
           <ul>
             <li>Dean’s Honor List in every academic semester at LUMS.</li>
